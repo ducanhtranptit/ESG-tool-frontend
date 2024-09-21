@@ -1,0 +1,80 @@
+/* Main container for dashboard */
+.dashboard-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 20px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+}
+
+/* Control panel for year and company selection */
+.control-panel {
+	width: 20%;
+	background-color: #009688;
+	padding: 20px;
+	border-radius: 10px;
+	color: white;
+}
+
+.select-group {
+	margin-bottom: 20px;
+}
+
+.select-group label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.select-group select {
+	width: 100%;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+/* Overview title styling */
+.overview-title {
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: #ffffff;
+}
+
+/* Company name */
+.company-name {
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 10px;
+	color: #ffffff;
+	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Grid layout for charts */
+.charts-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto auto;
+	grid-gap: 20px;
+	width: 75%;
+}
+
+/* Each chart item */
+.chart-item {
+	background-color: white;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific adjustments for pie chart */
+.pie-chart {
+	grid-column: 1 / span 2;
+}
+
+/* Specific adjustments for line chart */
+.line-chart {
+	grid-column: 3 / span 2;
+}

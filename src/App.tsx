@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Dashboard from "./pages/Dashboard/index";
+import CompanyInfo from "./pages/CompanyInfor/index";
+import Environment from "./pages/Environment/index";
+import Government from "./pages/Goverment/index";
+import Social from "./pages/Social/index";
+import Login from "./pages/Auth/login";
+import Register from "./pages/Auth/register";
+import PrivateRoute from "./routers/PrivateRouter";
+import DefaultLayout from "./layouts/DefaultLayout";
+import AuthLayout from "./layouts/AuthLayout";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+	return (
+		<Router>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<PrivateRoute>
+							<DefaultLayout />
+						</PrivateRoute>
+					}
+				>
+					<Route index element={<Dashboard />} />
+					<Route path="/companyinfo" element={<CompanyInfo />} />
+					<Route path="/environment" element={<Environment />} />
+					<Route path="/government" element={<Government />} />
+					<Route path="/social" element={<Social />} />
+				</Route>
+				<Route path="/login" element={<AuthLayout />}>
+					<Route index element={<Login />} />
+				</Route>
+				<Route path="/register" element={<AuthLayout />}>
+					<Route index element={<Register />} />
+				</Route>
+			</Routes>
+		</Router>
+	);
+};
 
 export default App;

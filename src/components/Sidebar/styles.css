@@ -1,0 +1,87 @@
+/* CSS cho SideBar */
+.side-bar {
+	width: 16%;
+	height: 100vh;
+	background-color: #ffffff;
+	padding: 20px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.side-bar h1 {
+	font-size: 2.5rem; /* Tăng kích thước chữ "Quản trị" */
+	color: #000000;
+	margin-bottom: 30px;
+	text-align: left;
+	transition: color 0.3s ease; /* Thêm hiệu ứng hover */
+}
+
+.side-bar h1:hover {
+	color: #009933; /* Đổi thành màu xanh khi hover */
+}
+
+.home-link {
+	text-decoration: none;
+	color: #000000;
+	transition: color 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+}
+
+.home-link:hover {
+	color: #009933; /* Chuyển thành màu xanh khi hover */
+}
+
+.side-bar ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+	flex-grow: 1; /* Để các phần tử khác chiếm không gian */
+}
+
+.side-bar ul li {
+	margin-bottom: 20px;
+	width: 100%;
+	background-color: #ffffff; /* Nền trắng khi bình thường */
+	border-radius: 5px; /* Bo góc cho thẻ li */
+	transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.side-bar ul li p {
+	font-size: 1.2rem;
+	color: #000000; /* Chữ đen khi bình thường */
+	padding: 10px 20px;
+	margin: 0;
+	border-radius: 5px; /* Bo góc cho thẻ p */
+	text-align: left;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.side-bar ul li:hover {
+	background-color: #009933; /* Nền xanh khi hover */
+	border-radius: 5px; /* Đảm bảo bo góc vẫn tồn tại khi hover */
+}
+
+.side-bar ul li:hover p {
+	color: #ffffff; /* Chữ trắng khi hover */
+}
+
+.side-bar ul li a {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+.side-bar ul li:last-child {
+	margin-top: auto;
+}
+
+/* CSS cho SideBar */
+.side-bar ul li.active p, /* Khi li có class active */
+.side-bar ul li:hover p {
+  background-color: #009933; /* Nền xanh khi hover hoặc active */
+  color: #ffffff; /* Chữ trắng khi hover hoặc active */
+}

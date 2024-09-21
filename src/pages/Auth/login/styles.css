@@ -1,0 +1,58 @@
+.login-page {
+	width: 100%;
+	height: 100vh;
+	background-color: #eee;
+}
+
+.login-page > .container {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.form-login {
+	flex: 1;
+	max-width: 700px;
+	margin: auto;
+	background-color: #fff;
+	padding: 60px 46px;
+	color: #0f0f0f;
+	border-radius: 8px;
+}
+
+.form-login .title-login {
+	font-size: 34px;
+	font-weight: 500;
+	display: block;
+	text-align: center;
+	color: black;
+}
+
+/* Căn giữa dòng chữ "Login as Administrator" */
+.form-login .admin-login-text {
+	text-align: center;
+	display: block;
+	margin-top: 10px;
+}
+
+/* Cập nhật CSS cho nhóm nút */
+.button-group {
+	display: block; /* Đặt mỗi nút trên một hàng */
+}
+
+.button-group button {
+	width: 100%; /* Đảm bảo nút chiếm toàn bộ chiều rộng */
+	background-color: #2fa3eb;
+	color: white;
+	border: none;
+	padding: 10px;
+	font-size: 16px;
+	margin-bottom: 10px; /* Khoảng cách giữa các nút */
+}
+
+.button-group button:hover,
+.button-group button:active {
+	background-color: #2fa3eb !important;
+	color: #fff !important;
+	border: none !important;
+}
