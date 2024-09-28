@@ -123,9 +123,9 @@ const Dashboard: React.FC = () => {
 	const lineOptions: ApexOptions = {
 		chart: {
 			type: "line",
-			height: 350,
+			height: 450,
 			zoom: {
-				enabled: false,
+				enabled: true,
 			},
 		},
 		dataLabels: {
@@ -133,6 +133,7 @@ const Dashboard: React.FC = () => {
 		},
 		stroke: {
 			curve: "smooth",
+			width: 2,
 		},
 		title: {
 			text: "E-S-G Score Over Time",
@@ -144,6 +145,9 @@ const Dashboard: React.FC = () => {
 		yaxis: {
 			title: {
 				text: "Score",
+			},
+			labels: {
+				formatter: (val) => val.toFixed(2).toString(),
 			},
 		},
 		legend: {
@@ -246,7 +250,8 @@ const Dashboard: React.FC = () => {
 							options={pieOptions}
 							series={pieSeries}
 							type="pie"
-							height={300}
+							height={"100%"}
+							width={"100%"}
 						/>
 					</div>
 
@@ -255,8 +260,8 @@ const Dashboard: React.FC = () => {
 						<ReactApexChart
 							options={lineOptions}
 							series={lineSeries}
-							type="line"
-							height={300}
+							height={"100%"}
+							width={"100%"}
 						/>
 					</div>
 				</div>
