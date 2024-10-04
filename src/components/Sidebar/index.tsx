@@ -27,18 +27,18 @@ const SideBar: React.FC = () => {
 						<p>Environment</p>
 					</Link>
 				</li>
+				<li className={location.pathname === "/social" ? "active" : ""}>
+					<Link to="/social">
+						<p>Social</p>
+					</Link>
+				</li>
 				<li
 					className={
 						location.pathname === "/government" ? "active" : ""
 					}
 				>
 					<Link to="/government">
-						<p>Government</p>
-					</Link>
-				</li>
-				<li className={location.pathname === "/social" ? "active" : ""}>
-					<Link to="/social">
-						<p>Social</p>
+						<p>Governance</p>
 					</Link>
 				</li>
 				<li
@@ -48,6 +48,15 @@ const SideBar: React.FC = () => {
 				>
 					<Link to="/companyinfo">
 						<p>Company Info</p>
+					</Link>
+				</li>
+				<li
+					className={
+						location.pathname === "/guideline" ? "active" : ""
+					}
+				>
+					<Link to="/guideline">
+						<p>Guideline</p>
 					</Link>
 				</li>
 			</ul>

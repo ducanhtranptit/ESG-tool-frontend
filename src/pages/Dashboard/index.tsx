@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DashboardAPI from "../../api/dashboard";
 import { ApexOptions } from "apexcharts";
 import "./styles.css";
@@ -13,6 +15,8 @@ const Dashboard: React.FC = () => {
 		const fetchData = async () => {
 			try {
 				const response = await DashboardAPI.getAllData();
+				console.log(response.data);
+
 				setData(response.data);
 				const availableYears = response.data.company.data.map(
 					(entry: any) => entry.year
@@ -23,6 +27,7 @@ const Dashboard: React.FC = () => {
 				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
+				toast.error("Error fetching data. Please try again.");
 				setData("Failed to fetch data.");
 			}
 		};
@@ -98,6 +103,10 @@ const Dashboard: React.FC = () => {
 			type: "pie",
 		},
 		labels: ["Environmental", "Social", "Governance"],
+		title: {
+			text: "E-S-G Score Over Time",
+			align: "left",
+		},
 		responsive: [
 			{
 				breakpoint: 480,
@@ -132,7 +141,7 @@ const Dashboard: React.FC = () => {
 			enabled: false,
 		},
 		stroke: {
-			curve: "smooth",
+			curve: "straight",
 			width: 2,
 		},
 		title: {
@@ -180,6 +189,7 @@ const Dashboard: React.FC = () => {
 
 	return (
 		<div className="dashboard-container">
+			<ToastContainer />
 			<div className="control-panel">
 				<h2 className="overview-title">OVERVIEW</h2>
 				<div className="select-group">
@@ -250,8 +260,8 @@ const Dashboard: React.FC = () => {
 							options={pieOptions}
 							series={pieSeries}
 							type="pie"
-							height={"100%"}
-							width={"100%"}
+							height={500}
+							width={400}
 						/>
 					</div>
 
@@ -260,8 +270,8 @@ const Dashboard: React.FC = () => {
 						<ReactApexChart
 							options={lineOptions}
 							series={lineSeries}
-							height={"100%"}
-							width={"100%"}
+							height={"98%"}
+							width={"140%"}
 						/>
 					</div>
 				</div>

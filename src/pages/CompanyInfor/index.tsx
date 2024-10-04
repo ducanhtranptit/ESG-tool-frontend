@@ -194,20 +194,16 @@ const CompanyPage: React.FC = () => {
 					))}
 				</tbody>
 			</Table>
-
-			{/* Nút để mở modal chỉnh sửa */}
 			<Button variant="primary" onClick={handleOpenEditModal}>
 				Edit Company Information
 			</Button>
-
-			{/* Modal EditCompanyDetailModal */}
 			{overallInfor && (
 				<EditCompanyDetailModal
 					show={showEditModal}
 					handleClose={handleCloseEditModal}
 					companyDetails={overallInfor}
-					siteInfors={siteInfors} // Truyền thêm siteInfors
-					productInfors={productInfors} // Truyền thêm productInfors
+					siteInfors={siteInfors} 
+					productInfors={productInfors} 
 				/>
 			)}
 		</div>

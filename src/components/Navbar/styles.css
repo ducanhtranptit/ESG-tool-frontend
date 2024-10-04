@@ -1,9 +1,8 @@
 .navbar {
 	display: flex;
 	justify-content: flex-end;
-	background-color: #ffffff;
 	color: black;
-	width: 100%;
+	width: 100.8%;
 	height: 60px;
 }
 
