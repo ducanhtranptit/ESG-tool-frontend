@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Dashboard from "./pages/Dashboard/index";
 import CompanyInfo from "./pages/CompanyInfor/index";
 import Environment from "./pages/Environment/index";
@@ -28,7 +29,7 @@ const App: React.FC = () => {
 					<Route index element={<Dashboard />} />
 					<Route path="/companyinfo" element={<CompanyInfo />} />
 					<Route path="/environment" element={<Environment />} />
-					<Route path="/government" element={<Government />} />
+					<Route path="/governance" element={<Government />} />
 					<Route path="/social" element={<Social />} />
 					<Route path="/guideline" element={<GuideLinePage />} />
 				</Route>

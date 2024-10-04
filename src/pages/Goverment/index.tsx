@@ -11,6 +11,7 @@ interface DataChart {
 }
 
 interface ChartData {
+	name: string;
 	criteriaId: number;
 	IChart: number;
 	dataChart: DataChart[];
@@ -27,7 +28,7 @@ const GovernancePage: React.FC = () => {
 
 	const createSeries = (data: ChartData[]) => {
 		return data.map((item, index) => ({
-			name: `Criteria ${item.criteriaId}`,
+			name: `${item.name}`,
 			type: item.IChart === 1 ? "column" : "line",
 			data: item.dataChart.map((point) =>
 				point.metric !== null ? point.metric : 0
@@ -180,7 +181,7 @@ const GovernancePage: React.FC = () => {
 			violateChartData[0]?.dataChart.map((item) => String(item.year)) ||
 			[];
 		const violateSeries = violateChartData.map((item) => ({
-			name: `Criteria ${item.criteriaId}`,
+			name: `${item.name}`,
 			data: item.dataChart.map((point) =>
 				point.metric !== null ? point.metric : 0
 			),

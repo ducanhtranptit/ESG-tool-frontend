@@ -1,4 +1,3 @@
-/* CSS cho SideBar */
 .side-bar {
 	width: 16%;
 	height: 100vh;
@@ -21,18 +20,10 @@
 	transition: color 0.3s ease; /* Thêm hiệu ứng hover */
 }
 
-.side-bar h1:hover {
-	color: #009933; /* Đổi thành màu xanh khi hover */
-}
-
 .home-link {
 	text-decoration: none;
 	color: #000000;
 	transition: color 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
-}
-
-.home-link:hover {
-	color: #009933; /* Chuyển thành màu xanh khi hover */
 }
 
 .side-bar ul {
@@ -60,15 +51,6 @@
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.side-bar ul li:hover {
-	background-color: #009933; /* Nền xanh khi hover */
-	border-radius: 5px; /* Đảm bảo bo góc vẫn tồn tại khi hover */
-}
-
-.side-bar ul li:hover p {
-	color: #ffffff; /* Chữ trắng khi hover */
-}
-
 .side-bar ul li a {
 	text-decoration: none;
 	color: inherit;
@@ -79,9 +61,53 @@
 	margin-top: auto;
 }
 
-/* CSS cho SideBar */
-.side-bar ul li.active p, /* Khi li có class active */
-.side-bar ul li:hover p {
-  background-color: #009933; /* Nền xanh khi hover hoặc active */
-  color: #ffffff; /* Chữ trắng khi hover hoặc active */
+/* Main menu item style */
+.nav-link {
+	display: flex;
+	align-items: center;
+	color: #000000;
+	padding: 10px 15px;
+	border-radius: 4px;
+	font-size: 16px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main menu hover and active (clicked) state */
+.nav-link:hover {
+	background-color: #4caf50; /* Green background */
+	color: white; /* White text */
+}
+
+/* Submenu item style */
+.submenu .dropdown-item {
+	padding-left: 15px; /* Space between the line and text */
+	font-size: 14px;
+	color: #495057;
+	margin-bottom: 10px;
+	transition: color 0.3s ease;
+}
+
+/* Submenu item hover and active (clicked) state */
+.submenu .dropdown-item:hover,
+.submenu .dropdown-item.active {
+	color: #4caf50; /* Green text */
+}
+
+/* For continuous vertical line next to submenu */
+.submenu {
+	padding-left: 20px;
+	position: relative;
+	margin-left: 0px;
+	margin-top: 10px; /* Add space between main button and submenu */
+}
+
+/* Continuous vertical line next to submenu */
+.submenu::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 1px;
+	background-color: #6c757d;
 }

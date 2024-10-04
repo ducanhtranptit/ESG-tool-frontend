@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 import { removeCookie } from "../../utils/cookie";
 import AuthAPI from "../../api/auth";
 import "./styles.css";
@@ -21,13 +21,14 @@ const Navbar: React.FC = () => {
 	};
 
 	return (
-		<nav className="navbar">
+		<div className="navbar">
 			<div className="navbar-content">
 				<button onClick={handleLogout} className="logout-button">
-					<FaSignOutAlt size={24} />
+					<IoIosLogOut size={40} />
 				</button>
 			</div>
-		</nav>
+			<hr />
+		</div>
 	);
 };
 

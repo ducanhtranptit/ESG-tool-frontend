@@ -103,10 +103,6 @@ const Dashboard: React.FC = () => {
 			type: "pie",
 		},
 		labels: ["Environmental", "Social", "Governance"],
-		title: {
-			text: "E-S-G Score Over Time",
-			align: "left",
-		},
 		responsive: [
 			{
 				breakpoint: 480,

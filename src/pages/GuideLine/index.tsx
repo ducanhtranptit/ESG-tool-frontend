@@ -29,12 +29,13 @@ const GuideLinePage: React.FC = () => {
 
 	return (
 		<MathJaxContext>
-			<div>
-				<button className="toggle-button" onClick={toggleLanguage}>
+			<div className="content">
+				<button className="btn btn-outline-secondary" onClick={toggleLanguage}>
 					{language === "vietnamese"
 						? "Switch to English"
 						: "Chuyển sang Tiếng Việt"}
 				</button>
+				<hr />
 				<div>
 					{language === "vietnamese" ? (
 						<div>
