@@ -7,6 +7,15 @@ import "./style.css";
 const GuideLinePage: React.FC = () => {
 	const [language, setLanguage] = useState("vietnamese");
 
+	// Configuring MathJax to ensure formulas are displayed correctly
+	const mathJaxConfig = {
+		loader: { load: ["input/tex", "output/chtml"] },
+		tex: {
+			inlineMath: [["\\(", "\\)"]],
+			displayMath: [["\\[", "\\]"]],
+		},
+	};
+
 	const toggleLanguage = () => {
 		setLanguage(language === "vietnamese" ? "english" : "vietnamese");
 	};
@@ -28,9 +37,12 @@ const GuideLinePage: React.FC = () => {
 	};
 
 	return (
-		<MathJaxContext>
+		<MathJaxContext config={mathJaxConfig}>
 			<div className="content">
-				<button className="btn btn-outline-secondary" onClick={toggleLanguage}>
+				<button
+					className="btn btn-outline-secondary"
+					onClick={toggleLanguage}
+				>
 					{language === "vietnamese"
 						? "Switch to English"
 						: "Chuyển sang Tiếng Việt"}
@@ -124,16 +136,7 @@ const GuideLinePage: React.FC = () => {
 								chỉ số trong trụ cột đó
 							</p>
 							<p>
-								Ví dụ: Trọng số trụ cột Môi trường = Tổng trọng
-								số của chỉ số có mã Trụ cột là 1
-							</p>
-							<p>
 								<b>Bước 3:</b> Tính trọng số mới của từng chỉ số
-							</p>
-							<p>
-								Trọng số mới của một chỉ số được tính bằng cách
-								lấy trọng số ban đầu của chỉ số đó chia cho
-								trọng số của trụ cột tương ứng
 							</p>
 							<p>
 								<MathJax>{`\\(${vietnameseFormulas.newWeight}\\)`}</MathJax>
@@ -252,10 +255,6 @@ const GuideLinePage: React.FC = () => {
 							<p>
 								<b>Step 2:</b> Calculate the weight of each
 								pillar
-							</p>
-							<p>
-								The weight of each pillar is equal to the total
-								weight of the indicators in that pillar
 							</p>
 							<p>
 								<b>Step 3:</b> Calculate the new weight of each

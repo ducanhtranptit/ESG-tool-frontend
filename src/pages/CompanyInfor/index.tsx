@@ -194,8 +194,8 @@ const CompanyPage: React.FC = () => {
 					))}
 				</tbody>
 			</Table>
-			<Button variant="primary" onClick={handleOpenEditModal}>
-				Edit Company Information
+			<Button variant="primary">
+				Edit Company Information (comming soon!)
 			</Button>
 			{overallInfor && (
 				<EditCompanyDetailModal

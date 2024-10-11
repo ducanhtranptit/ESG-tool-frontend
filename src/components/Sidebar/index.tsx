@@ -88,6 +88,19 @@ const SideBar: React.FC = () => {
 							</ul>
 						)}
 					</li>
+
+					<li
+						className={`nav-item ${
+							location.pathname === "/metric-management"
+								? "active"
+								: ""
+						}`}
+					>
+						<Link to="/metric-management" className="nav-link">
+							<GrScorecard className="me-2" />
+							Metric management
+						</Link>
+					</li>
 				</ul>
 			</div>
 			<div className="menu-section">

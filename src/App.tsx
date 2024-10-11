@@ -8,6 +8,7 @@ import Environment from "./pages/Environment/index";
 import Government from "./pages/Goverment/index";
 import Social from "./pages/Social/index";
 import GuideLinePage from "./pages/GuideLine";
+import MetricsManagementPage from "./pages/MetricsManagement";
 import Login from "./pages/Auth/login";
 import Register from "./pages/Auth/register";
 import PrivateRoute from "./routers/PrivateRouter";
@@ -32,6 +33,10 @@ const App: React.FC = () => {
 					<Route path="/governance" element={<Government />} />
 					<Route path="/social" element={<Social />} />
 					<Route path="/guideline" element={<GuideLinePage />} />
+					<Route
+						path="/metric-management"
+						element={<MetricsManagementPage />}
+					/>
 				</Route>
 				<Route path="/login" element={<AuthLayout />}>
 					<Route index element={<Login />} />

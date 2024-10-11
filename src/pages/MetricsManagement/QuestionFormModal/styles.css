@@ -1,0 +1,13 @@
+.topic-container {
+	border-radius: 8px;
+	background-color: #f9f9f9;
+}
+
+button[type="submit"] {
+	margin-top: 20px;
+}
+
+.row {
+	padding-left: 1vw;
+	padding-right: 1vw;
+}
