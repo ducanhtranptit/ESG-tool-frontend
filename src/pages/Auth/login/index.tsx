@@ -52,10 +52,6 @@ const Login: React.FC = () => {
 		}
 	};
 
-	const navigateToRegister = () => {
-		navigate("/register");
-	};
-
 	return (
 		<div className="login-page">
 			<ToastContainer />
@@ -101,13 +97,6 @@ const Login: React.FC = () => {
 						<div className="button-group mt-4">
 							<button type="submit" className="btn btn-primary">
 								Đăng nhập
-							</button>
-							<button
-								type="button"
-								className="btn btn-secondary"
-								onClick={navigateToRegister}
-							>
-								Đăng ký
 							</button>
 						</div>
 					</Form>

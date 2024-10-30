@@ -91,18 +91,26 @@
 
 .submenu {
 	max-width: 80%;
-	padding-left: 15px;
+	padding-left: 30px;
 	position: relative;
-	margin-left: 0px;
+	margin-left: 1vw;
 	margin-top: 10px;
 }
 
 .submenu::before {
 	content: "";
 	position: absolute;
-	left: -5px;
+	left: 0vw;
 	top: 0;
 	bottom: 0;
 	width: 1px;
 	background-color: #6c757d;
+}
+
+.transition-transform {
+	transition: transform 0.3s;
+}
+
+.rotate-180 {
+	transform: rotate(180deg);
 }

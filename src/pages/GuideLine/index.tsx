@@ -37,7 +37,7 @@ const GuideLinePage: React.FC = () => {
 	};
 
 	return (
-		<MathJaxContext config={mathJaxConfig}>
+		<MathJaxContext config={mathJaxConfig} key={language}>
 			<div className="content">
 				<button
 					className="btn btn-outline-secondary"
@@ -73,34 +73,28 @@ const GuideLinePage: React.FC = () => {
 							<ol type="I" start={2}>
 								<li>
 									<b>
-										Xử lí các điểm dữ liệu cơ bản – Boolean
-										và số
+										Xử lí các điểm dữ liệu cơ bản – Chuẩn
+										hoá dữ liệu và số
 									</b>
 								</li>
 							</ol>
 							<ol>
 								<li>
-									<b>Dữ liệu Boolean</b>
+									<b>Chuẩn hoá dữ liệu</b>
 								</li>
 							</ol>
-							<table>
-								<tbody>
-									<tr>
-										<td>
-											<b>Tích cực</b>
-										</td>
-										<td>Có = 1</td>
-										<td>Không/ Không trả lời = 0</td>
-									</tr>
-									<tr>
-										<td>
-											<b>Tiêu cực</b>
-										</td>
-										<td>Có/ Không trả lời = 0</td>
-										<td>Không = 1</td>
-									</tr>
-								</tbody>
-							</table>
+							<p className="western">
+								Đối với các câu hỏi dạng Có/ Không và câu hỏi
+								lựa chọn đáp án, mỗi câu trả lời sẽ được chuẩn
+								hoá theo thang điểm từ 0 đến 10.{" "}
+								<b>
+									Phương pháp chuẩn hoá sẽ được giống nhau đối
+									với cả câu hỏi có tính tích cực và tính tiêu
+									cực
+								</b>
+								, khi đến bước tính điểm sẽ dựa vào tính chất
+								câu hỏi để xếp hạng.
+							</p>
 							<ol start={2}>
 								<li>
 									<b>Dữ liệu số</b>
@@ -194,33 +188,26 @@ const GuideLinePage: React.FC = () => {
 								<li>
 									<b>
 										Treatment of underlying data points –
-										Boolean and numeric
+										Data Standardization and numeric
 									</b>
 								</li>
 							</ol>
 							<ol>
 								<li>
-									<b>Boolean Data</b>
+									<b>Data Standardization</b>
 								</li>
 							</ol>
-							<table>
-								<tbody>
-									<tr>
-										<td>
-											<b>Positive</b>
-										</td>
-										<td>Yes = 1</td>
-										<td>No/ Null = 0</td>
-									</tr>
-									<tr>
-										<td>
-											<b>Negative</b>
-										</td>
-										<td>Yes/ Null = 0</td>
-										<td>No = 1</td>
-									</tr>
-								</tbody>
-							</table>
+							<p>
+								For Yes/No questions and select questions, each
+								answer will be standardized on a scale from 0 to
+								10.{" "}
+								<b>
+									The standardization method will be the same
+									for both positive and negative questions
+								</b>
+								, with the scoring based on the nature of the
+								question to determine the ranking.
+							</p>
 							<ol start={2}>
 								<li>
 									<b>Numeric Data</b>

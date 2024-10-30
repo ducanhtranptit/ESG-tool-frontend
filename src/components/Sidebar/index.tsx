@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaChartBar, FaBuilding, FaBook } from "react-icons/fa";
+import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
 import { GrScorecard } from "react-icons/gr";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
@@ -32,17 +32,22 @@ const SideBar: React.FC = () => {
 
 					<li className="nav-item">
 						<div
-							className={`nav-link ${
-								showESGMenu ? "active" : ""
-							}`}
+							className="nav-link d-flex justify-content-between align-items-center"
 							onClick={toggleESGMenu}
 							style={{ cursor: "pointer" }}
 						>
-							<FaChartBar className="me-2" />
-							E-S-G Charts
+							<div>
+								<FaChartBar className="me-2" />
+								E-S-G Charts
+							</div>
+							<FaChevronDown
+								className={`transition-transform ${
+									showESGMenu ? "rotate-180" : ""
+								}`}
+							/>
 						</div>
 						{showESGMenu && (
-							<ul className="submenu list-unstyled ms-4">
+							<ul className="submenu list-unstyled">
 								<li
 									className={
 										location.pathname === "/environment"

@@ -3,7 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import QuestionAPI from "../../../api/question";
 
-// Định nghĩa kiểu dữ liệu cho câu hỏi
 interface Question {
 	questionCode: string;
 	name: string;
@@ -20,7 +19,6 @@ interface Question {
 	answer10: string;
 }
 
-// Định nghĩa kiểu dữ liệu cho topic
 interface Topic {
 	topicCode?: string;
 	name: string;
@@ -39,18 +37,15 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 }) => {
 	const [data, setData] = useState<Topic[]>([]);
 	const [answers, setAnswers] = useState<
-		{ questionCode: string; answer: string | number | null }[] // Khởi tạo answer là string, number hoặc null
+		{ questionCode: string; answer: string | number | null }[]
 	>([]);
 	const [year, setYear] = useState<number | null>(null);
 
-	// Tải dữ liệu câu hỏi và khởi tạo mảng answers với giá trị null
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await QuestionAPI.getAllData();
 				setData(response.data);
-
-				// Khởi tạo answers với tất cả câu trả lời là null
 				const initialAnswers = response.data.flatMap((topic: Topic) =>
 					topic.questions.map((question: Question) => ({
 						questionCode: question.questionCode,
@@ -67,7 +62,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		fetchData();
 	}, []);
 
-	// Xử lý khi người dùng nhập câu trả lời
 	const handleInputChange = (
 		questionCode: string,
 		answer: string | number
@@ -79,12 +73,10 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		);
 	};
 
-	// Xử lý khi người dùng nhập năm
 	const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setYear(Number(e.target.value));
 	};
 
-	// Xử lý khi submit form
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -99,10 +91,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		};
 
 		try {
-			// Gửi API về backend
 			await QuestionAPI.addAnswerOfCompany(submissionData);
 			toast.success("Dữ liệu đã được gửi thành công!");
-			handleClose(); // Đóng modal sau khi submit thành công
+			handleClose();
 		} catch (error) {
 			console.error("Error submitting data:", error);
 			toast.error("Lỗi khi gửi dữ liệu, vui lòng thử lại.");
@@ -115,7 +106,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 				<Modal.Title>Form câu hỏi</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<div className="mb-4">
 						<label htmlFor="year" className="form-label">
 							Enter Year:
@@ -292,6 +283,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 																}
 																className="form-control"
 																placeholder="Enter your answer"
+																step="any"
 																onChange={(e) =>
 																	handleInputChange(
 																		question.questionCode,
@@ -320,9 +312,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					) : (
 						<p>No data available.</p>
 					)}
-					<Button type="submit" variant="primary">
-						Submit
-					</Button>
+					<Button onClick={handleSubmit}>Submit</Button>
 				</form>
 			</Modal.Body>
 		</Modal>
