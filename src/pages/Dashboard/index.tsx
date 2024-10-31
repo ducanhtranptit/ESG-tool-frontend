@@ -92,7 +92,7 @@ const Dashboard: React.FC = () => {
 
 	const pieOptions: ApexOptions = {
 		chart: { type: "pie" },
-		labels: ["Environmental", "Social", "Governance"],
+		labels: ["Environmental Weight", "Social Weight", "Governance Weight"],
 		responsive: [
 			{
 				breakpoint: 480,
@@ -105,9 +105,9 @@ const Dashboard: React.FC = () => {
 	};
 
 	const pieSeries = [
-		currentData?.environmental * 100 || 0,
-		currentData?.social * 100 || 0,
-		currentData?.governance * 100 || 0,
+		currentData?.environmentWeight * 100 || 0,
+		currentData?.socialWeight * 100 || 0,
+		currentData?.governanceWeight * 100 || 0,
 	];
 
 	const lineOptions: ApexOptions = {
