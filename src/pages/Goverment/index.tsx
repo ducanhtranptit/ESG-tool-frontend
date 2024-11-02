@@ -134,7 +134,7 @@ const GovernancePage: React.FC = () => {
 					stackType: "100%" as "100%",
 				},
 				title: {
-					text: "Violate Chart",
+					text: "Tỷ lệ vi phạm trong doanh nghiệp",
 					align: "left" as "left",
 					style: {
 						fontSize: "20px",
@@ -188,12 +188,12 @@ const GovernancePage: React.FC = () => {
 		}));
 
 		const sexRatioChartOptions = createChartOptions(
-			"Sex Ratio Chart",
+			"Tỷ lệ giới tính",
 			sexRatioCategories,
 			sexRatioSeries
 		);
 		const supplierRatioChartOptions = createChartOptions(
-			"Supplier Ratio Chart",
+			"Tỷ lệ nhà cung ứng qua các năm",
 			supplierRatioCategories,
 			supplierRatioSeries
 		);

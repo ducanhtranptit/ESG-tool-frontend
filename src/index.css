@@ -1,0 +1,25 @@
+.content {
+	overflow-x: hidden;
+}
+
+.row {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.row > * {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.col-2 {
+	left: 0;
+	top: 0;
+	height: 100vh;
+}
+.col-10 {
+	overflow-x: hidden;
+	right: 0;
+	top: 0;
+	height: 100vh;
+}

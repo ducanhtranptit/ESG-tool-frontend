@@ -143,22 +143,22 @@ const EnvironmentPage: React.FC = () => {
 		const inkPapersSeries = createSeries(inkPapersChartData);
 
 		const waterChartOptions = createChartOptions(
-			"Water Chart",
+			"Mức tiêu thụ nước và tỷ lệ tái sử dụng nước hàng năm",
 			waterCategories,
 			waterSeries
 		);
 		const wasteChartOptions = createChartOptions(
-			"Waste Chart",
+			"Khối lượng rác thải",
 			wasteCategories,
 			wasteSeries
 		);
 		const electricityChartOptions = createChartOptions(
-			"Electricity Chart",
+			"Mức tiêu thụ điện và tỷ lệ điện tái tạo",
 			electricityCategories,
 			electricitySeries
 		);
 		const inkPapersChartOptions = createChartOptions(
-			"Ink Papers Chart",
+			"Khối lượng giấy và mực in tiêu thụ",
 			inkPapersCategories,
 			inkPapersSeries
 		);

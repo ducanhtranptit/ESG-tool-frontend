@@ -17,7 +17,7 @@ const SideBar: React.FC = () => {
 		<div className="side-bar">
 			<h1>ESG Tool</h1>
 			<div className="menu-section">
-				<h3>Main</h3>
+				<h3>Chính</h3>
 				<ul className="list-unstyled">
 					<li
 						className={`nav-item ${
@@ -26,7 +26,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/" className="nav-link">
 							<GrScorecard className="me-2" />
-							ESG Score
+							Điểm ESG
 						</Link>
 					</li>
 
@@ -38,7 +38,7 @@ const SideBar: React.FC = () => {
 						>
 							<div>
 								<FaChartBar className="me-2" />
-								E-S-G Charts
+								Đồ thị
 							</div>
 							<FaChevronDown
 								className={`transition-transform ${
@@ -59,7 +59,7 @@ const SideBar: React.FC = () => {
 										to="/environment"
 										className="dropdown-item"
 									>
-										Environment
+										Môi trường
 									</Link>
 								</li>
 								<li
@@ -73,7 +73,7 @@ const SideBar: React.FC = () => {
 										to="/social"
 										className="dropdown-item"
 									>
-										Social
+										Xã hội
 									</Link>
 								</li>
 								<li
@@ -87,7 +87,7 @@ const SideBar: React.FC = () => {
 										to="/governance"
 										className="dropdown-item"
 									>
-										Governance
+										Ban quản trị
 									</Link>
 								</li>
 							</ul>
@@ -103,13 +103,13 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/metric-management" className="nav-link">
 							<GrScorecard className="me-2" />
-							Metric management
+							Quản lý thông số
 						</Link>
 					</li>
 				</ul>
 			</div>
 			<div className="menu-section">
-				<h3>Other</h3>
+				<h3>Khác</h3>
 				<ul className="">
 					<li
 						className={`nav-item ${
@@ -118,7 +118,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/companyinfo" className="nav-link">
 							<FaBuilding className="me-2" />
-							Company Info
+							Thông tin công ty
 						</Link>
 					</li>
 					<li
@@ -128,7 +128,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/guideline" className="nav-link">
 							<FaBook className="me-2" />
-							Guideline
+							Hướng dẫn
 						</Link>
 					</li>
 				</ul>

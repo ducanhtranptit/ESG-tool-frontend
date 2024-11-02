@@ -151,27 +151,27 @@ const SocialPage: React.FC = () => {
 		const expenditureSeries = createSeries(expenditureChartData);
 
 		const sexRatioChartOptions = createChartOptions(
-			"Sex Ratio Chart",
+			"Tỷ lệ giới tính theo các cấp",
 			sexRatioCategories,
 			sexRatioSeries
 		);
 		const trainingChartOptions = createChartOptions(
-			"Training Chart",
+			"Đào tạo nhân viên",
 			trainingCategories,
 			trainingSeries
 		);
 		const salaryChangeChartOptions = createChartOptions(
-			"Salary Change Chart",
+			"Mức chênh lệch lương giữa các cấp",
 			salaryChangeCategories,
 			salaryChangeSeries
 		);
 		const riskChartOptions = createChartOptions(
-			"Risk Chart",
+			"Tỷ lệ rủi ro trong doanh nghiệp",
 			riskCategories,
 			riskSeries
 		);
 		const expenditureChartOptions = createChartOptions(
-			"Expenditure Chart",
+			"Mức chi tiêu cho các hoạt động",
 			expenditureCategories,
 			expenditureSeries
 		);

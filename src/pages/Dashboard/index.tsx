@@ -38,7 +38,14 @@ const Dashboard: React.FC = () => {
 		(entry: any) => entry.year === selectedYear
 	);
 
-	const generateOptions = (label: string): ApexOptions => ({
+	const getColor = (score: number) => {
+		if (score < 25) return "#fc0808";
+		else if (score < 50) return "#FFFF00";
+		else if (score < 75) return "#0000FF";
+		else return "#32a834";
+	};
+
+	const generateOptions = (label: string, score: number): ApexOptions => ({
 		chart: {
 			type: "radialBar",
 			offsetY: -20,
@@ -52,6 +59,14 @@ const Dashboard: React.FC = () => {
 					background: "#e7e7e7",
 					strokeWidth: "97%",
 					margin: 5,
+					dropShadow: {
+						enabled: false,
+						top: 2,
+						left: 0,
+						color: "#999",
+						opacity: 1,
+						blur: 2,
+					},
 				},
 				hollow: {
 					margin: 0,
@@ -64,6 +79,7 @@ const Dashboard: React.FC = () => {
 						fontSize: "16px",
 						fontWeight: 600,
 						offsetY: 20,
+						color: "#000",
 					},
 					value: {
 						offsetY: -20,
@@ -77,14 +93,7 @@ const Dashboard: React.FC = () => {
 			},
 		},
 		fill: {
-			type: "gradient",
-			gradient: {
-				shade: "dark",
-				type: "horizontal",
-				shadeIntensity: 0.5,
-				gradientToColors: ["#ABE5A1"],
-				stops: [0, 100],
-			},
+			colors: [getColor(score)],
 		},
 		stroke: { lineCap: "round" },
 		labels: [label],
@@ -160,7 +169,7 @@ const Dashboard: React.FC = () => {
 			<div className="top-section">
 				<div className="left-panel">
 					<div className="title-container">
-						<h2 className="overview-title">OVERVIEW</h2>
+						<h2 className="overview-title">TỔNG QUAN</h2>
 						<p className="company-name">
 							<span className="company-name-bold">
 								{data && data.company
@@ -169,13 +178,13 @@ const Dashboard: React.FC = () => {
 							</span>
 							<span className="report-text">
 								{" "}
-								Annual ESG Report
+								Báo cáo ESG hàng năm
 							</span>
 						</p>
 					</div>
 
 					<div className="select-group">
-						<label htmlFor="year">Choose Year</label>
+						<label htmlFor="year">Chọn năm</label>
 						<select
 							id="year"
 							value={selectedYear ?? ""}
@@ -195,46 +204,58 @@ const Dashboard: React.FC = () => {
 				<div className="right-panel">
 					<div className="chart-item">
 						<ReactApexChart
-							options={generateOptions("ESG Score")}
+							options={generateOptions(
+								"ESG",
+								currentData?.esg * 100 || 0
+							)}
 							series={[currentData?.esg * 100 || 0]}
 							type="radialBar"
 							height={150}
 						/>
 						<p className="rank-label">
-							Rank: {currentData?.esgRank}
+							Thứ hạng: {currentData?.esgRank}
 						</p>
 					</div>
 					<div className="chart-item">
 						<ReactApexChart
-							options={generateOptions("Environmental")}
+							options={generateOptions(
+								"Environmental",
+								currentData?.environmental * 100 || 0
+							)}
 							series={[currentData?.environmental * 100 || 0]}
 							type="radialBar"
 							height={150}
 						/>
 						<p className="rank-label">
-							Rank: {currentData?.environmentRank}
+							Thứ hạng: {currentData?.environmentRank}
 						</p>
 					</div>
 					<div className="chart-item">
 						<ReactApexChart
-							options={generateOptions("Social")}
+							options={generateOptions(
+								"Social",
+								currentData?.social * 100 || 0
+							)}
 							series={[currentData?.social * 100 || 0]}
 							type="radialBar"
 							height={150}
 						/>
 						<p className="rank-label">
-							Rank: {currentData?.socialRank}
+							Thứ hạng: {currentData?.socialRank}
 						</p>
 					</div>
 					<div className="chart-item">
 						<ReactApexChart
-							options={generateOptions("Governance")}
+							options={generateOptions(
+								"Governance",
+								currentData?.governance * 100 || 0
+							)}
 							series={[currentData?.governance * 100 || 0]}
 							type="radialBar"
 							height={150}
 						/>
 						<p className="rank-label">
-							Rank: {currentData?.governanceRank}
+							Thứ hạng: {currentData?.governanceRank}
 						</p>
 					</div>
 				</div>
@@ -246,16 +267,16 @@ const Dashboard: React.FC = () => {
 						options={pieOptions}
 						series={pieSeries}
 						type="pie"
-						height={300}
-						width={300}
+						height={"100%"}
+						width={"175%"}
 					/>
 				</div>
 				<div className="chart-item line-chart">
 					<ReactApexChart
 						options={lineOptions}
 						series={lineSeries}
-						height={300}
-						width={"100%"}
+						height={"100%"}
+						width={"175%"}
 					/>
 				</div>
 			</div>

@@ -124,4 +124,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 40vw; /* Đảm bảo chiếm toàn bộ chiều rộng */
+	height: 25vw; /* Đặt chiều cao phù hợp và có thể điều chỉnh */
+	max-height: 100%; /* Cho phép co giãn */
 }
