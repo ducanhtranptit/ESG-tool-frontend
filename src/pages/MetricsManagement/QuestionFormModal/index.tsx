@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import QuestionAPI from "../../../api/question";
+import debounce from "lodash/debounce";
 
 interface Question {
 	questionCode: string;
@@ -17,7 +18,7 @@ interface Question {
 	answer8: string;
 	answer9: string;
 	answer10: string;
-	answerGuide?: string; // Added answerGuide property
+	answerGuide?: string;
 }
 
 interface QuestionFormModalProps {
@@ -43,7 +44,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 				try {
 					const response = await QuestionAPI.getAllData(section.key);
 					setQuestions(response.data || []);
-					console.log(response.data);
 					const initialAnswers = (response.data || []).map(
 						(question: Question) => ({
 							questionCode: question.questionCode,
@@ -72,8 +72,44 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		);
 	};
 
+	const fetchAnswersForYear = async (enteredYear: number) => {
+		if (enteredYear && section) {
+			try {
+				const response = await QuestionAPI.getAnswersOfYear(
+					enteredYear,
+					section.key
+				);
+				if (response.data) {
+					const updatedAnswers = response.data.map(
+						(answerData: {
+							questionCode: string;
+							answer: string | number | null;
+						}) => ({
+							questionCode: answerData.questionCode,
+							answer: answerData.answer,
+						})
+					);
+					setAnswers(updatedAnswers);
+					toast.success(`Đã tải câu trả lời cho năm ${enteredYear}.`);
+				} else {
+					toast.info("Không có dữ liệu cho năm đã nhập.");
+				}
+			} catch (error) {
+				console.error("Error fetching answers for the year:", error);
+				toast.error("Lỗi khi tải dữ liệu cho năm đã nhập.");
+			}
+		}
+	};
+
+	const debouncedFetchAnswers = useCallback(
+		debounce((enteredYear) => fetchAnswersForYear(enteredYear), 100),
+		[section]
+	);
+
 	const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setYear(Number(e.target.value));
+		const enteredYear = Number(e.target.value);
+		setYear(enteredYear);
+		debouncedFetchAnswers(enteredYear);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -93,21 +129,41 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 			await QuestionAPI.addAnswerOfCompany(submissionData);
 			toast.success("Dữ liệu đã được gửi thành công!");
 			handleClose();
+			clearState();
 		} catch (error) {
 			console.error("Error submitting data:", error);
 			toast.error("Lỗi khi gửi dữ liệu, vui lòng thử lại.");
 		}
 	};
 
+	const clearState = () => {
+		setQuestions([]);
+		setAnswers([]);
+		setYear(null);
+	};
+
+	const handleModalClose = () => {
+		clearState();
+		handleClose();
+	};
+
+	const getAnswerForQuestion = (questionCode: string) => {
+		const answerObj = answers.find((a) => a.questionCode === questionCode);
+		return answerObj ? answerObj.answer : "";
+	};
+
 	return (
-		<Modal show={show} onHide={handleClose} size="xl">
+		<Modal show={show} onHide={handleModalClose} size="xl">
 			<Modal.Header closeButton>
 				<Modal.Title>{section?.name}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<form>
 					<div className="mb-4">
-						<label htmlFor="year" className="form-label fw-bold h5 text-dark">
+						<label
+							htmlFor="year"
+							className="form-label fw-bold h5 text-dark"
+						>
 							Nhập năm:
 						</label>
 						<input
@@ -133,7 +189,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 									>
 										{question.name}
 									</label>
-									{/* Display answerGuide if available */}
 									{question.answerGuide && (
 										<p>
 											<strong>Hướng dẫn trả lời:</strong>{" "}
@@ -141,7 +196,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 										</p>
 									)}
 
-									{/* Display question types */}
 									{question.type === 1 && (
 										<>
 											<div className="form-check">
@@ -151,6 +205,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 													name={question.questionCode}
 													value="Yes"
 													id={`${question.questionCode}-yes`}
+													checked={
+														getAnswerForQuestion(
+															question.questionCode
+														) === "Yes"
+													}
 													onChange={() =>
 														handleInputChange(
 															question.questionCode,
@@ -172,6 +231,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 													name={question.questionCode}
 													value="No"
 													id={`${question.questionCode}-no`}
+													checked={
+														getAnswerForQuestion(
+															question.questionCode
+														) === "No"
+													}
 													onChange={() =>
 														handleInputChange(
 															question.questionCode,
@@ -219,6 +283,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															}
 															value={answer}
 															id={`${question.questionCode}-${answerIndex}`}
+															checked={
+																getAnswerForQuestion(
+																	question.questionCode
+																) === answer
+															}
 															onChange={() =>
 																handleInputChange(
 																	question.questionCode,
@@ -244,6 +313,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 											className="form-control"
 											placeholder="Nhập câu trả lời của bạn"
 											step="any"
+											value={
+												getAnswerForQuestion(
+													question.questionCode
+												) as string
+											}
 											onChange={(e) =>
 												handleInputChange(
 													question.questionCode,

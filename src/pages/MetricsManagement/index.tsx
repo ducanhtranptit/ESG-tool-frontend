@@ -27,12 +27,12 @@ const MetricsManagementPage: React.FC = () => {
 				{Object.entries(sections).map(([key, sectionName]) => (
 					<Button
 						key={key}
-						variant="primary"
+						variant="outline-success"
 						onClick={() => handleShowModal(key, sectionName)}
-						className="text-center"
-						style={{ minHeight: "60px" }}
+						className="btn"
+						style={{ minHeight: "100px" }}
 					>
-						{sectionName} {/* Hiển thị tên section chữ thường */}
+						{sectionName}
 					</Button>
 				))}
 			</div>

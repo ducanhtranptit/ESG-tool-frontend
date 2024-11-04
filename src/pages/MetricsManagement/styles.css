@@ -11,3 +11,14 @@ button[type="submit"] {
 .row {
 	padding: 20px;
 }
+
+.btn {
+    color: #212529; /* Màu chữ mặc định để dễ nhìn */
+    background-color: #f8f9fa; /* Màu nền sáng */
+    border-color: #007bff; /* Viền xanh */
+}
+
+.btn:hover {
+    color: #fff; /* Màu chữ khi hover */
+    background-color: #007bff; /* Màu nền khi hover */
+}

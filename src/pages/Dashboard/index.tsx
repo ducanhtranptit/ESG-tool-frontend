@@ -39,11 +39,12 @@ const Dashboard: React.FC = () => {
 	);
 
 	const getColor = (score: number) => {
-		if (score < 25) return "#fc0808";
-		else if (score < 50) return "#FFFF00";
-		else if (score < 75) return "#0000FF";
-		else return "#32a834";
+		if (score < 25) return "#D32F2F"; // Màu đỏ
+		else if (score < 50) return "#FF8C00"; // Màu cam đậm
+		else if (score < 75) return "#FFD700"; // Màu vàng nhạt
+		else return "#5EE27A"; // Màu xanh lá cây
 	};
+	
 
 	const generateOptions = (label: string, score: number): ApexOptions => ({
 		chart: {
@@ -101,7 +102,7 @@ const Dashboard: React.FC = () => {
 
 	const pieOptions: ApexOptions = {
 		chart: { type: "pie" },
-		labels: ["Environmental Weight", "Social Weight", "Governance Weight"],
+		labels: ["Trọng số Environmental", "Trọng số Social", "Trọng số Governance"],
 		responsive: [
 			{
 				breakpoint: 480,
@@ -130,7 +131,7 @@ const Dashboard: React.FC = () => {
 			curve: "straight",
 			width: 2,
 		},
-		title: { text: "E-S-G Score Over Time", align: "left" },
+		title: { text: "Điểm E-S-G qua các năm", align: "left" },
 		xaxis: { categories: years },
 		yaxis: {
 			title: { text: "Score" },
@@ -219,7 +220,7 @@ const Dashboard: React.FC = () => {
 					<div className="chart-item">
 						<ReactApexChart
 							options={generateOptions(
-								"Environmental",
+								"Environment",
 								currentData?.environmental * 100 || 0
 							)}
 							series={[currentData?.environmental * 100 || 0]}
