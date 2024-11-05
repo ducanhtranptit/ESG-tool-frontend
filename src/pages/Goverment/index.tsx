@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import GovernanceAPI from "../../api/governance"; // API thực tế để lấy dữ liệu
@@ -54,7 +52,6 @@ const GovernancePage: React.FC = () => {
 				setViolateChartData(violateDataResponse.data);
 			} catch (error) {
 				console.error("Error fetching data:", error);
-				toast.error("Error fetching data. Please try again.");
 			} finally {
 				setLoading(false);
 			}
@@ -207,7 +204,6 @@ const GovernancePage: React.FC = () => {
 
 		return (
 			<div>
-				<ToastContainer />
 				<div className="chart">
 					<ReactApexChart
 						options={sexRatioChartOptions.options}

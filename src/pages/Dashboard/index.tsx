@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "react-bootstrap";
 import DashboardAPI from "../../api/dashboard";
 import { ApexOptions } from "apexcharts";
@@ -29,7 +27,6 @@ const Dashboard: React.FC = () => {
 				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
-				toast.error("Error fetching data. Please try again.");
 				setData("Failed to fetch data.");
 			} finally {
 				setLoading(false); // Dừng trạng thái loading
@@ -173,8 +170,6 @@ const Dashboard: React.FC = () => {
 
 	return (
 		<div className="dashboard-container">
-			<ToastContainer />
-
 			{loading ? (
 				<div
 					className="d-flex justify-content-center align-items-center"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button, Spinner } from "react-bootstrap";
-import { toast } from "react-toastify";
 import QuestionAPI from "../../../api/question";
 import debounce from "lodash/debounce";
 import "./styles.css";
@@ -57,7 +56,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					setLoading(false);
 				} catch (error) {
 					console.error("Error fetching data:", error);
-					toast.error("Error fetching data. Please try again.");
 					setLoading(false);
 				}
 			}
@@ -96,14 +94,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						})
 					);
 					setAnswers(updatedAnswers);
-					toast.success(`Đã tải câu trả lời cho năm ${enteredYear}.`);
 				} else {
-					toast.info("Không có dữ liệu cho năm đã nhập.");
 				}
 				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching answers for the year:", error);
-				toast.error("Lỗi khi tải dữ liệu cho năm đã nhập.");
 				setLoading(false);
 			}
 		}
@@ -124,7 +119,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		e.preventDefault();
 
 		if (!year) {
-			toast.error("Hãy nhập năm hiện tại!");
 			return;
 		}
 
@@ -136,12 +130,10 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 		try {
 			await QuestionAPI.addAnswerOfCompany(submissionData);
-			toast.success("Dữ liệu đã được gửi thành công!");
 			handleClose();
 			clearState();
 		} catch (error) {
 			console.error("Error submitting data:", error);
-			toast.error("Lỗi khi gửi dữ liệu, vui lòng thử lại.");
 		}
 	};
 

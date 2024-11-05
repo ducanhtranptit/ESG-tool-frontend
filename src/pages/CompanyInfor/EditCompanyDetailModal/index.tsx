@@ -3,7 +3,6 @@ import { Modal, Button, Table } from "react-bootstrap";
 import CompanyInforAPI from "../../../api/companyinfor";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { toast } from "react-toastify";
 
 interface OverallInfor {
 	id: number;
@@ -177,11 +176,9 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 				updatedCompanyDetails
 			);
 			console.log("Response from server:", response);
-			toast.success("Chỉnh sửa thông tin thành công!");
 			handleClose();
 		} catch (error) {
 			console.error("Error updating company info:", error);
-			toast.error("Có lỗi xảy ra khi cập nhật thông tin!");
 		}
 	};
 
