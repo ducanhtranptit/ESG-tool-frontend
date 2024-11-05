@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import QuestionAPI from "../../../api/question";
 import debounce from "lodash/debounce";
+import "./styles.css"
 
 interface Question {
 	questionCode: string;
@@ -121,6 +122,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		}
 
 		const submissionData = {
+			section: section?.key,
 			year: year,
 			answers: answers,
 		};
@@ -181,151 +183,170 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 							{questions.map((question, index) => (
 								<div
 									key={index}
-									className="question-container mb-3 col-12"
+									className="custom-question-container mb-3 col-12"
 								>
-									<label
-										htmlFor={question.questionCode}
-										className="form-label fw-bold h6 text-dark"
-									>
-										{question.name}
-									</label>
-									{question.answerGuide && (
-										<p>
-											<strong>Hướng dẫn trả lời:</strong>{" "}
-											{question.answerGuide}
-										</p>
-									)}
+									<div className="question-content">
+										<label
+											htmlFor={question.questionCode}
+											className="form-label fw-bold h6 text-dark"
+										>
+											{question.name}
+										</label>
+										{question.answerGuide && (
+											<p>
+												<strong>
+													Hướng dẫn trả lời:
+												</strong>{" "}
+												{question.answerGuide}
+											</p>
+										)}
 
-									{question.type === 1 && (
-										<>
-											<div className="form-check">
-												<input
-													className="form-check-input"
-													type="radio"
-													name={question.questionCode}
-													value="Yes"
-													id={`${question.questionCode}-yes`}
-													checked={
-														getAnswerForQuestion(
+										{question.type === 1 && (
+											<>
+												<div className="form-check">
+													<input
+														className="form-check-input"
+														type="radio"
+														name={
 															question.questionCode
-														) === "Yes"
-													}
-													onChange={() =>
-														handleInputChange(
-															question.questionCode,
-															"Yes"
-														)
-													}
-												/>
-												<label
-													className="form-check-label"
-													htmlFor={`${question.questionCode}-yes`}
-												>
-													Có
-												</label>
-											</div>
-											<div className="form-check">
-												<input
-													className="form-check-input"
-													type="radio"
-													name={question.questionCode}
-													value="No"
-													id={`${question.questionCode}-no`}
-													checked={
-														getAnswerForQuestion(
-															question.questionCode
-														) === "No"
-													}
-													onChange={() =>
-														handleInputChange(
-															question.questionCode,
-															"No"
-														)
-													}
-												/>
-												<label
-													className="form-check-label"
-													htmlFor={`${question.questionCode}-no`}
-												>
-													Không
-												</label>
-											</div>
-										</>
-									)}
-
-									{question.type === 2 && (
-										<div>
-											{[
-												question.answer1,
-												question.answer2,
-												question.answer3,
-												question.answer4,
-												question.answer5,
-												question.answer6,
-												question.answer7,
-												question.answer8,
-												question.answer9,
-												question.answer10,
-											]
-												.filter(
-													(answer) => answer !== "0"
-												)
-												.map((answer, answerIndex) => (
-													<div
-														key={answerIndex}
-														className="form-check"
-													>
-														<input
-															className="form-check-input"
-															type="radio"
-															name={
+														}
+														value="Yes"
+														id={`${question.questionCode}-yes`}
+														checked={
+															getAnswerForQuestion(
 																question.questionCode
-															}
-															value={answer}
-															id={`${question.questionCode}-${answerIndex}`}
-															checked={
-																getAnswerForQuestion(
-																	question.questionCode
-																) === answer
-															}
-															onChange={() =>
-																handleInputChange(
-																	question.questionCode,
-																	answer
-																)
-															}
-														/>
-														<label
-															className="form-check-label"
-															htmlFor={`${question.questionCode}-${answerIndex}`}
-														>
-															{answer}
-														</label>
-													</div>
-												))}
-										</div>
-									)}
+															) === "Yes"
+														}
+														onChange={() =>
+															handleInputChange(
+																question.questionCode,
+																"Yes"
+															)
+														}
+													/>
+													<label
+														className="form-check-label"
+														htmlFor={`${question.questionCode}-yes`}
+													>
+														Có
+													</label>
+												</div>
+												<div className="form-check">
+													<input
+														className="form-check-input"
+														type="radio"
+														name={
+															question.questionCode
+														}
+														value="No"
+														id={`${question.questionCode}-no`}
+														checked={
+															getAnswerForQuestion(
+																question.questionCode
+															) === "No"
+														}
+														onChange={() =>
+															handleInputChange(
+																question.questionCode,
+																"No"
+															)
+														}
+													/>
+													<label
+														className="form-check-label"
+														htmlFor={`${question.questionCode}-no`}
+													>
+														Không
+													</label>
+												</div>
+											</>
+										)}
 
-									{question.type === 3 && (
-										<input
-											type="number"
-											id={question.questionCode}
-											className="form-control"
-											placeholder="Nhập câu trả lời của bạn"
-											step="any"
-											value={
-												getAnswerForQuestion(
-													question.questionCode
-												) as string
-											}
-											onChange={(e) =>
-												handleInputChange(
-													question.questionCode,
-													Number(e.target.value)
-												)
-											}
-										/>
-									)}
+										{question.type === 2 && (
+											<div>
+												{[
+													question.answer1,
+													question.answer2,
+													question.answer3,
+													question.answer4,
+													question.answer5,
+													question.answer6,
+													question.answer7,
+													question.answer8,
+													question.answer9,
+													question.answer10,
+												]
+													.filter(
+														(answer) =>
+															answer !== "0"
+													)
+													.map(
+														(
+															answer,
+															answerIndex
+														) => (
+															<div
+																key={
+																	answerIndex
+																}
+																className="form-check"
+															>
+																<input
+																	className="form-check-input"
+																	type="radio"
+																	name={
+																		question.questionCode
+																	}
+																	value={
+																		answer
+																	}
+																	id={`${question.questionCode}-${answerIndex}`}
+																	checked={
+																		getAnswerForQuestion(
+																			question.questionCode
+																		) ===
+																		answer
+																	}
+																	onChange={() =>
+																		handleInputChange(
+																			question.questionCode,
+																			answer
+																		)
+																	}
+																/>
+																<label
+																	className="form-check-label"
+																	htmlFor={`${question.questionCode}-${answerIndex}`}
+																>
+																	{answer}
+																</label>
+															</div>
+														)
+													)}
+											</div>
+										)}
+
+										{question.type === 3 && (
+											<input
+												type="number"
+												id={question.questionCode}
+												className="form-control"
+												placeholder="Nhập câu trả lời của bạn"
+												step="any"
+												value={
+													getAnswerForQuestion(
+														question.questionCode
+													) as string
+												}
+												onChange={(e) =>
+													handleInputChange(
+														question.questionCode,
+														Number(e.target.value)
+													)
+												}
+											/>
+										)}
+									</div>
 								</div>
 							))}
 						</div>

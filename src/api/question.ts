@@ -15,4 +15,8 @@ export default class QuestionAPI {
 		const url = "/webapp/questions/add-answer";
 		return await ApiSender.post(url, data);
 	}
+	public static async getAllSectionSubmitCount(): Promise<any> {
+		const url = "/webapp/questions/get-all-submitcount-of-section/";
+		return await ApiSender.get(url);
+	}
 }
