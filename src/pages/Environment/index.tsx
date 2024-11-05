@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import EnvironmentAPI from "../../api/environment";
 import "./styles.css";
@@ -26,6 +27,7 @@ const EnvironmentPage: React.FC = () => {
 	const [inkPapersChartData, setInkPapersChartData] = useState<ChartData[]>(
 		[]
 	);
+	const [loading, setLoading] = useState(true); // Trạng thái loading
 
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
@@ -42,6 +44,7 @@ const EnvironmentPage: React.FC = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true); // Bắt đầu trạng thái loading
 			try {
 				const waterDataResponse =
 					await EnvironmentAPI.getDataForWaterChart();
@@ -59,6 +62,8 @@ const EnvironmentPage: React.FC = () => {
 			} catch (error) {
 				console.error("Error fetching data:", error);
 				toast.error("Error fetching data. Please try again.");
+			} finally {
+				setLoading(false); // Dừng trạng thái loading sau khi dữ liệu tải xong
 			}
 		};
 
@@ -75,10 +80,10 @@ const EnvironmentPage: React.FC = () => {
 			opposite: index % 2 === 0,
 			axisTicks: { show: true },
 			axisBorder: { show: true, color: serie.color },
-			labels: { style: { colors: serie.color } }, 
+			labels: { style: { colors: serie.color } },
 			title: {
-				text: serie.name, 
-				style: { color: serie.color }, 
+				text: serie.name,
+				style: { color: serie.color },
 			},
 			tooltip: {
 				enabled: true,
@@ -103,10 +108,11 @@ const EnvironmentPage: React.FC = () => {
 				title: {
 					text: title,
 					align: "left" as "left",
-					offsetX: 110,style: {
-					fontSize: "20px",
-					fontWeight: "bold",
-				},
+					offsetX: 110,
+					style: {
+						fontSize: "20px",
+						fontWeight: "bold",
+					},
 				},
 				xaxis: {
 					categories: categories,
@@ -137,6 +143,7 @@ const EnvironmentPage: React.FC = () => {
 			electricityChartData[0]?.dataChart.map((item) => item.year) || [];
 		const inkPapersCategories =
 			inkPapersChartData[0]?.dataChart.map((item) => item.year) || [];
+
 		const waterSeries = createSeries(waterChartData);
 		const wasteSeries = createSeries(wasteChartData);
 		const electricitySeries = createSeries(electricityChartData);
@@ -196,7 +203,22 @@ const EnvironmentPage: React.FC = () => {
 		);
 	};
 
-	return <MyChart />;
+	return (
+		<div>
+			{loading ? (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "80vh" }}
+				>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<MyChart />
+			)}
+		</div>
+	);
 };
 
 export default EnvironmentPage;

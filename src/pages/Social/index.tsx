@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
-import SocialAPI from "../../api/social"; // Updated import
+import SocialAPI from "../../api/social";
 import "./styles.css";
 
 interface DataChart {
@@ -27,6 +28,7 @@ const SocialPage: React.FC = () => {
 	const [expenditureChartData, setExpenditureChartData] = useState<
 		ChartData[]
 	>([]);
+	const [loading, setLoading] = useState(true); // Trạng thái loading
 
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
@@ -43,6 +45,7 @@ const SocialPage: React.FC = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true); // Bắt đầu trạng thái loading
 			try {
 				const sexRatioDataResponse =
 					await SocialAPI.getDataForSexRatioChart();
@@ -62,6 +65,8 @@ const SocialPage: React.FC = () => {
 			} catch (error) {
 				console.error("Error fetching data:", error);
 				toast.error("Error fetching data. Please try again.");
+			} finally {
+				setLoading(false); // Dừng trạng thái loading sau khi dữ liệu tải xong
 			}
 		};
 
@@ -215,7 +220,22 @@ const SocialPage: React.FC = () => {
 		);
 	};
 
-	return <MyChart />;
+	return (
+		<div>
+			{loading ? (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "80vh" }}
+				>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<MyChart />
+			)}
+		</div>
+	);
 };
 
 export default SocialPage;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Spinner } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
 import sections from "../../constant/section.constant.js";
 import QuestionAPI from "../../api/question";
@@ -11,30 +11,43 @@ const MetricsManagementPage: React.FC = () => {
 		name: string;
 		pillar: number;
 	} | null>(null);
-	const [submitCounts, setSubmitCounts] = useState<Record<string, number>>(
-		{}
-	);
+	const [submitCounts, setSubmitCounts] = useState<
+		Record<string, { submitCount: number; updatedAt?: string }>
+	>({});
+	const [loading, setLoading] = useState(true);
 
 	const fetchSubmitCounts = async () => {
+		setLoading(true);
 		try {
 			const response = await QuestionAPI.getAllSectionSubmitCount();
-			console.log(response.data);
 			const counts = response.data.reduce(
 				(
-					acc: Record<string, number>,
-					item: { sectionName: string; submitCount: number }
+					acc: Record<
+						string,
+						{ submitCount: number; updatedAt?: string }
+					>,
+					item: {
+						sectionName: string;
+						submitCount: number;
+						updatedAt: string;
+					}
 				) => {
-					acc[item.sectionName] = item.submitCount;
+					acc[item.sectionName] = {
+						submitCount: item.submitCount,
+						updatedAt: item.updatedAt,
+					};
 					return acc;
 				},
 				{}
 			);
-			console.log("counts: ", counts);
 			setSubmitCounts(counts);
 		} catch (error) {
 			console.error("Error fetching submit counts:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
+
 	useEffect(() => {
 		fetchSubmitCounts();
 	}, []);
@@ -53,9 +66,9 @@ const MetricsManagementPage: React.FC = () => {
 	};
 
 	const pillarVariants: Record<number, string> = {
-		1: "outline-success",
-		2: "outline-primary",
-		3: "outline-danger",
+		1: "success",
+		2: "info",
+		3: "danger",
 	};
 
 	const pillarNames: Record<number, string> = {
@@ -79,39 +92,78 @@ const MetricsManagementPage: React.FC = () => {
 
 	return (
 		<Container className="my-4">
-			{Object.entries(sectionsByPillar).map(([pillar, sections]) => (
-				<div key={pillar} className="mb-4">
-					<h5>
-						{pillarNames[parseInt(pillar)] || `Pillar ${pillar}`}
-					</h5>
-					<div
-						className="d-grid gap-3"
-						style={{
-							gridTemplateColumns:
-								"repeat(auto-fill, minmax(200px, 1fr))",
-						}}
-					>
-						{sections.map((section) => (
-							<Button
-								key={section.key}
-								variant={
-									submitCounts[section.key] === 0
-										? "outline-dark"
-										: pillarVariants[section.pillar] ||
-										  "outline-dark"
-								}
-								onClick={() =>
-									handleShowModal(section.key, section)
-								}
-								className="btn"
-								style={{ minHeight: "100px" }}
-							>
-								{section.name}
-							</Button>
-						))}
-					</div>
+			{loading ? (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "80vh" }}
+				>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
 				</div>
-			))}
+			) : (
+				Object.entries(sectionsByPillar).map(([pillar, sections]) => (
+					<div key={pillar} className="mb-4">
+						<h5>
+							{pillarNames[parseInt(pillar)] ||
+								`Pillar ${pillar}`}
+						</h5>
+						<div
+							className="d-grid gap-3"
+							style={{
+								gridTemplateColumns:
+									"repeat(auto-fill, minmax(200px, 1fr))",
+							}}
+						>
+							{sections.map((section) => {
+								const submitInfo =
+									submitCounts[section.key] || {};
+								const lastUpdatedText =
+									submitInfo.submitCount > 0 &&
+									submitInfo.updatedAt
+										? `Sửa đổi lần cuối: ${new Date(
+												submitInfo.updatedAt
+										  ).toLocaleDateString()}`
+										: "";
+
+								return (
+									<Button
+										key={section.key}
+										variant={
+											submitInfo.submitCount === 0
+												? "secondary"
+												: pillarVariants[
+														section.pillar
+												  ] || "secondary"
+										}
+										onClick={() =>
+											handleShowModal(
+												section.key,
+												section
+											)
+										}
+										className="btn"
+										style={{ minHeight: "100px" }}
+									>
+										<div>{section.name}</div>
+										{lastUpdatedText && (
+											<small
+												className={
+													section.pillar === 2
+														? "text-dark"
+														: "text-white"
+												}
+											>
+												{lastUpdatedText}
+											</small>
+										)}
+									</Button>
+								);
+							})}
+						</div>
+					</div>
+				))
+			)}
 
 			{currentSection && (
 				<QuestionFormModal

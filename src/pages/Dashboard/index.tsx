@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "react-bootstrap";
 import DashboardAPI from "../../api/dashboard";
 import { ApexOptions } from "apexcharts";
 import "./styles.css";
@@ -10,9 +11,11 @@ const Dashboard: React.FC = () => {
 	const [data, setData] = useState<any>(null);
 	const [selectedYear, setSelectedYear] = useState<number | null>(null);
 	const [years, setYears] = useState<number[]>([]);
+	const [loading, setLoading] = useState(true); // State loading
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true); // Bắt đầu trạng thái loading
 			try {
 				const response = await DashboardAPI.getAllData();
 				console.log(response.data);
@@ -28,6 +31,8 @@ const Dashboard: React.FC = () => {
 				console.error("Error fetching data:", error);
 				toast.error("Error fetching data. Please try again.");
 				setData("Failed to fetch data.");
+			} finally {
+				setLoading(false); // Dừng trạng thái loading
 			}
 		};
 
@@ -44,7 +49,6 @@ const Dashboard: React.FC = () => {
 		else if (score < 75) return "#FFD700"; // Màu vàng nhạt
 		else return "#5EE27A"; // Màu xanh lá cây
 	};
-	
 
 	const generateOptions = (label: string, score: number): ApexOptions => ({
 		chart: {
@@ -102,7 +106,11 @@ const Dashboard: React.FC = () => {
 
 	const pieOptions: ApexOptions = {
 		chart: { type: "pie" },
-		labels: ["Trọng số Environmental", "Trọng số Social", "Trọng số Governance"],
+		labels: [
+			"Trọng số Environmental",
+			"Trọng số Social",
+			"Trọng số Governance",
+		],
 		responsive: [
 			{
 				breakpoint: 480,
@@ -167,120 +175,137 @@ const Dashboard: React.FC = () => {
 		<div className="dashboard-container">
 			<ToastContainer />
 
-			<div className="top-section">
-				<div className="left-panel">
-					<div className="title-container">
-						<h2 className="overview-title">TỔNG QUAN</h2>
-						<p className="company-name">
-							<span className="company-name-bold">
-								{data && data.company
-									? data.company.name
-									: "Loading..."}
-							</span>
-							<span className="report-text">
-								{" "}
-								Báo cáo ESG hàng năm
-							</span>
-						</p>
+			{loading ? (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "80vh" }}
+				>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<>
+					<div className="top-section">
+						<div className="left-panel">
+							<div className="title-container">
+								<h2 className="overview-title">TỔNG QUAN</h2>
+								<p className="company-name">
+									<span className="company-name-bold">
+										{data && data.company
+											? data.company.name
+											: "Loading..."}
+									</span>
+									<span className="report-text">
+										{" "}
+										Báo cáo ESG hàng năm
+									</span>
+								</p>
+							</div>
+
+							<div className="select-group">
+								<label htmlFor="year">Chọn năm</label>
+								<select
+									id="year"
+									value={selectedYear ?? ""}
+									onChange={(e) =>
+										setSelectedYear(Number(e.target.value))
+									}
+								>
+									{years.map((year) => (
+										<option key={year} value={year}>
+											{year}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+
+						<div className="right-panel">
+							<div className="chart-item">
+								<ReactApexChart
+									options={generateOptions(
+										"ESG",
+										currentData?.esg * 100 || 0
+									)}
+									series={[currentData?.esg * 100 || 0]}
+									type="radialBar"
+									height={150}
+								/>
+								<p className="rank-label">
+									Thứ hạng: {currentData?.esgRank}
+								</p>
+							</div>
+							<div className="chart-item">
+								<ReactApexChart
+									options={generateOptions(
+										"Environment",
+										currentData?.environmental * 100 || 0
+									)}
+									series={[
+										currentData?.environmental * 100 || 0,
+									]}
+									type="radialBar"
+									height={150}
+								/>
+								<p className="rank-label">
+									Thứ hạng: {currentData?.environmentRank}
+								</p>
+							</div>
+							<div className="chart-item">
+								<ReactApexChart
+									options={generateOptions(
+										"Social",
+										currentData?.social * 100 || 0
+									)}
+									series={[currentData?.social * 100 || 0]}
+									type="radialBar"
+									height={150}
+								/>
+								<p className="rank-label">
+									Thứ hạng: {currentData?.socialRank}
+								</p>
+							</div>
+							<div className="chart-item">
+								<ReactApexChart
+									options={generateOptions(
+										"Governance",
+										currentData?.governance * 100 || 0
+									)}
+									series={[
+										currentData?.governance * 100 || 0,
+									]}
+									type="radialBar"
+									height={150}
+								/>
+								<p className="rank-label">
+									Thứ hạng: {currentData?.governanceRank}
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div className="select-group">
-						<label htmlFor="year">Chọn năm</label>
-						<select
-							id="year"
-							value={selectedYear ?? ""}
-							onChange={(e) =>
-								setSelectedYear(Number(e.target.value))
-							}
-						>
-							{years.map((year) => (
-								<option key={year} value={year}>
-									{year}
-								</option>
-							))}
-						</select>
+					<div className="bottom-section">
+						<div className="chart-item pie-chart">
+							<ReactApexChart
+								options={pieOptions}
+								series={pieSeries}
+								type="pie"
+								height={"100%"}
+								width={"175%"}
+							/>
+						</div>
+						<div className="chart-item line-chart">
+							<ReactApexChart
+								options={lineOptions}
+								series={lineSeries}
+								height={"100%"}
+								width={"175%"}
+							/>
+						</div>
 					</div>
-				</div>
-
-				<div className="right-panel">
-					<div className="chart-item">
-						<ReactApexChart
-							options={generateOptions(
-								"ESG",
-								currentData?.esg * 100 || 0
-							)}
-							series={[currentData?.esg * 100 || 0]}
-							type="radialBar"
-							height={150}
-						/>
-						<p className="rank-label">
-							Thứ hạng: {currentData?.esgRank}
-						</p>
-					</div>
-					<div className="chart-item">
-						<ReactApexChart
-							options={generateOptions(
-								"Environment",
-								currentData?.environmental * 100 || 0
-							)}
-							series={[currentData?.environmental * 100 || 0]}
-							type="radialBar"
-							height={150}
-						/>
-						<p className="rank-label">
-							Thứ hạng: {currentData?.environmentRank}
-						</p>
-					</div>
-					<div className="chart-item">
-						<ReactApexChart
-							options={generateOptions(
-								"Social",
-								currentData?.social * 100 || 0
-							)}
-							series={[currentData?.social * 100 || 0]}
-							type="radialBar"
-							height={150}
-						/>
-						<p className="rank-label">
-							Thứ hạng: {currentData?.socialRank}
-						</p>
-					</div>
-					<div className="chart-item">
-						<ReactApexChart
-							options={generateOptions(
-								"Governance",
-								currentData?.governance * 100 || 0
-							)}
-							series={[currentData?.governance * 100 || 0]}
-							type="radialBar"
-							height={150}
-						/>
-						<p className="rank-label">
-							Thứ hạng: {currentData?.governanceRank}
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div className="bottom-section">
-				<div className="chart-item pie-chart">
-					<ReactApexChart
-						options={pieOptions}
-						series={pieSeries}
-						type="pie"
-						height={"100%"}
-						width={"175%"}
-					/>
-				</div>
-				<div className="chart-item line-chart">
-					<ReactApexChart
-						options={lineOptions}
-						series={lineSeries}
-						height={"100%"}
-						width={"175%"}
-					/>
-				</div>
-			</div>
+				</>
+			)}
 		</div>
 	);
 };

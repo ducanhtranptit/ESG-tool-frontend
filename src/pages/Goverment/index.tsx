@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import GovernanceAPI from "../../api/governance"; // API thực tế để lấy dữ liệu
 import "./styles.css";
@@ -22,8 +23,8 @@ const GovernancePage: React.FC = () => {
 	const [supplierRatioChartData, setSupplierRatioChartData] = useState<
 		ChartData[]
 	>([]);
-	const [violateChartData, setViolateChartData] = useState<ChartData[]>([]); // Dữ liệu thực cho Violate Chart
-
+	const [violateChartData, setViolateChartData] = useState<ChartData[]>([]);
+	const [loading, setLoading] = useState(true); // Trạng thái loading
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
 	const createSeries = (data: ChartData[]) => {
@@ -39,20 +40,23 @@ const GovernancePage: React.FC = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			try {
 				const sexRatioDataResponse =
 					await GovernanceAPI.getDataForSexRatioChart();
 				const supplierRatioDataResponse =
 					await GovernanceAPI.getDataForSupplierRatioChart();
 				const violateDataResponse =
-					await GovernanceAPI.getDataForViolateChart(); // Lấy dữ liệu cho biểu đồ Violate từ API thực tế
+					await GovernanceAPI.getDataForViolateChart();
 
 				setSexRatioChartData(sexRatioDataResponse.data);
 				setSupplierRatioChartData(supplierRatioDataResponse.data);
-				setViolateChartData(violateDataResponse.data); // Lưu dữ liệu thực cho biểu đồ Violate
+				setViolateChartData(violateDataResponse.data);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 				toast.error("Error fetching data. Please try again.");
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -176,7 +180,6 @@ const GovernancePage: React.FC = () => {
 		const sexRatioSeries = createSeries(sexRatioChartData);
 		const supplierRatioSeries = createSeries(supplierRatioChartData);
 
-		// Chuyển đổi mảng violateCategories từ number[] sang string[]
 		const violateCategories =
 			violateChartData[0]?.dataChart.map((item) => String(item.year)) ||
 			[];
@@ -198,7 +201,7 @@ const GovernancePage: React.FC = () => {
 			supplierRatioSeries
 		);
 		const violateChartOptions = createViolateChartOptions(
-			violateCategories, // Mảng này giờ đã là string[]
+			violateCategories,
 			violateSeries
 		);
 
@@ -229,7 +232,22 @@ const GovernancePage: React.FC = () => {
 		);
 	};
 
-	return <MyChart />;
+	return (
+		<div>
+			{loading ? (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "80vh" }}
+				>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<MyChart />
+			)}
+		</div>
+	);
 };
 
 export default GovernancePage;
