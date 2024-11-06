@@ -8,8 +8,8 @@ i18n.use(initReactI18next).init({
 		en: { translation: en },
 		vi: { translation: vi },
 	},
-	lng: "en", // Ngôn ngữ mặc định
-	fallbackLng: "en", // Dùng tiếng Anh nếu ngôn ngữ không tồn tại
+	lng: "en",
+	fallbackLng: "en",
 	interpolation: { escapeValue: false },
 });
 
