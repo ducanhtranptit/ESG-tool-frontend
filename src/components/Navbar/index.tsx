@@ -30,9 +30,9 @@ const Navbar: React.FC = () => {
 	return (
 		<div className="navbar">
 			<div className="navbar-content">
-				<button onClick={toggleLanguage} className="language-button">
+				<button onClick={toggleLanguage} className="btn btn-outline-dark">
 					<span>
-						{i18n.language === "en" ? "Tiếng Việt" : "English"}
+						{i18n.language === "en" ? "vi" : "en"}
 					</span>
 				</button>
 				<button onClick={handleLogout} className="logout-button">
