@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Table } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col, Table } from "react-bootstrap";
 import CompanyInforAPI from "../../../api/companyinfor";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 interface OverallInfor {
-	id: number;
-	companyName: string;
-	dateFounder: number;
-	mainAddress: string;
-	mainPhoneNumber: string;
-	companyWebsite: string;
-	companySector: string;
-	companyDescription: string;
-	contactInformation: string;
-	netIncome: number;
-	totalRevenue: number;
-	fullTimeEmployee: number;
-	partTimeEmployee: number;
+	id?: number;
+	companyName?: string;
+	dateFounder?: number;
+	mainAddress?: string;
+	mainPhoneNumber?: string;
+	companyWebsite?: string;
+	companySector?: string;
+	companyDescription?: string;
+	contactInformation?: string;
 }
 
 interface SiteInfor {
-	id: number;
-	siteName: string;
-	numberEmployees: number;
-	comment: string;
+	id?: number;
+	siteName?: string;
+	numberEmployees?: number;
+	comment?: string;
 }
 
 interface ProductInfor {
-	id: number;
-	productName: string;
-	revenue: number;
-	comment: string;
+	id?: number;
+	productName?: string;
+	revenue?: number;
+	comment?: string;
 }
 
 interface EditCompanyDetailModalProps {
@@ -51,7 +47,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 }) => {
 	const [companyName, setCompanyName] = useState(companyDetails.companyName);
 	const [dateFounder, setDateFounder] = useState(
-		companyDetails.dateFounder.toString()
+		companyDetails.dateFounder?.toString()
 	);
 	const [mainAddress, setMainAddress] = useState(companyDetails.mainAddress);
 	const [mainPhoneNumber, setMainPhoneNumber] = useState(
@@ -66,18 +62,6 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 	const [companyDescription, setCompanyDescription] = useState(
 		companyDetails.companyDescription
 	);
-	const [totalRevenue, setTotalRevenue] = useState(
-		companyDetails.totalRevenue.toString()
-	);
-	const [netIncome, setNetIncome] = useState(
-		companyDetails.netIncome.toString()
-	);
-	const [fullTimeEmployees, setFullTimeEmployees] = useState(
-		companyDetails.fullTimeEmployee.toString()
-	);
-	const [partTimeEmployees, setPartTimeEmployees] = useState(
-		companyDetails.partTimeEmployee.toString()
-	);
 	const [contactInformation, setContactInformation] = useState(
 		companyDetails.contactInformation
 	);
@@ -89,16 +73,12 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 
 	useEffect(() => {
 		setCompanyName(companyDetails.companyName);
-		setDateFounder(companyDetails.dateFounder.toString());
+		setDateFounder(companyDetails.dateFounder?.toString());
 		setMainAddress(companyDetails.mainAddress);
 		setMainPhoneNumber(companyDetails.mainPhoneNumber);
 		setCompanyWebsite(companyDetails.companyWebsite);
 		setCompanySector(companyDetails.companySector);
 		setCompanyDescription(companyDetails.companyDescription);
-		setTotalRevenue(companyDetails.totalRevenue.toString());
-		setNetIncome(companyDetails.netIncome.toString());
-		setFullTimeEmployees(companyDetails.fullTimeEmployee.toString());
-		setPartTimeEmployees(companyDetails.partTimeEmployee.toString());
 		setContactInformation(companyDetails.contactInformation);
 		setSiteInformation([...siteInfors]);
 		setProductInformation([...productInfors]);
@@ -126,7 +106,6 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 		setSiteInformation(updatedSites);
 	};
 
-	// Handle product information changes
 	const handleProductChange = (
 		index: number,
 		field: string,
@@ -162,10 +141,6 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 			companyWebsite,
 			companySector,
 			companyDescription,
-			totalRevenue: parseInt(totalRevenue),
-			netIncome: parseInt(netIncome),
-			fullTimeEmployees: parseInt(fullTimeEmployees),
-			partTimeEmployees: parseInt(partTimeEmployees),
 			contactInformation,
 			siteInformation,
 			productInformation,
@@ -185,154 +160,133 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 	return (
 		<Modal show={show} onHide={handleClose} centered size="xl">
 			<Modal.Header closeButton>
-				<Modal.Title>Edit Company Information</Modal.Title>
+				<Modal.Title>Chỉnh Sửa Thông Tin Công Ty</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<form onSubmit={handleSubmit}>
-					<h4>Overall information</h4>
-					<div className="form-group">
-						<label>Company Name</label>
-						<input
+				<Form onSubmit={handleSubmit}>
+					<h4>Thông Tin Chung</h4>
+					<Row className="mb-3">
+						<Col md={6}>
+							<Form.Group controlId="formCompanyName">
+								<Form.Label>Tên Công Ty</Form.Label>
+								<Form.Control
+									type="text"
+									value={companyName}
+									onChange={(e) =>
+										setCompanyName(e.target.value)
+									}
+									required
+								/>
+							</Form.Group>
+						</Col>
+						<Col md={3}>
+							<Form.Group controlId="formDateFounder">
+								<Form.Label>Ngày Thành Lập</Form.Label>
+								<Form.Control
+									type="text"
+									value={dateFounder}
+									onChange={(e) =>
+										setDateFounder(e.target.value)
+									}
+									required
+								/>
+							</Form.Group>
+						</Col>
+						<Col md={3}>
+							<Form.Group controlId="formPhoneNumber">
+								<Form.Label>Số Điện Thoại Chính</Form.Label>
+								<Form.Control
+									type="text"
+									value={mainPhoneNumber}
+									onChange={(e) =>
+										setMainPhoneNumber(e.target.value)
+									}
+									required
+								/>
+							</Form.Group>
+						</Col>
+					</Row>
+
+					<Row className="mb-3">
+						<Col md={6}>
+							<Form.Group controlId="formAddress">
+								<Form.Label>Địa Chỉ Chính</Form.Label>
+								<Form.Control
+									type="text"
+									value={mainAddress}
+									onChange={(e) =>
+										setMainAddress(e.target.value)
+									}
+									required
+								/>
+							</Form.Group>
+						</Col>
+						<Col md={6}>
+							<Form.Group controlId="formWebsite">
+								<Form.Label>Trang Web Công Ty</Form.Label>
+								<Form.Control
+									type="text"
+									value={companyWebsite}
+									onChange={(e) =>
+										setCompanyWebsite(e.target.value)
+									}
+									required
+								/>
+							</Form.Group>
+						</Col>
+					</Row>
+
+					<Form.Group className="mb-3" controlId="formSector">
+						<Form.Label>Ngành</Form.Label>
+						<Form.Control
 							type="text"
-							className="form-control"
-							value={companyName}
-							onChange={(e) => setCompanyName(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Date Founded</label>
-						<input
-							type="text"
-							className="form-control"
-							value={dateFounder}
-							onChange={(e) => setDateFounder(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Main Address</label>
-						<input
-							type="text"
-							className="form-control"
-							value={mainAddress}
-							onChange={(e) => setMainAddress(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Main Phone Number</label>
-						<input
-							type="text"
-							className="form-control"
-							value={mainPhoneNumber}
-							onChange={(e) => setMainPhoneNumber(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Company Website</label>
-						<input
-							type="text"
-							className="form-control"
-							value={companyWebsite}
-							onChange={(e) => setCompanyWebsite(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Company Sector</label>
-						<input
-							type="text"
-							className="form-control"
 							value={companySector}
 							onChange={(e) => setCompanySector(e.target.value)}
 							required
 						/>
-					</div>
-					<div className="form-group">
-						<label>Company Description</label>
-						<input
-							type="text"
-							className="form-control"
+					</Form.Group>
+
+					<Form.Group className="mb-3" controlId="formDescription">
+						<Form.Label>Mô Tả Công Ty</Form.Label>
+						<Form.Control
+							as="textarea"
+							rows={3}
 							value={companyDescription}
 							onChange={(e) =>
 								setCompanyDescription(e.target.value)
 							}
 							required
 						/>
-					</div>
-					<div className="form-group">
-						<label>Total Revenue</label>
-						<input
-							type="number"
-							className="form-control"
-							value={totalRevenue}
-							onChange={(e) => setTotalRevenue(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Net Income</label>
-						<input
-							type="number"
-							className="form-control"
-							value={netIncome}
-							onChange={(e) => setNetIncome(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Full Time Employees</label>
-						<input
-							type="number"
-							className="form-control"
-							value={fullTimeEmployees}
-							onChange={(e) =>
-								setFullTimeEmployees(e.target.value)
-							}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Part Time Employees</label>
-						<input
-							type="number"
-							className="form-control"
-							value={partTimeEmployees}
-							onChange={(e) =>
-								setPartTimeEmployees(e.target.value)
-							}
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>Contact Information</label>
+					</Form.Group>
+
+					<Form.Group
+						className="mb-3"
+						controlId="formContactInformation"
+					>
+						<Form.Label>Thông Tin Liên Hệ</Form.Label>
 						<ReactQuill
 							value={contactInformation}
 							onChange={setContactInformation}
 							className="custom-quill-editor"
 						/>
-					</div>
+					</Form.Group>
 
-					<br />
-					<h4>Site Information</h4>
+					<h4>Thông Tin Địa Điểm</h4>
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>Site Name</th>
-								<th>Number of Employees</th>
-								<th>Comment</th>
-								<th>Action</th>
+								<th>Tên Địa Điểm</th>
+								<th>Số Nhân Viên</th>
+								<th>Ghi Chú</th>
+								<th>Hành Động</th>
 							</tr>
 						</thead>
 						<tbody>
 							{siteInformation.map((site, index) => (
 								<tr key={index}>
 									<td>
-										<input
+										<Form.Control
 											type="text"
-											className="form-control"
 											value={site.siteName}
 											onChange={(e) =>
 												handleSiteChange(
@@ -345,9 +299,8 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 										/>
 									</td>
 									<td>
-										<input
+										<Form.Control
 											type="number"
-											className="form-control"
 											value={site.numberEmployees}
 											onChange={(e) =>
 												handleSiteChange(
@@ -360,9 +313,8 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 										/>
 									</td>
 									<td>
-										<input
+										<Form.Control
 											type="text"
-											className="form-control"
 											value={site.comment}
 											onChange={(e) =>
 												handleSiteChange(
@@ -380,7 +332,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 												handleRemoveSite(index)
 											}
 										>
-											Remove
+											Xóa
 										</Button>
 									</td>
 								</tr>
@@ -388,27 +340,25 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</tbody>
 					</Table>
 					<Button variant="primary" onClick={handleAddSite}>
-						Add Site
+						Thêm Địa Điểm
 					</Button>
 
-					<br />
-					<h4 className="mt-4">Product Information</h4>
+					<h4 className="mt-4">Thông Tin Sản Phẩm</h4>
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>Product Name</th>
-								<th>Revenue</th>
-								<th>Comment</th>
-								<th>Action</th>
+								<th>Tên Sản Phẩm</th>
+								<th>Doanh Thu</th>
+								<th>Ghi Chú</th>
+								<th>Hành Động</th>
 							</tr>
 						</thead>
 						<tbody>
 							{productInformation.map((product, index) => (
 								<tr key={index}>
 									<td>
-										<input
+										<Form.Control
 											type="text"
-											className="form-control"
 											value={product.productName}
 											onChange={(e) =>
 												handleProductChange(
@@ -421,9 +371,8 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 										/>
 									</td>
 									<td>
-										<input
+										<Form.Control
 											type="number"
-											className="form-control"
 											value={product.revenue}
 											onChange={(e) =>
 												handleProductChange(
@@ -436,9 +385,8 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 										/>
 									</td>
 									<td>
-										<input
+										<Form.Control
 											type="text"
-											className="form-control"
 											value={product.comment}
 											onChange={(e) =>
 												handleProductChange(
@@ -456,7 +404,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 												handleRemoveProduct(index)
 											}
 										>
-											Remove
+											Xóa
 										</Button>
 									</td>
 								</tr>
@@ -464,19 +412,18 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</tbody>
 					</Table>
 					<Button variant="primary" onClick={handleAddProduct}>
-						Add Product
+						Thêm Sản Phẩm
 					</Button>
 
-					<br />
 					<Modal.Footer>
 						<Button variant="secondary" onClick={handleClose}>
-							Close
+							Đóng
 						</Button>
 						<Button variant="primary" type="submit">
-							Save Changes
+							Lưu Thay Đổi
 						</Button>
 					</Modal.Footer>
-				</form>
+				</Form>
 			</Modal.Body>
 		</Modal>
 	);

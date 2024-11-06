@@ -104,10 +104,10 @@ const MetricsManagementPage: React.FC = () => {
 			) : (
 				Object.entries(sectionsByPillar).map(([pillar, sections]) => (
 					<div key={pillar} className="mb-4">
-						<h5>
+						<h3>
 							{pillarNames[parseInt(pillar)] ||
 								`Pillar ${pillar}`}
-						</h5>
+						</h3>
 						<div
 							className="d-grid gap-3"
 							style={{

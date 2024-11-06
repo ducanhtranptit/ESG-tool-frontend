@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CompanyInforAPI from "../../api/companyinfor";
-import { Spinner, Table, Button } from "react-bootstrap";
+import {
+	Spinner,
+	Table,
+	Button,
+	Card,
+	Row,
+	Col,
+	Container,
+} from "react-bootstrap";
 import "./styles.css";
 import EditCompanyDetailModal from "./EditCompanyDetailModal/index";
 
@@ -14,10 +22,6 @@ interface OverallInfor {
 	companySector: string;
 	companyDescription: string;
 	contactInformation: string;
-	netIncome: number;
-	totalRevenue: number;
-	fullTimeEmployee: number;
-	partTimeEmployee: number;
 }
 
 interface SiteInfor {
@@ -35,7 +39,7 @@ interface ProductInfor {
 }
 
 interface CompanyDetails {
-	overallInfor: OverallInfor[];
+	overallInfor?: OverallInfor;
 	siteInfors: SiteInfor[];
 	productInfors: ProductInfor[];
 }
@@ -53,10 +57,10 @@ const CompanyPage: React.FC = () => {
 			if (response.status === 200) {
 				setCompanyDetails(response.data);
 			} else {
-				console.error("Failed to fetch company");
+				console.error("Không thể lấy thông tin công ty");
 			}
 		} catch (error) {
-			console.error("Error fetching company:", error);
+			console.error("Lỗi khi lấy thông tin công ty:", error);
 		} finally {
 			setLoading(false);
 		}
@@ -70,143 +74,166 @@ const CompanyPage: React.FC = () => {
 		return <Spinner animation="border" />;
 	}
 
-	if (!companyDetails) {
-		return <p>No company information available.</p>;
-	}
-
-	const overallInfor = companyDetails.overallInfor[0];
-	const siteInfors = companyDetails.siteInfors;
-	const productInfors = companyDetails.productInfors;
-
 	const handleOpenEditModal = () => {
 		setShowEditModal(true);
 	};
 
 	const handleCloseEditModal = () => {
+		fetchCompany();
 		setShowEditModal(false);
 	};
 
+	// Nếu không có dữ liệu, tạo đối tượng mặc định với kiểu dữ liệu chính xác
+	const overallInfor: OverallInfor = companyDetails?.overallInfor || {
+		id: 0,
+		companyName: "",
+		dateFounder: 0, // Đặt thành số 0 thay vì chuỗi
+		mainAddress: "",
+		mainPhoneNumber: "",
+		companyWebsite: "",
+		companySector: "",
+		companyDescription: "",
+		contactInformation: "",
+	};
+
+	const siteInfors = companyDetails?.siteInfors || [];
+	const productInfors = companyDetails?.productInfors || [];
+
 	return (
-		<div className="container">
-			<h2>Company Information</h2>
-			<h3>{overallInfor.companyName}</h3>
+		<Container fluid="md" className="py-4">
+			<Row className="align-items-center mb-4">
+				<Col>
+					<h2 className="text-primary">Thông Tin Công Ty</h2>
+				</Col>
+				<Col className="text-end">
+					<Button variant="primary" onClick={handleOpenEditModal}>
+						Chỉnh Sửa Thông Tin Công Ty
+					</Button>
+				</Col>
+			</Row>
 
-			<p>
-				<strong>Date Founder:</strong> {overallInfor.dateFounder}
-			</p>
-			<p>
-				<strong>Main Address:</strong> {overallInfor.mainAddress}
-			</p>
-			<p>
-				<strong>Main Phone Number:</strong>{" "}
-				{overallInfor.mainPhoneNumber}
-			</p>
-			<p>
-				<strong>Company Website:</strong>{" "}
-				<a
-					href={overallInfor.companyWebsite}
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					{overallInfor.companyWebsite}
-				</a>
-			</p>
-			<p>
-				<strong>Company Sector:</strong> {overallInfor.companySector}
-			</p>
-			<p>
-				<strong>Company Description:</strong>{" "}
-				{overallInfor.companyDescription}
-			</p>
-			<p>
-				<strong>Contact Information:</strong>
-			</p>
-			<div
-				dangerouslySetInnerHTML={{
-					__html: overallInfor.contactInformation,
-				}}
+			<Card className="mb-4 shadow-sm">
+				<Card.Header>
+					<h3>{overallInfor.companyName}</h3>
+				</Card.Header>
+				<Card.Body>
+					<Row>
+						<Col md={6}>
+							<p>
+								<strong>Ngày Thành Lập:</strong>{" "}
+								{overallInfor.dateFounder !== 0
+									? overallInfor.dateFounder
+									: ""}
+							</p>
+							<p>
+								<strong>Địa Chỉ Chính:</strong>{" "}
+								{overallInfor.mainAddress}
+							</p>
+							<p>
+								<strong>Số Điện Thoại Chính:</strong>{" "}
+								{overallInfor.mainPhoneNumber}
+							</p>
+							<p>
+								<strong>Trang Web Công Ty:</strong>{" "}
+								<a
+									href={overallInfor.companyWebsite}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{overallInfor.companyWebsite}
+								</a>
+							</p>
+						</Col>
+						<Col md={6}>
+							<p>
+								<strong>Ngành:</strong>{" "}
+								{overallInfor.companySector}
+							</p>
+							<p>
+								<strong>Mô Tả:</strong>{" "}
+								{overallInfor.companyDescription}
+							</p>
+							<p>
+								<strong>Thông Tin Liên Hệ:</strong>
+							</p>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: overallInfor.contactInformation,
+								}}
+							/>
+						</Col>
+					</Row>
+				</Card.Body>
+			</Card>
+
+			<Card className="mb-4 shadow-sm">
+				<Card.Header>
+					<h4>Thông Tin Địa Điểm</h4>
+				</Card.Header>
+				<Card.Body>
+					{siteInfors.length > 0 ? (
+						<Table responsive striped bordered hover>
+							<thead>
+								<tr>
+									<th>Tên Địa Điểm</th>
+									<th>Số Nhân Viên</th>
+									<th>Ghi Chú</th>
+								</tr>
+							</thead>
+							<tbody>
+								{siteInfors.map((site) => (
+									<tr key={site.id}>
+										<td>{site.siteName}</td>
+										<td>{site.numberEmployees}</td>
+										<td>{site.comment}</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					) : (
+						<p>Không có thông tin địa điểm.</p>
+					)}
+				</Card.Body>
+			</Card>
+
+			<Card className="mb-4 shadow-sm">
+				<Card.Header>
+					<h4>Thông Tin Sản Phẩm</h4>
+				</Card.Header>
+				<Card.Body>
+					{productInfors.length > 0 ? (
+						<Table responsive striped bordered hover>
+							<thead>
+								<tr>
+									<th>Tên Sản Phẩm</th>
+									<th>Doanh Thu</th>
+									<th>Ghi Chú</th>
+								</tr>
+							</thead>
+							<tbody>
+								{productInfors.map((product) => (
+									<tr key={product.id}>
+										<td>{product.productName}</td>
+										<td>{product.revenue}</td>
+										<td>{product.comment}</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					) : (
+						<p>Không có thông tin sản phẩm.</p>
+					)}
+				</Card.Body>
+			</Card>
+
+			<EditCompanyDetailModal
+				show={showEditModal}
+				handleClose={handleCloseEditModal}
+				companyDetails={overallInfor}
+				siteInfors={siteInfors}
+				productInfors={productInfors}
 			/>
-
-			<hr />
-			<p>
-				<strong>Total Revenue:</strong> {overallInfor.totalRevenue}
-			</p>
-			<p>
-				<strong>Net Income:</strong> {overallInfor.netIncome}
-			</p>
-
-			<hr />
-			<p>
-				<strong>Full Time Employees:</strong>{" "}
-				{overallInfor.fullTimeEmployee}
-			</p>
-			<p>
-				<strong>Part Time Employees:</strong>{" "}
-				{overallInfor.partTimeEmployee}
-			</p>
-
-			<hr />
-			<p>
-				<strong>Site Information:</strong>
-			</p>
-			{companyDetails.siteInfors.length > 0 ? (
-				<Table striped bordered hover>
-					<thead>
-						<tr>
-							<th>Site Name</th>
-							<th>Number of Employees</th>
-							<th>Comment</th>
-						</tr>
-					</thead>
-					<tbody>
-						{companyDetails.siteInfors.map((site) => (
-							<tr key={site.id}>
-								<td>{site.siteName}</td>
-								<td>{site.numberEmployees}</td>
-								<td>{site.comment}</td>
-							</tr>
-						))}
-					</tbody>
-				</Table>
-			) : (
-				<p>No site information available.</p>
-			)}
-
-			<hr />
-			<p>
-				<strong>Product Information:</strong>
-			</p>
-			<Table striped bordered hover>
-				<thead>
-					<tr>
-						<th>Product Name</th>
-						<th>Revenue</th>
-						<th>Comment</th>
-					</tr>
-				</thead>
-				<tbody>
-					{companyDetails.productInfors.map((product) => (
-						<tr key={product.id}>
-							<td>{product.productName}</td>
-							<td>{product.revenue}</td>
-							<td>{product.comment}</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-			<Button variant="primary">
-				Edit Company Information (comming soon!)
-			</Button>
-			{overallInfor && (
-				<EditCompanyDetailModal
-					show={showEditModal}
-					handleClose={handleCloseEditModal}
-					companyDetails={overallInfor}
-					siteInfors={siteInfors} 
-					productInfors={productInfors} 
-				/>
-			)}
-		</div>
+		</Container>
 	);
 };
 
