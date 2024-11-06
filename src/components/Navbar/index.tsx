@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
 			<div className="navbar-content">
 				<button onClick={toggleLanguage} className="btn btn-outline-dark">
 					<span>
-						{i18n.language === "en" ? "vi" : "en"}
+						{i18n.language === "en" ? "en" : "vi"}
 					</span>
 				</button>
 				<button onClick={handleLogout} className="logout-button">
