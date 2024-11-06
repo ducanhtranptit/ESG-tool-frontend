@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col, Table } from "react-bootstrap";
 import CompanyInforAPI from "../../../api/companyinfor";
 import ReactQuill from "react-quill";
+import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 
 interface OverallInfor {
@@ -45,6 +46,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 	siteInfors,
 	productInfors,
 }) => {
+	const { t } = useTranslation();
 	const [companyName, setCompanyName] = useState(companyDetails.companyName);
 	const [dateFounder, setDateFounder] = useState(
 		companyDetails.dateFounder?.toString()
@@ -153,22 +155,22 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 			console.log("Response from server:", response);
 			handleClose();
 		} catch (error) {
-			console.error("Error updating company info:", error);
+			console.error(t("editCompanyInfo.updateError"), error);
 		}
 	};
 
 	return (
 		<Modal show={show} onHide={handleClose} centered size="xl">
 			<Modal.Header closeButton>
-				<Modal.Title>Chỉnh Sửa Thông Tin Công Ty</Modal.Title>
+				<Modal.Title>{t("editCompanyInfo.editCompanyInfo")}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Form onSubmit={handleSubmit}>
-					<h4>Thông Tin Chung</h4>
+					<h4>{t("editCompanyInfo.generalInformation")}</h4>
 					<Row className="mb-3">
 						<Col md={6}>
 							<Form.Group controlId="formCompanyName">
-								<Form.Label>Tên Công Ty</Form.Label>
+								<Form.Label>{t("editCompanyInfo.companyName")}</Form.Label>
 								<Form.Control
 									type="text"
 									value={companyName}
@@ -181,7 +183,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</Col>
 						<Col md={3}>
 							<Form.Group controlId="formDateFounder">
-								<Form.Label>Ngày Thành Lập</Form.Label>
+								<Form.Label>{t("editCompanyInfo.foundingDate")}</Form.Label>
 								<Form.Control
 									type="text"
 									value={dateFounder}
@@ -194,7 +196,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</Col>
 						<Col md={3}>
 							<Form.Group controlId="formPhoneNumber">
-								<Form.Label>Số Điện Thoại Chính</Form.Label>
+								<Form.Label>{t("editCompanyInfo.mainPhoneNumber")}</Form.Label>
 								<Form.Control
 									type="text"
 									value={mainPhoneNumber}
@@ -210,7 +212,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					<Row className="mb-3">
 						<Col md={6}>
 							<Form.Group controlId="formAddress">
-								<Form.Label>Địa Chỉ Chính</Form.Label>
+								<Form.Label>{t("editCompanyInfo.mainAddress")}</Form.Label>
 								<Form.Control
 									type="text"
 									value={mainAddress}
@@ -223,7 +225,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</Col>
 						<Col md={6}>
 							<Form.Group controlId="formWebsite">
-								<Form.Label>Trang Web Công Ty</Form.Label>
+								<Form.Label>{t("editCompanyInfo.companyWebsite")}</Form.Label>
 								<Form.Control
 									type="text"
 									value={companyWebsite}
@@ -237,7 +239,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					</Row>
 
 					<Form.Group className="mb-3" controlId="formSector">
-						<Form.Label>Ngành</Form.Label>
+						<Form.Label>{t("editCompanyInfo.sector")}</Form.Label>
 						<Form.Control
 							type="text"
 							value={companySector}
@@ -247,7 +249,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					</Form.Group>
 
 					<Form.Group className="mb-3" controlId="formDescription">
-						<Form.Label>Mô Tả Công Ty</Form.Label>
+						<Form.Label>{t("editCompanyInfo.companyDescription")}</Form.Label>
 						<Form.Control
 							as="textarea"
 							rows={3}
@@ -263,7 +265,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						className="mb-3"
 						controlId="formContactInformation"
 					>
-						<Form.Label>Thông Tin Liên Hệ</Form.Label>
+						<Form.Label>{t("editCompanyInfo.contactInformation")}</Form.Label>
 						<ReactQuill
 							value={contactInformation}
 							onChange={setContactInformation}
@@ -271,14 +273,14 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						/>
 					</Form.Group>
 
-					<h4>Thông Tin Địa Điểm</h4>
+					<h4>{t("editCompanyInfo.siteInformation")}</h4>
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>Tên Địa Điểm</th>
-								<th>Số Nhân Viên</th>
-								<th>Ghi Chú</th>
-								<th>Hành Động</th>
+								<th>{t("editCompanyInfo.siteName")}</th>
+								<th>{t("editCompanyInfo.numberEmployees")}</th>
+								<th>{t("editCompanyInfo.comment")}</th>
+								<th>{t("editCompanyInfo.action")}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -332,7 +334,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 												handleRemoveSite(index)
 											}
 										>
-											Xóa
+											{t("editCompanyInfo.delete")}
 										</Button>
 									</td>
 								</tr>
@@ -340,17 +342,17 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</tbody>
 					</Table>
 					<Button variant="primary" onClick={handleAddSite}>
-						Thêm Địa Điểm
+						{t("editCompanyInfo.addSite")}
 					</Button>
 
-					<h4 className="mt-4">Thông Tin Sản Phẩm</h4>
+					<h4 className="mt-4">{t("editCompanyInfo.productInformation")}</h4>
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>Tên Sản Phẩm</th>
-								<th>Doanh Thu</th>
-								<th>Ghi Chú</th>
-								<th>Hành Động</th>
+								<th>{t("editCompanyInfo.productName")}</th>
+								<th>{t("editCompanyInfo.revenue")}</th>
+								<th>{t("editCompanyInfo.comment")}</th>
+								<th>{t("editCompanyInfo.action")}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -404,7 +406,7 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 												handleRemoveProduct(index)
 											}
 										>
-											Xóa
+											{t("editCompanyInfo.delete")}
 										</Button>
 									</td>
 								</tr>
@@ -412,15 +414,15 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</tbody>
 					</Table>
 					<Button variant="primary" onClick={handleAddProduct}>
-						Thêm Sản Phẩm
+						{t("editCompanyInfo.addProduct")}
 					</Button>
 
 					<Modal.Footer>
 						<Button variant="secondary" onClick={handleClose}>
-							Đóng
+							{t("editCompanyInfo.close")}
 						</Button>
 						<Button variant="primary" type="submit">
-							Lưu Thay Đổi
+							{t("editCompanyInfo.saveChanges")}
 						</Button>
 					</Modal.Footer>
 				</Form>

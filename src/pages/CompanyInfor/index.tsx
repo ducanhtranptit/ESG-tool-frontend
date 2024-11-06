@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import CompanyInforAPI from "../../api/companyinfor";
 import {
 	Spinner,
@@ -50,6 +51,7 @@ const CompanyPage: React.FC = () => {
 	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [showEditModal, setShowEditModal] = useState<boolean>(false);
+	const { t } = useTranslation();
 
 	const fetchCompany = async () => {
 		try {
@@ -57,10 +59,10 @@ const CompanyPage: React.FC = () => {
 			if (response.status === 200) {
 				setCompanyDetails(response.data);
 			} else {
-				console.error("Không thể lấy thông tin công ty");
+				console.error(t("companyInfor.errorFetchCompany"));
 			}
 		} catch (error) {
-			console.error("Lỗi khi lấy thông tin công ty:", error);
+			console.error(t("companyInfor.errorFetchCompanyDetail"), error);
 		} finally {
 			setLoading(false);
 		}
@@ -77,7 +79,7 @@ const CompanyPage: React.FC = () => {
 				style={{ height: "80vh" }}
 			>
 				<Spinner animation="border" role="status">
-					<span className="visually-hidden">Loading...</span>
+					<span className="visually-hidden">{t("companyInfor.loading")}</span>
 				</Spinner>
 			</div>
 		);
@@ -92,11 +94,10 @@ const CompanyPage: React.FC = () => {
 		setShowEditModal(false);
 	};
 
-	// Nếu không có dữ liệu, tạo đối tượng mặc định với kiểu dữ liệu chính xác
 	const overallInfor: OverallInfor = companyDetails?.overallInfor || {
 		id: 0,
 		companyName: "",
-		dateFounder: 0, // Đặt thành số 0 thay vì chuỗi
+		dateFounder: 0,
 		mainAddress: "",
 		mainPhoneNumber: "",
 		companyWebsite: "",
@@ -112,11 +113,11 @@ const CompanyPage: React.FC = () => {
 		<Container fluid="md" className="py-4">
 			<Row className="align-items-center mb-4">
 				<Col>
-					<h2 className="text-primary">Thông Tin Công Ty</h2>
+					<h2 className="text-primary">{t("companyInfor.companyInformation")}</h2>
 				</Col>
 				<Col className="text-end">
 					<Button variant="primary" onClick={handleOpenEditModal}>
-						Chỉnh Sửa Thông Tin Công Ty
+						{t("companyInfor.editCompanyInformation")}
 					</Button>
 				</Col>
 			</Row>
@@ -129,21 +130,21 @@ const CompanyPage: React.FC = () => {
 					<Row>
 						<Col md={6}>
 							<p>
-								<strong>Ngày Thành Lập:</strong>{" "}
+								<strong>{t("companyInfor.foundingDate")}:</strong>{" "}
 								{overallInfor.dateFounder !== 0
 									? overallInfor.dateFounder
 									: ""}
 							</p>
 							<p>
-								<strong>Địa Chỉ Chính:</strong>{" "}
+								<strong>{t("companyInfor.mainAddress")}:</strong>{" "}
 								{overallInfor.mainAddress}
 							</p>
 							<p>
-								<strong>Số Điện Thoại Chính:</strong>{" "}
+								<strong>{t("companyInfor.mainPhoneNumber")}:</strong>{" "}
 								{overallInfor.mainPhoneNumber}
 							</p>
 							<p>
-								<strong>Trang Web Công Ty:</strong>{" "}
+								<strong>{t("companyInfor.companyWebsite")}:</strong>{" "}
 								<a
 									href={overallInfor.companyWebsite}
 									target="_blank"
@@ -155,15 +156,15 @@ const CompanyPage: React.FC = () => {
 						</Col>
 						<Col md={6}>
 							<p>
-								<strong>Ngành:</strong>{" "}
+								<strong>{t("companyInfor.companySector")}:</strong>{" "}
 								{overallInfor.companySector}
 							</p>
 							<p>
-								<strong>Mô Tả:</strong>{" "}
+								<strong>{t("companyInfor.companyDescription")}:</strong>{" "}
 								{overallInfor.companyDescription}
 							</p>
 							<p>
-								<strong>Thông Tin Liên Hệ:</strong>
+								<strong>{t("companyInfor.contactInformation")}:</strong>
 							</p>
 							<div
 								dangerouslySetInnerHTML={{
@@ -177,16 +178,16 @@ const CompanyPage: React.FC = () => {
 
 			<Card className="mb-4 shadow-sm">
 				<Card.Header>
-					<h4>Thông Tin Địa Điểm</h4>
+					<h4>{t("companyInfor.siteInformation")}</h4>
 				</Card.Header>
 				<Card.Body>
 					{siteInfors.length > 0 ? (
 						<Table responsive striped bordered hover>
 							<thead>
 								<tr>
-									<th>Tên Địa Điểm</th>
-									<th>Số Nhân Viên</th>
-									<th>Ghi Chú</th>
+									<th>{t("companyInfor.siteName")}</th>
+									<th>{t("companyInfor.numberEmployees")}</th>
+									<th>{t("companyInfor.comment")}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -200,23 +201,23 @@ const CompanyPage: React.FC = () => {
 							</tbody>
 						</Table>
 					) : (
-						<p>Không có thông tin địa điểm.</p>
+						<p>{t("companyInfor.noSiteInfo")}</p>
 					)}
 				</Card.Body>
 			</Card>
 
 			<Card className="mb-4 shadow-sm">
 				<Card.Header>
-					<h4>Thông Tin Sản Phẩm</h4>
+					<h4>{t("companyInfor.productInformation")}</h4>
 				</Card.Header>
 				<Card.Body>
 					{productInfors.length > 0 ? (
 						<Table responsive striped bordered hover>
 							<thead>
 								<tr>
-									<th>Tên Sản Phẩm</th>
-									<th>Doanh Thu</th>
-									<th>Ghi Chú</th>
+									<th>{t("companyInfor.productName")}</th>
+									<th>{t("companyInfor.revenue")}</th>
+									<th>{t("companyInfor.comment")}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -230,7 +231,7 @@ const CompanyPage: React.FC = () => {
 							</tbody>
 						</Table>
 					) : (
-						<p>Không có thông tin sản phẩm.</p>
+						<p>{t("companyInfor.noProductInfo")}</p>
 					)}
 				</Card.Body>
 			</Card>

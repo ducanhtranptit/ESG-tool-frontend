@@ -3,20 +3,21 @@ import ReactApexChart from "react-apexcharts";
 import { Spinner } from "react-bootstrap";
 import DashboardAPI from "../../api/dashboard";
 import { ApexOptions } from "apexcharts";
+import { useTranslation } from "react-i18next";
 import "./styles.css";
 
 const Dashboard: React.FC = () => {
+	const { t } = useTranslation();
 	const [data, setData] = useState<any>(null);
 	const [selectedYear, setSelectedYear] = useState<number | null>(null);
 	const [years, setYears] = useState<number[]>([]);
-	const [loading, setLoading] = useState(true); // State loading
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true); // Bắt đầu trạng thái loading
+			setLoading(true);
 			try {
 				const response = await DashboardAPI.getAllData();
-				console.log(response.data);
 				setData(response.data);
 				const availableYears = response.data.company.data.map(
 					(entry: any) => entry.year
@@ -26,25 +27,25 @@ const Dashboard: React.FC = () => {
 					setSelectedYear(availableYears[availableYears.length - 1]);
 				}
 			} catch (error) {
-				console.error("Error fetching data:", error);
-				setData("Failed to fetch data.");
+				console.error(t("dashboard.fetchError"), error);
+				setData(t("dashboard.fetchFail"));
 			} finally {
-				setLoading(false); // Dừng trạng thái loading
+				setLoading(false);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [t]);
 
 	const currentData = data?.company?.data?.find(
 		(entry: any) => entry.year === selectedYear
 	);
 
 	const getColor = (score: number) => {
-		if (score < 25) return "#D32F2F"; // Màu đỏ
-		else if (score < 50) return "#FF8C00"; // Màu cam đậm
-		else if (score < 75) return "#FFD700"; // Màu vàng nhạt
-		else return "#5EE27A"; // Màu xanh lá cây
+		if (score < 25) return "#D32F2F";
+		else if (score < 50) return "#FF8C00";
+		else if (score < 75) return "#FFD700";
+		else return "#5EE27A";
 	};
 
 	const generateOptions = (label: string, score: number): ApexOptions => ({
@@ -61,20 +62,8 @@ const Dashboard: React.FC = () => {
 					background: "#e7e7e7",
 					strokeWidth: "97%",
 					margin: 5,
-					dropShadow: {
-						enabled: false,
-						top: 2,
-						left: 0,
-						color: "#999",
-						opacity: 1,
-						blur: 2,
-					},
 				},
-				hollow: {
-					margin: 0,
-					size: "60%",
-					background: "transparent",
-				},
+				hollow: { margin: 0, size: "60%", background: "transparent" },
 				dataLabels: {
 					name: {
 						show: true,
@@ -94,9 +83,7 @@ const Dashboard: React.FC = () => {
 				},
 			},
 		},
-		fill: {
-			colors: [getColor(score)],
-		},
+		fill: { colors: [getColor(score)] },
 		stroke: { lineCap: "round" },
 		labels: [label],
 	});
@@ -104,9 +91,9 @@ const Dashboard: React.FC = () => {
 	const pieOptions: ApexOptions = {
 		chart: { type: "pie" },
 		labels: [
-			"Trọng số Environmental",
-			"Trọng số Social",
-			"Trọng số Governance",
+			t("dashboard.environmentWeight"),
+			t("dashboard.socialWeight"),
+			t("dashboard.governanceWeight"),
 		],
 		responsive: [
 			{
@@ -126,20 +113,13 @@ const Dashboard: React.FC = () => {
 	];
 
 	const lineOptions: ApexOptions = {
-		chart: {
-			type: "line",
-			height: 450,
-			zoom: { enabled: true },
-		},
+		chart: { type: "line", height: 450, zoom: { enabled: true } },
 		dataLabels: { enabled: false },
-		stroke: {
-			curve: "straight",
-			width: 2,
-		},
-		title: { text: "Điểm E-S-G qua các năm", align: "left" },
+		stroke: { curve: "straight", width: 2 },
+		title: { text: t("dashboard.esgScoreOverYears"), align: "left" },
 		xaxis: { categories: years },
 		yaxis: {
-			title: { text: "Score" },
+			title: { text: t("dashboard.score") },
 			labels: { formatter: (val) => val.toFixed(2).toString() },
 		},
 		legend: { position: "top" },
@@ -147,20 +127,20 @@ const Dashboard: React.FC = () => {
 
 	const lineSeries = [
 		{
-			name: "Environmental",
+			name: t("dashboard.environmental"),
 			data:
 				data?.company?.data.map(
 					(entry: any) => entry.environmental * 100
 				) || [],
 		},
 		{
-			name: "Social",
+			name: t("dashboard.social"),
 			data:
 				data?.company?.data.map((entry: any) => entry.social * 100) ||
 				[],
 		},
 		{
-			name: "Governance",
+			name: t("dashboard.governance"),
 			data:
 				data?.company?.data.map(
 					(entry: any) => entry.governance * 100
@@ -176,7 +156,7 @@ const Dashboard: React.FC = () => {
 					style={{ height: "80vh" }}
 				>
 					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
+						<span className="visually-hidden">{t("dashboard.loading")}</span>
 					</Spinner>
 				</div>
 			) : (
@@ -184,22 +164,24 @@ const Dashboard: React.FC = () => {
 					<div className="top-section">
 						<div className="left-panel">
 							<div className="title-container">
-								<h2 className="overview-title">TỔNG QUAN</h2>
+								<h2 className="overview-title">
+									{t("dashboard.overview")}
+								</h2>
 								<p className="company-name">
 									<span className="company-name-bold">
-										{data && data.company
+										{data?.company
 											? data.company.name
-											: "Loading..."}
+											: t("dashboard.loading")}
 									</span>
 									<span className="report-text">
 										{" "}
-										Báo cáo ESG hàng năm
+										{t("dashboard.annualEsgReport")}
 									</span>
 								</p>
 							</div>
 
 							<div className="select-group">
-								<label htmlFor="year">Chọn năm</label>
+								<label htmlFor="year">{t("dashboard.selectYear")}</label>
 								<select
 									id="year"
 									value={selectedYear ?? ""}
@@ -228,13 +210,13 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									Thứ hạng: {currentData?.esgRank}
+									{t("dashboard.rank")}: {currentData?.esgRank}
 								</p>
 							</div>
 							<div className="chart-item">
 								<ReactApexChart
 									options={generateOptions(
-										"Environment",
+										t("dashboard.environmental"),
 										currentData?.environmental * 100 || 0
 									)}
 									series={[
@@ -244,13 +226,13 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									Thứ hạng: {currentData?.environmentRank}
+									{t("dashboard.rank")}: {currentData?.environmentRank}
 								</p>
 							</div>
 							<div className="chart-item">
 								<ReactApexChart
 									options={generateOptions(
-										"Social",
+										t("dashboard.social"),
 										currentData?.social * 100 || 0
 									)}
 									series={[currentData?.social * 100 || 0]}
@@ -258,13 +240,13 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									Thứ hạng: {currentData?.socialRank}
+									{t("dashboard.rank")}: {currentData?.socialRank}
 								</p>
 							</div>
 							<div className="chart-item">
 								<ReactApexChart
 									options={generateOptions(
-										"Governance",
+										t("dashboard.governance"),
 										currentData?.governance * 100 || 0
 									)}
 									series={[
@@ -274,7 +256,7 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									Thứ hạng: {currentData?.governanceRank}
+									{t("dashboard.rank")}: {currentData?.governanceRank}
 								</p>
 							</div>
 						</div>

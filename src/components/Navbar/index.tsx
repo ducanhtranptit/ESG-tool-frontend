@@ -5,9 +5,11 @@ import { removeCookie } from "../../utils/cookie";
 import AuthAPI from "../../api/auth";
 import "./styles.css";
 import { ACCESSTOKEN_KEY, REFRESHTOKEN_KEY } from "../../config";
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
 	const navigate = useNavigate();
+	const { i18n } = useTranslation();
 
 	const handleLogout = async () => {
 		try {
@@ -20,9 +22,19 @@ const Navbar: React.FC = () => {
 		}
 	};
 
+	const toggleLanguage = () => {
+		const newLanguage = i18n.language === "en" ? "vi" : "en";
+		i18n.changeLanguage(newLanguage);
+	};
+
 	return (
 		<div className="navbar">
 			<div className="navbar-content">
+				<button onClick={toggleLanguage} className="language-button">
+					<span>
+						{i18n.language === "en" ? "Tiếng Việt" : "English"}
+					</span>
+				</button>
 				<button onClick={handleLogout} className="logout-button">
 					<IoIosLogOut size={40} />
 				</button>

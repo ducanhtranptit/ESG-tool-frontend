@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
+import {
+	FaChartBar,
+	FaBuilding,
+	FaBook,
+	FaChevronDown,
+} from "react-icons/fa";
 import { GrScorecard } from "react-icons/gr";
+import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
 const SideBar: React.FC = () => {
 	const location = useLocation();
 	const [showESGMenu, setShowESGMenu] = useState(false);
+	const { t } = useTranslation();
 
 	const toggleESGMenu = () => {
 		setShowESGMenu(!showESGMenu);
@@ -17,7 +24,7 @@ const SideBar: React.FC = () => {
 		<div className="side-bar">
 			<h1>ESG Tool</h1>
 			<div className="menu-section">
-				<h3>Chính</h3>
+				<h5>{t("sidebar.main")}</h5>
 				<ul className="list-unstyled">
 					<li
 						className={`nav-item ${
@@ -26,7 +33,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/" className="nav-link">
 							<GrScorecard className="me-2" />
-							Điểm ESG
+							{t("sidebar.esgScore")}
 						</Link>
 					</li>
 
@@ -38,7 +45,7 @@ const SideBar: React.FC = () => {
 						>
 							<div>
 								<FaChartBar className="me-2" />
-								Đồ thị
+								{t("sidebar.charts")}
 							</div>
 							<FaChevronDown
 								className={`transition-transform ${
@@ -59,7 +66,7 @@ const SideBar: React.FC = () => {
 										to="/environment"
 										className="dropdown-item"
 									>
-										Môi trường
+										{t("sidebar.environment")}
 									</Link>
 								</li>
 								<li
@@ -73,7 +80,7 @@ const SideBar: React.FC = () => {
 										to="/social"
 										className="dropdown-item"
 									>
-										Xã hội
+										{t("sidebar.social")}
 									</Link>
 								</li>
 								<li
@@ -87,7 +94,7 @@ const SideBar: React.FC = () => {
 										to="/governance"
 										className="dropdown-item"
 									>
-										Ban quản trị
+										{t("sidebar.governance")}
 									</Link>
 								</li>
 							</ul>
@@ -103,13 +110,13 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/metric-management" className="nav-link">
 							<GrScorecard className="me-2" />
-							Quản lý thông số
+							{t("sidebar.metricManagement")}
 						</Link>
 					</li>
 				</ul>
 			</div>
 			<div className="menu-section">
-				<h3>Khác</h3>
+				<h5>{t("sidebar.other")}</h5>
 				<ul className="">
 					<li
 						className={`nav-item ${
@@ -118,7 +125,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/companyinfo" className="nav-link">
 							<FaBuilding className="me-2" />
-							Thông tin công ty
+							{t("sidebar.companyInfo")}
 						</Link>
 					</li>
 					<li
@@ -128,7 +135,7 @@ const SideBar: React.FC = () => {
 					>
 						<Link to="/guideline" className="nav-link">
 							<FaBook className="me-2" />
-							Hướng dẫn
+							{t("sidebar.guideline")}
 						</Link>
 					</li>
 				</ul>

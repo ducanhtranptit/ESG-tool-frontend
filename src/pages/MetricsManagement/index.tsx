@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Spinner } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
-import sections from "../../constant/section.constant.js";
+import sectionConstant from "../../constant/section.constant.js";
 import QuestionAPI from "../../api/question";
+import { useTranslation } from "react-i18next";
 
 const MetricsManagementPage: React.FC = () => {
+	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(false);
 	const [currentSection, setCurrentSection] = useState<{
 		key: string;
@@ -42,7 +44,7 @@ const MetricsManagementPage: React.FC = () => {
 			);
 			setSubmitCounts(counts);
 		} catch (error) {
-			console.error("Error fetching submit counts:", error);
+			console.error(t("metricManagement.fetchError"), error);
 		} finally {
 			setLoading(false);
 		}
@@ -72,18 +74,22 @@ const MetricsManagementPage: React.FC = () => {
 	};
 
 	const pillarNames: Record<number, string> = {
-		1: "Môi trường",
-		2: "Xã hội",
-		3: "Ban Quản trị",
+		1: t("metricManagement.environment"),
+		2: t("metricManagement.social"),
+		3: t("metricManagement.governance"),
 	};
 
-	const sectionsByPillar = Object.entries(sections).reduce(
+	const sectionsByPillar = Object.entries(sectionConstant).reduce(
 		(acc, [key, sectionData]) => {
 			if (typeof sectionData === "object" && sectionData.pillar) {
 				if (!acc[sectionData.pillar]) {
 					acc[sectionData.pillar] = [];
 				}
-				acc[sectionData.pillar].push({ key, ...sectionData });
+				acc[sectionData.pillar].push({ 
+					key, 
+					name: t(sectionData.name), // dịch tên
+					pillar: sectionData.pillar 
+				});
 			}
 			return acc;
 		},
@@ -98,7 +104,7 @@ const MetricsManagementPage: React.FC = () => {
 					style={{ height: "80vh" }}
 				>
 					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
+						<span className="visually-hidden">{t("metricManagement.loading")}</span>
 					</Spinner>
 				</div>
 			) : (
@@ -106,7 +112,7 @@ const MetricsManagementPage: React.FC = () => {
 					<div key={pillar} className="mb-4">
 						<h3>
 							{pillarNames[parseInt(pillar)] ||
-								`Pillar ${pillar}`}
+								`${t("metricManagement.pillar")} ${pillar}`}
 						</h3>
 						<div
 							className="d-grid gap-3"
@@ -121,7 +127,7 @@ const MetricsManagementPage: React.FC = () => {
 								const lastUpdatedText =
 									submitInfo.submitCount > 0 &&
 									submitInfo.updatedAt
-										? `Sửa đổi lần cuối: ${new Date(
+										? `${t("metricManagement.lastModified")}: ${new Date(
 												submitInfo.updatedAt
 										  ).toLocaleDateString()}`
 										: "";
