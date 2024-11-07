@@ -35,7 +35,7 @@
 
 .side-bar ul li {
 	margin-bottom: 15px; /* Giảm khoảng cách giữa các mục */
-	width: 14.7vw;
+	width: 14.1vw;
 	background-color: #ffffff;
 	border-radius: 5px;
 	transition: background-color 0.3s ease, color 0.3s ease;
@@ -67,7 +67,7 @@
 	color: #000000;
 	padding: 8px 10px;
 	border-radius: 4px;
-	font-size: 1.2vw; /* Sử dụng vw để co giãn kích thước chữ theo màn hình */
+	font-size: 1.1vw; /* Sử dụng vw để co giãn kích thước chữ theo màn hình */
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
