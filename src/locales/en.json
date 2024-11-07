@@ -156,5 +156,16 @@
 		"pillarScore": "\\text{Environment pillar score} = \\sum{(\\text{Score of the index in the environment pillar} \\times \\text{Corresponding new weight})}",
 		"esgScore1": "\\text{ESG Score} = \\sum{(\\text{Index Score} \\times \\text{Corresponding weight})}",
 		"esgScore2": "\\text{ESG Score} = \\sum{(\\text{Pillar Score} \\times \\text{Corresponding pillar weight})}"
+	},
+
+	"questionForm": {
+		"enterYear": "Enter year:",
+		"enterYearPlaceHolder": "Enter year",
+		"answerGuide": "Answer Guide:",
+		"enterYourAnswerPlaceHolder": "Enter your answer",
+		"yesAnswer": "Yes",
+		"noAnswer": "No",
+		"submit": "Submit",
+		"noQuestionsAsked": "No questions asked."
 	}
 }

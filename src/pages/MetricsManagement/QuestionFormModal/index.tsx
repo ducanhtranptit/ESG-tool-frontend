@@ -180,13 +180,15 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 								htmlFor="year"
 								className="form-label fw-bold h5 text-dark"
 							>
-								Nhập năm:
+								{t("questionForm.enterYear")}
 							</label>
 							<input
 								type="number"
 								id="year"
 								className="form-control"
-								placeholder="Nhập năm"
+								placeholder={t(
+									"questionForm.enterYearPlaceHolder"
+								)}
 								value={year ?? ""}
 								onChange={handleYearChange}
 							/>
@@ -209,7 +211,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 											{question.answerGuide && (
 												<p>
 													<strong>
-														Hướng dẫn trả lời:
+														{t("questionForm.answerGuide")}
 													</strong>{" "}
 													{question.answerGuide}
 												</p>
@@ -243,7 +245,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															className="form-check-label"
 															htmlFor={`${question.questionCode}-yes`}
 														>
-															Có
+															{t(
+																"questionForm.yesAnswer"
+															)}
 														</label>
 													</div>
 													<div className="form-check">
@@ -271,7 +275,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															className="form-check-label"
 															htmlFor={`${question.questionCode}-no`}
 														>
-															Không
+															{t(
+																"questionForm.noAnswer"
+															)}
 														</label>
 													</div>
 												</>
@@ -346,7 +352,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 													type="number"
 													id={question.questionCode}
 													className="form-control"
-													placeholder="Nhập câu trả lời của bạn"
+													placeholder={t(
+														"questionForm.enterYourAnswerPlaceHolder"
+													)}
 													step="any"
 													value={
 														getAnswerForQuestion(
@@ -368,9 +376,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 								))}
 							</div>
 						) : (
-							<p>Không có câu hỏi nào.</p>
+							<p>{t("questionForm.noQuestionsAsked")}</p>
 						)}
-						<Button onClick={handleSubmit}>Gửi</Button>
+						<Button onClick={handleSubmit}>
+							{t("questionForm.submit")}
+						</Button>
 					</form>
 				)}
 			</Modal.Body>
