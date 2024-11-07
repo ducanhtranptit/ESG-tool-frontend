@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import QuestionAPI from "../../../api/question";
 import debounce from "lodash/debounce";
@@ -32,6 +33,8 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	handleClose,
 	section,
 }) => {
+	const { t, i18n } = useTranslation();
+	const lang = i18n.language;
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [answers, setAnswers] = useState<
 		{ questionCode: string; answer: string | number | null }[]
@@ -44,7 +47,10 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 			if (show && section) {
 				try {
 					setLoading(true);
-					const response = await QuestionAPI.getAllData(section.key);
+					const response = await QuestionAPI.getAllData(
+						section.key,
+						lang
+					);
 					setQuestions(response.data || []);
 					const initialAnswers = (response.data || []).map(
 						(question: Question) => ({
@@ -81,7 +87,8 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 				setLoading(true);
 				const response = await QuestionAPI.getAnswersOfYear(
 					enteredYear,
-					section.key
+					section.key,
+					lang
 				);
 				if (response.data) {
 					const updatedAnswers = response.data.map(
@@ -129,7 +136,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		};
 
 		try {
-			await QuestionAPI.addAnswerOfCompany(submissionData);
+			await QuestionAPI.addAnswerOfCompany(submissionData, lang);
 			handleClose();
 			clearState();
 		} catch (error) {
