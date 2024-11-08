@@ -1,3 +1,14 @@
+
+.logo-img {
+	width: 100%;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid black;
+	margin: 15px 0 20px;
+}
+
 .side-bar {
 	width: 16.666666666666666%; /* Giữ nguyên chiều rộng của sidebar */
 	height: 100vh;

@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-	FaChartBar,
-	FaBuilding,
-	FaBook,
-	FaChevronDown,
-} from "react-icons/fa";
+import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
 import { GrScorecard } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../../public/logo.png";
 import "./styles.css";
 
 const SideBar: React.FC = () => {
@@ -22,7 +18,10 @@ const SideBar: React.FC = () => {
 
 	return (
 		<div className="side-bar">
-			<h1>ESG Tool</h1>
+			<div className="logo-container">
+				<img src={logo} alt="ESG Tool Logo" className="logo-img" />
+			</div>
+			<hr className="divider" /> 
 			<div className="menu-section">
 				<h5>{t("sidebar.main")}</h5>
 				<ul className="list-unstyled">
