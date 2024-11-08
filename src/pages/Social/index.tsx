@@ -223,7 +223,7 @@ const SocialPage: React.FC = () => {
 					className="d-flex justify-content-center align-items-center spinner-grow text-success"
 					style={{ height: "80vh" }}
 				>
-					<Spinner animation="border" role="status" className="spinner-grow text-success">
+					<Spinner animation="border" role="status">
 						<span className="visually-hidden">Loading...</span>
 					</Spinner>
 				</div>
