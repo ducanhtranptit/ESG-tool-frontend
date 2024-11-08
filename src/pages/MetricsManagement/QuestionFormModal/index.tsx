@@ -192,7 +192,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 			<Modal.Body>
 				{loading ? (
 					<div
-						className="d-flex justify-content-center align-items-center"
+						className="d-flex justify-content-center align-items-center spinner-grow text-success"
 						style={{ height: "200px" }}
 					>
 						<Spinner animation="border" variant="primary" />

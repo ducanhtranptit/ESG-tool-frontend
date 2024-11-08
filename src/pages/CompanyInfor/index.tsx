@@ -75,7 +75,7 @@ const CompanyPage: React.FC = () => {
 	if (loading) {
 		return (
 			<div
-				className="d-flex justify-content-center align-items-center"
+				className="d-flex justify-content-center align-items-center spinner-grow text-success"
 				style={{ height: "80vh" }}
 			>
 				<Spinner animation="border" role="status">
