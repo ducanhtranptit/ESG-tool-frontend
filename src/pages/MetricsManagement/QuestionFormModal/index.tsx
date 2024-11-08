@@ -22,6 +22,12 @@ interface Question {
 	answerGuide?: string;
 }
 
+interface Answer {
+	questionCode: string;
+	answer: string | number | null;
+	questionType: number;
+}
+
 interface QuestionFormModalProps {
 	show: boolean;
 	handleClose: () => void;
@@ -36,9 +42,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	const { t, i18n } = useTranslation();
 	const lang = i18n.language;
 	const [questions, setQuestions] = useState<Question[]>([]);
-	const [answers, setAnswers] = useState<
-		{ questionCode: string; answer: string | number | null }[]
-	>([]);
+	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [year, setYear] = useState<number | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -52,10 +56,12 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						lang
 					);
 					setQuestions(response.data || []);
+					console.log("response.data: ", response.data);
 					const initialAnswers = (response.data || []).map(
 						(question: Question) => ({
 							questionCode: question.questionCode,
 							answer: null,
+							questionType: question.type,
 						})
 					);
 					setAnswers(initialAnswers);
@@ -72,11 +78,20 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 	const handleInputChange = (
 		questionCode: string,
-		answer: string | number
+		answer: string | number,
+		questionType: number
 	) => {
 		setAnswers((prevAnswers) =>
 			prevAnswers.map((a) =>
-				a.questionCode === questionCode ? { ...a, answer } : a
+				a.questionCode === questionCode
+					? {
+							...a,
+							answer:
+								questionType === 3
+									? Number(answer)
+									: answer.toString(),
+					  }
+					: a
 			)
 		);
 	};
@@ -91,17 +106,20 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					lang
 				);
 				if (response.data) {
+					console.log("response:", response.data);
+
 					const updatedAnswers = response.data.map(
 						(answerData: {
 							questionCode: string;
-							answer: string | number | null;
+							questionType: number;
+							answer: number | null;
 						}) => ({
 							questionCode: answerData.questionCode,
-							answer: answerData.answer,
+							answer: answerData.answer?.toString(),
+							questionType: answerData.questionType,
 						})
 					);
 					setAnswers(updatedAnswers);
-				} else {
 				}
 				setLoading(false);
 			} catch (error) {
@@ -132,7 +150,10 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		const submissionData = {
 			section: section?.key,
 			year: year,
-			answers: answers,
+			answers: answers.map((a) => ({
+				questionCode: a.questionCode,
+				answer: a.questionType === 3 ? Number(a.answer) : a.answer ? a.answer.toString() : null,
+			})),
 		};
 
 		try {
@@ -174,7 +195,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						<Spinner animation="border" variant="primary" />
 					</div>
 				) : (
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className="mb-4">
 							<label
 								htmlFor="year"
@@ -211,7 +232,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 											{question.answerGuide && (
 												<p>
 													<strong>
-														{t("questionForm.answerGuide")}
+														{t(
+															"questionForm.answerGuide"
+														)}
 													</strong>{" "}
 													{question.answerGuide}
 												</p>
@@ -227,23 +250,24 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															name={
 																question.questionCode
 															}
-															value="Yes"
-															id={`${question.questionCode}-yes`}
+															value="1"
+															id={`${question.questionCode}-1`}
 															checked={
 																getAnswerForQuestion(
 																	question.questionCode
-																) === "Yes"
+																) === "1"
 															}
 															onChange={() =>
 																handleInputChange(
 																	question.questionCode,
-																	"Yes"
+																	"1",
+																	question.type
 																)
 															}
 														/>
 														<label
 															className="form-check-label"
-															htmlFor={`${question.questionCode}-yes`}
+															htmlFor={`${question.questionCode}-1`}
 														>
 															{t(
 																"questionForm.yesAnswer"
@@ -257,23 +281,24 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															name={
 																question.questionCode
 															}
-															value="No"
-															id={`${question.questionCode}-no`}
+															value="2"
+															id={`${question.questionCode}-2`}
 															checked={
 																getAnswerForQuestion(
 																	question.questionCode
-																) === "No"
+																) === "2"
 															}
 															onChange={() =>
 																handleInputChange(
 																	question.questionCode,
-																	"No"
+																	"2",
+																	question.type
 																)
 															}
 														/>
 														<label
 															className="form-check-label"
-															htmlFor={`${question.questionCode}-no`}
+															htmlFor={`${question.questionCode}-2`}
 														>
 															{t(
 																"questionForm.noAnswer"
@@ -318,26 +343,44 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 																		name={
 																			question.questionCode
 																		}
-																		value={
-																			answer
-																		}
-																		id={`${question.questionCode}-${answerIndex}`}
+																		value={(
+																			answerIndex +
+																			1
+																		).toString()}
+																		id={`${
+																			question.questionCode
+																		}-${
+																			answerIndex +
+																			1
+																		}`}
 																		checked={
 																			getAnswerForQuestion(
 																				question.questionCode
 																			) ===
-																			answer
+																			(
+																				answerIndex +
+																				1
+																			).toString()
 																		}
 																		onChange={() =>
 																			handleInputChange(
 																				question.questionCode,
-																				answer
+																				(
+																					answerIndex +
+																					1
+																				).toString(),
+																				question.type
 																			)
 																		}
 																	/>
 																	<label
 																		className="form-check-label"
-																		htmlFor={`${question.questionCode}-${answerIndex}`}
+																		htmlFor={`${
+																			question.questionCode
+																		}-${
+																			answerIndex +
+																			1
+																		}`}
 																	>
 																		{answer}
 																	</label>
@@ -366,7 +409,8 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 															question.questionCode,
 															Number(
 																e.target.value
-															)
+															),
+															question.type
 														)
 													}
 												/>
@@ -378,7 +422,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						) : (
 							<p>{t("questionForm.noQuestionsAsked")}</p>
 						)}
-						<Button onClick={handleSubmit}>
+						<Button type="submit">
 							{t("questionForm.submit")}
 						</Button>
 					</form>
