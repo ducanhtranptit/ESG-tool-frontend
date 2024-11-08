@@ -40,7 +40,7 @@ const GuideLinePage: React.FC = () => {
 				{language === "vi" ? (
 					<div>
 						<h1 style={{ textAlign: "center" }}>
-							<b>GUIDELINE: PHƯƠNG PHÁP TÍNH ĐIỂM ESG</b>
+							<b>HƯỚNG DẪN: PHƯƠNG PHÁP TÍNH ĐIỂM ESG</b>
 						</h1>
 						<ol type="I">
 							<li>
