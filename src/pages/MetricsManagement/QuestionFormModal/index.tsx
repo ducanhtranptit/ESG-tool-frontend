@@ -43,7 +43,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	const lang = i18n.language;
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [answers, setAnswers] = useState<Answer[]>([]);
-	const [year, setYear] = useState<number | null>(null);
+	const [year, setYear] = useState<any | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -78,7 +78,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 	const handleInputChange = (
 		questionCode: string,
-		answer: string | number,
+		answer: string,
 		questionType: number
 	) => {
 		setAnswers((prevAnswers) =>
@@ -87,9 +87,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					? {
 							...a,
 							answer:
-								questionType === 3
-									? Number(answer)
-									: answer.toString(),
+								questionType === 3 ? answer : answer.toString(),
 					  }
 					: a
 			)
@@ -135,7 +133,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	);
 
 	const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const enteredYear = Number(e.target.value);
+		const enteredYear = e.target.value;
 		setYear(enteredYear);
 		debouncedFetchAnswers(enteredYear);
 	};
@@ -149,10 +147,15 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 		const submissionData = {
 			section: section?.key,
-			year: year,
+			year: parseInt(year),
 			answers: answers.map((a) => ({
 				questionCode: a.questionCode,
-				answer: a.questionType === 3 ? Number(a.answer) : a.answer ? a.answer.toString() : null,
+				answer:
+					a.questionType === 3
+						? Number(a.answer)
+						: a.answer
+						? a.answer.toString()
+						: null,
 			})),
 		};
 
@@ -240,7 +243,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 												</p>
 											)}
 
-											{/* Loại câu trả lời */}
+											{/* Answer Type */}
 											{question.type === 1 && (
 												<>
 													<div className="form-check">
@@ -264,6 +267,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 																	question.type
 																)
 															}
+															disabled={!year}
 														/>
 														<label
 															className="form-check-label"
@@ -295,6 +299,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 																	question.type
 																)
 															}
+															disabled={!year}
 														/>
 														<label
 															className="form-check-label"
@@ -372,6 +377,9 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 																				question.type
 																			)
 																		}
+																		disabled={
+																			!year
+																		}
 																	/>
 																	<label
 																		className="form-check-label"
@@ -402,17 +410,16 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 													value={
 														getAnswerForQuestion(
 															question.questionCode
-														) as string
+														) || ""
 													}
 													onChange={(e) =>
 														handleInputChange(
 															question.questionCode,
-															Number(
-																e.target.value
-															),
+															e.target.value,
 															question.type
 														)
 													}
+													disabled={!year}
 												/>
 											)}
 										</div>
@@ -422,7 +429,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						) : (
 							<p>{t("questionForm.noQuestionsAsked")}</p>
 						)}
-						<Button type="submit">
+						<Button type="submit" disabled={!year}>
 							{t("questionForm.submit")}
 						</Button>
 					</form>
