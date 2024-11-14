@@ -105,7 +105,7 @@ const Login: React.FC = () => {
 
 						<div className="button-group">
 							<button type="submit" className="btn btn-success">
-								Đăng nhập
+								Login
 							</button>
 						</div>
 					</Form>
