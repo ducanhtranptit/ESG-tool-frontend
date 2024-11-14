@@ -81,6 +81,28 @@
 		"score": "Điểm số"
 	},
 
+	"chart": {
+		"environment": {
+			"emissionChart": "",
+			"waterChart": "Mức tiêu thụ nước và tỷ lệ tái sử dụng nước hàng năm",
+			"wasteChart": "Khối lượng rác thải",
+			"electricityChart": "Mức tiêu thụ điện và tỷ lệ điện tái tạo",
+			"inkPapersChart": "Khối lượng giấy và mực in tiêu thụ"
+		},
+		"social": {
+			"sexRatioChart": "Tỷ lệ giới tính theo các cấp",
+			"trainingChart": "Đào tạo nhân viên",
+			"salaryChangeChart": "Mức chênh lệch lương giữa các cấp",
+			"riskChart": "Tỷ lệ rủi ro trong doanh nghiệp",
+			"expenditureChart": "Mức chi tiêu cho hoạt động xã hội và bảo mật thông tin"
+		},
+		"governance": {
+			"sexRatioChart": "Tỷ lệ giới tính trong hội đồng quản trị",
+			"supplierRatioChart": "Tỷ lệ nhà cung ứng qua các năm",
+			"violateChart": "Tỷ lệ vi phạm trong doanh nghiệp"
+		}
+	},
+
 	"metricManagement": {
 		"fetchError": "Lỗi khi lấy dữ liệu:",
 		"loading": "Đang tải...",
@@ -161,7 +183,7 @@
 	"questionForm": {
 		"enterYear": "Nhập năm:",
 		"enterYearPlaceHolder": "Nhập năm",
-		"answerGuide":"Hướng dẫn trả lời:",
+		"answerGuide": "Hướng dẫn trả lời:",
 		"enterYourAnswerPlaceHolder": "Nhập câu trả lời của bạn",
 		"yesAnswer": "Có",
 		"noAnswer": "Không",

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import EnvironmentAPI from "../../api/environment";
@@ -25,6 +26,8 @@ const EnvironmentPage: React.FC = () => {
 	const [inkPapersChartData, setInkPapersChartData] = useState<ChartData[]>(
 		[]
 	);
+	const { t, i18n } = useTranslation();
+	const lang = i18n.language;
 	const [loading, setLoading] = useState(true); // Trạng thái loading
 
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
@@ -45,13 +48,13 @@ const EnvironmentPage: React.FC = () => {
 			setLoading(true); // Bắt đầu trạng thái loading
 			try {
 				const waterDataResponse =
-					await EnvironmentAPI.getDataForWaterChart();
+					await EnvironmentAPI.getDataForWaterChart(lang);
 				const wasteDataResponse =
-					await EnvironmentAPI.getDataForWasteChart();
+					await EnvironmentAPI.getDataForWasteChart(lang);
 				const electricityDataResponse =
-					await EnvironmentAPI.getDataForElectricityChart();
+					await EnvironmentAPI.getDataForElectricityChart(lang);
 				const inkPapersDataResponse =
-					await EnvironmentAPI.getDataForInkPapersChart();
+					await EnvironmentAPI.getDataForInkPapersChart(lang);
 
 				setWaterChartData(waterDataResponse.data);
 				setWasteChartData(wasteDataResponse.data);
@@ -60,12 +63,12 @@ const EnvironmentPage: React.FC = () => {
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			} finally {
-				setLoading(false); // Dừng trạng thái loading sau khi dữ liệu tải xong
+				setLoading(false);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [lang]);
 
 	const createChartOptions = (
 		title: string,
@@ -147,22 +150,22 @@ const EnvironmentPage: React.FC = () => {
 		const inkPapersSeries = createSeries(inkPapersChartData);
 
 		const waterChartOptions = createChartOptions(
-			"Mức tiêu thụ nước và tỷ lệ tái sử dụng nước hàng năm",
+			t("chart.environment.waterChart"), // lấy tiêu đề từ t() dựa trên JSON
 			waterCategories,
 			waterSeries
 		);
 		const wasteChartOptions = createChartOptions(
-			"Khối lượng rác thải",
+			t("chart.environment.wasteChart"),
 			wasteCategories,
 			wasteSeries
 		);
 		const electricityChartOptions = createChartOptions(
-			"Mức tiêu thụ điện và tỷ lệ điện tái tạo",
+			t("chart.environment.electricityChart"),
 			electricityCategories,
 			electricitySeries
 		);
 		const inkPapersChartOptions = createChartOptions(
-			"Khối lượng giấy và mực in tiêu thụ",
+			t("chart.environment.inkPapersChart"),
 			inkPapersCategories,
 			inkPapersSeries
 		);

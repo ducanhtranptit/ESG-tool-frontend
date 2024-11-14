@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import SocialAPI from "../../api/social";
@@ -26,7 +27,9 @@ const SocialPage: React.FC = () => {
 	const [expenditureChartData, setExpenditureChartData] = useState<
 		ChartData[]
 	>([]);
-	const [loading, setLoading] = useState(true); // Trạng thái loading
+	const { t, i18n } = useTranslation();
+	const lang = i18n.language;
+	const [loading, setLoading] = useState(true);
 
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
@@ -43,17 +46,19 @@ const SocialPage: React.FC = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true); // Bắt đầu trạng thái loading
+			setLoading(true);
 			try {
 				const sexRatioDataResponse =
-					await SocialAPI.getDataForSexRatioChart();
+					await SocialAPI.getDataForSexRatioChart(lang);
 				const trainingDataResponse =
-					await SocialAPI.getDataForTrainingChart();
+					await SocialAPI.getDataForTrainingChart(lang);
 				const salaryChangeDataResponse =
-					await SocialAPI.getDataForSalaryChangeChart();
-				const riskDataResponse = await SocialAPI.getDataForRiskChart();
+					await SocialAPI.getDataForSalaryChangeChart(lang);
+				const riskDataResponse = await SocialAPI.getDataForRiskChart(
+					lang
+				);
 				const expenditureDataResponse =
-					await SocialAPI.getDataForExpenditureChart();
+					await SocialAPI.getDataForExpenditureChart(lang);
 
 				setSexRatioChartData(sexRatioDataResponse.data);
 				setTrainingChartData(trainingDataResponse.data);
@@ -63,12 +68,12 @@ const SocialPage: React.FC = () => {
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			} finally {
-				setLoading(false); // Dừng trạng thái loading sau khi dữ liệu tải xong
+				setLoading(false);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [lang]);
 
 	const createChartOptions = (
 		title: string,
@@ -153,27 +158,27 @@ const SocialPage: React.FC = () => {
 		const expenditureSeries = createSeries(expenditureChartData);
 
 		const sexRatioChartOptions = createChartOptions(
-			"Tỷ lệ giới tính theo các cấp",
+			t("chart.social.sexRatioChart"),
 			sexRatioCategories,
 			sexRatioSeries
 		);
 		const trainingChartOptions = createChartOptions(
-			"Đào tạo nhân viên",
+			t("chart.social.trainingChart"),
 			trainingCategories,
 			trainingSeries
 		);
 		const salaryChangeChartOptions = createChartOptions(
-			"Mức chênh lệch lương giữa các cấp",
+			t("chart.social.salaryChangeChart"),
 			salaryChangeCategories,
 			salaryChangeSeries
 		);
 		const riskChartOptions = createChartOptions(
-			"Tỷ lệ rủi ro trong doanh nghiệp",
+			t("chart.social.riskChart"),
 			riskCategories,
 			riskSeries
 		);
 		const expenditureChartOptions = createChartOptions(
-			"Mức chi tiêu cho các hoạt động",
+			t("chart.social.expenditureChart"),
 			expenditureCategories,
 			expenditureSeries
 		);

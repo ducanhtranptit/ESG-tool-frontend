@@ -81,6 +81,28 @@
 		"score": "Score"
 	},
 
+	"chart": {
+		"environment": {
+			"emissionChart": "",
+			"waterChart": "Annual water consumption and reuse rate",
+			"wasteChart": "Waste volume",
+			"electricityChart": "Electricity consumption and renewable electricity rate",
+			"inkPapersChart": "Paper and ink consumption volume"
+		},
+		"social": {
+			"sexRatioChart": "Gender ratio by levels",
+			"trainingChart": "Employee training",
+			"salaryChangeChart": "Salary disparity across levels",
+			"riskChart": "Enterprise risk rate",
+			"expenditureChart": "Expenditure for Social Activities and Information Security"
+		},
+		"governance": {
+			"sexRatioChart": "Gender ratio in BOD",
+			"supplierRatioChart": "Supplier ratio over the years",
+			"violateChart": "Violation rate within the enterprise"
+		}
+	},
+
 	"metricManagement": {
 		"fetchError": "Error fetching data:",
 		"loading": "Loading...",

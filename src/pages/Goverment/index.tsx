@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import GovernanceAPI from "../../api/governance"; // API thực tế để lấy dữ liệu
@@ -22,6 +23,8 @@ const GovernancePage: React.FC = () => {
 		ChartData[]
 	>([]);
 	const [violateChartData, setViolateChartData] = useState<ChartData[]>([]);
+	const { t, i18n } = useTranslation();
+	const lang = i18n.language;
 	const [loading, setLoading] = useState(true); // Trạng thái loading
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
@@ -41,11 +44,11 @@ const GovernancePage: React.FC = () => {
 			setLoading(true);
 			try {
 				const sexRatioDataResponse =
-					await GovernanceAPI.getDataForSexRatioChart();
+					await GovernanceAPI.getDataForSexRatioChart(lang);
 				const supplierRatioDataResponse =
-					await GovernanceAPI.getDataForSupplierRatioChart();
+					await GovernanceAPI.getDataForSupplierRatioChart(lang);
 				const violateDataResponse =
-					await GovernanceAPI.getDataForViolateChart();
+					await GovernanceAPI.getDataForViolateChart(lang);
 
 				setSexRatioChartData(sexRatioDataResponse.data);
 				setSupplierRatioChartData(supplierRatioDataResponse.data);
@@ -58,7 +61,7 @@ const GovernancePage: React.FC = () => {
 		};
 
 		fetchData();
-	}, []);
+	}, [lang]);
 
 	const createChartOptions = (
 		title: string,
@@ -135,7 +138,7 @@ const GovernancePage: React.FC = () => {
 					stackType: "100%" as "100%",
 				},
 				title: {
-					text: "Tỷ lệ vi phạm trong doanh nghiệp",
+					text: t("chart.governance.violateChart"), // Tiêu đề động cho biểu đồ vi phạm
 					align: "left" as "left",
 					style: {
 						fontSize: "20px",
@@ -188,12 +191,12 @@ const GovernancePage: React.FC = () => {
 		}));
 
 		const sexRatioChartOptions = createChartOptions(
-			"Tỷ lệ giới tính",
+			t("chart.governance.sexRatioChart"), // Tiêu đề động cho biểu đồ tỷ lệ giới tính
 			sexRatioCategories,
 			sexRatioSeries
 		);
 		const supplierRatioChartOptions = createChartOptions(
-			"Tỷ lệ nhà cung ứng qua các năm",
+			t("chart.governance.supplierRatioChart"), // Tiêu đề động cho biểu đồ tỷ lệ nhà cung ứng
 			supplierRatioCategories,
 			supplierRatioSeries
 		);

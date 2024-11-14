@@ -1,24 +1,24 @@
 import ApiSender from "./config";
 
 export default class SocialAPI {
-	public static async getDataForSexRatioChart(): Promise<any> {
-		const url = "/webapp/social/chart-sex-ratio";
+	public static async getDataForSexRatioChart(lang: any): Promise<any> {
+		const url = `/webapp/social/chart-sex-ratio?lang=${lang}`;
 		return await ApiSender.get(url);
 	}
-	public static async getDataForTrainingChart(): Promise<any> {
-		const url = "/webapp/social/chart-training";
+	public static async getDataForTrainingChart(lang: any): Promise<any> {
+		const url = `/webapp/social/chart-training?lang=${lang}`;
 		return await ApiSender.get(url);
 	}
-	public static async getDataForSalaryChangeChart(): Promise<any> {
-		const url = "/webapp/social/chart-salary-change";
+	public static async getDataForSalaryChangeChart(lang: any): Promise<any> {
+		const url = `/webapp/social/chart-salary-change?lang=${lang}`;
 		return await ApiSender.get(url);
 	}
-	public static async getDataForRiskChart(): Promise<any> {
-		const url = "/webapp/social/chart-risk";
+	public static async getDataForRiskChart(lang: any): Promise<any> {
+		const url = `/webapp/social/chart-risk?lang=${lang}`;
 		return await ApiSender.get(url);
 	}
-	public static async getDataForExpenditureChart(): Promise<any> {
-		const url = "/webapp/social/chart-expenditure";
+	public static async getDataForExpenditureChart(lang: any): Promise<any> {
+		const url = `/webapp/social/chart-expenditure?lang=${lang}`;
 		return await ApiSender.get(url);
 	}
 }
