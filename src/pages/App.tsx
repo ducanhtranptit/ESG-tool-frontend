@@ -13,6 +13,7 @@ import Login from "./Auth/login";
 import PrivateRoute from "../routers/PrivateRouter";
 import DefaultLayout from "../layouts/DefaultLayout";
 import AuthLayout from "../layouts/AuthLayout";
+import NotFoundPage from "../components/Error/404";
 
 const App: React.FC = () => {
 	return (
@@ -40,6 +41,7 @@ const App: React.FC = () => {
 				<Route path="/login" element={<AuthLayout />}>
 					<Route index element={<Login />} />
 				</Route>
+				<Route path="*" element={<NotFoundPage />} />
 			</Routes>
 		</Router>
 	);
