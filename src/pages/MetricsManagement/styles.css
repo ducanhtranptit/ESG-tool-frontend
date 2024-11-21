@@ -1,4 +1,5 @@
 .container {
+    width: 100%;
 	border-radius: 8px;
 	background-color: #f9f9f9;
 	padding: 20px;
@@ -13,12 +14,12 @@ button[type="submit"] {
 }
 
 .btn {
-    color: #212529; /* Màu chữ mặc định để dễ nhìn */
-    background-color: #f8f9fa; /* Màu nền sáng */
-    border-color: #007bff; /* Viền xanh */
+    color: #212529;
+    background-color: #f8f9fa; 
+    border-color: #007bff; 
 }
 
 .btn:hover {
-    color: #fff; /* Màu chữ khi hover */
-    background-color: #007bff; /* Màu nền khi hover */
+    color: #fff; 
+    background-color: #007bff; 
 }

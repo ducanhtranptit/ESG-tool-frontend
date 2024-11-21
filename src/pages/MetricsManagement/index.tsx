@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button, Container, Spinner } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
 import sectionConstant from "../../constant/section.constant.js";
@@ -18,7 +18,7 @@ const MetricsManagementPage: React.FC = () => {
 	>({});
 	const [loading, setLoading] = useState(true);
 
-	const fetchSubmitCounts = async () => {
+	const fetchSubmitCounts = useCallback(async () => {
 		setLoading(true);
 		try {
 			const response = await QuestionAPI.getAllSectionSubmitCount();
@@ -48,11 +48,11 @@ const MetricsManagementPage: React.FC = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [t]);
 
 	useEffect(() => {
 		fetchSubmitCounts();
-	}, []);
+	}, [fetchSubmitCounts]);
 
 	const handleShowModal = (
 		sectionKey: string,
@@ -85,10 +85,10 @@ const MetricsManagementPage: React.FC = () => {
 				if (!acc[sectionData.pillar]) {
 					acc[sectionData.pillar] = [];
 				}
-				acc[sectionData.pillar].push({ 
-					key, 
-					name: t(sectionData.name), // dịch tên
-					pillar: sectionData.pillar 
+				acc[sectionData.pillar].push({
+					key,
+					name: t(sectionData.name),
+					pillar: sectionData.pillar,
 				});
 			}
 			return acc;
@@ -104,7 +104,9 @@ const MetricsManagementPage: React.FC = () => {
 					style={{ height: "80vh" }}
 				>
 					<Spinner animation="border" role="status">
-						<span className="visually-hidden">{t("metricManagement.loading")}</span>
+						<span className="visually-hidden">
+							{t("metricManagement.loading")}
+						</span>
 					</Spinner>
 				</div>
 			) : (
@@ -127,7 +129,9 @@ const MetricsManagementPage: React.FC = () => {
 								const lastUpdatedText =
 									submitInfo.submitCount > 0 &&
 									submitInfo.updatedAt
-										? `${t("metricManagement.lastModified")}: ${new Date(
+										? `${t(
+												"metricManagement.lastModified"
+										  )}: ${new Date(
 												submitInfo.updatedAt
 										  ).toLocaleDateString()}`
 										: "";

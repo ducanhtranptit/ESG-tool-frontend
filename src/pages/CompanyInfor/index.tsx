@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import CompanyInforAPI from "../../api/companyinfor";
 import {
@@ -53,7 +53,7 @@ const CompanyPage: React.FC = () => {
 	const [showEditModal, setShowEditModal] = useState<boolean>(false);
 	const { t } = useTranslation();
 
-	const fetchCompany = async () => {
+	const fetchCompany = useCallback(async () => {
 		try {
 			const response = await CompanyInforAPI.getAllCompanyInfor();
 			if (response.status === 200) {
@@ -66,11 +66,11 @@ const CompanyPage: React.FC = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [t]);
 
 	useEffect(() => {
 		fetchCompany();
-	}, []);
+	}, [fetchCompany]);
 
 	if (loading) {
 		return (
@@ -79,7 +79,9 @@ const CompanyPage: React.FC = () => {
 				style={{ height: "80vh" }}
 			>
 				<Spinner animation="border" role="status">
-					<span className="visually-hidden">{t("companyInfor.loading")}</span>
+					<span className="visually-hidden">
+						{t("companyInfor.loading")}
+					</span>
 				</Spinner>
 			</div>
 		);
@@ -113,7 +115,9 @@ const CompanyPage: React.FC = () => {
 		<Container fluid="md" className="py-4">
 			<Row className="align-items-center mb-4">
 				<Col>
-					<h2 className="text-primary">{t("companyInfor.companyInformation")}</h2>
+					<h2 className="text-primary">
+						{t("companyInfor.companyInformation")}
+					</h2>
 				</Col>
 				<Col className="text-end">
 					<Button variant="primary" onClick={handleOpenEditModal}>
@@ -130,21 +134,29 @@ const CompanyPage: React.FC = () => {
 					<Row>
 						<Col md={6}>
 							<p>
-								<strong>{t("companyInfor.foundingDate")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.foundingDate")}:
+								</strong>{" "}
 								{overallInfor.dateFounder !== 0
 									? overallInfor.dateFounder
 									: ""}
 							</p>
 							<p>
-								<strong>{t("companyInfor.mainAddress")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.mainAddress")}:
+								</strong>{" "}
 								{overallInfor.mainAddress}
 							</p>
 							<p>
-								<strong>{t("companyInfor.mainPhoneNumber")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.mainPhoneNumber")}:
+								</strong>{" "}
 								{overallInfor.mainPhoneNumber}
 							</p>
 							<p>
-								<strong>{t("companyInfor.companyWebsite")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.companyWebsite")}:
+								</strong>{" "}
 								<a
 									href={overallInfor.companyWebsite}
 									target="_blank"
@@ -156,15 +168,21 @@ const CompanyPage: React.FC = () => {
 						</Col>
 						<Col md={6}>
 							<p>
-								<strong>{t("companyInfor.companySector")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.companySector")}:
+								</strong>{" "}
 								{overallInfor.companySector}
 							</p>
 							<p>
-								<strong>{t("companyInfor.companyDescription")}:</strong>{" "}
+								<strong>
+									{t("companyInfor.companyDescription")}:
+								</strong>{" "}
 								{overallInfor.companyDescription}
 							</p>
 							<p>
-								<strong>{t("companyInfor.contactInformation")}:</strong>
+								<strong>
+									{t("companyInfor.contactInformation")}:
+								</strong>
 							</p>
 							<div
 								dangerouslySetInnerHTML={{

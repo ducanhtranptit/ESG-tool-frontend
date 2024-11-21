@@ -10,7 +10,7 @@
 }
 
 .side-bar {
-	width: 16.666666666666666%; /* Giữ nguyên chiều rộng của sidebar */
+	width: 16.666666666666666%;
 	height: 100vh;
 	background-color: #ffffff;
 	padding: 20px;
@@ -24,7 +24,7 @@
 }
 
 .side-bar h1 {
-	font-size: 2.5vw; /* Sử dụng vw để kích thước chữ co giãn theo kích thước màn hình */
+	font-size: 2.5vw; 
 	color: #000000;
 	margin-bottom: 30px;
 	text-align: left;
@@ -45,7 +45,7 @@
 }
 
 .side-bar ul li {
-	margin-bottom: 15px; /* Giảm khoảng cách giữa các mục */
+	margin-bottom: 15px;
 	width: 14.1vw;
 	background-color: #ffffff;
 	border-radius: 5px;
@@ -78,7 +78,7 @@
 	color: #000000;
 	padding: 8px 10px;
 	border-radius: 4px;
-	font-size: 1.1vw; /* Sử dụng vw để co giãn kích thước chữ theo màn hình */
+	font-size: 1.1vw; 
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -89,7 +89,7 @@
 
 .submenu .dropdown-item {
 	padding-left: 20px;
-	font-size: 1vw; /* Kích thước chữ linh hoạt */
+	font-size: 1vw; 
 	color: #495057;
 	margin-bottom: 8px;
 	transition: color 0.3s ease;

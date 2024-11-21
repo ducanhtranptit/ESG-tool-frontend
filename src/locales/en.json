@@ -78,7 +78,8 @@
 		"socialWeight": "Social Weight",
 		"governanceWeight": "Governance Weight",
 		"esgScoreOverYears": "ESG Score Over the Years",
-		"score": "Score"
+		"score": "Score",
+		"downloadReport": "Download"
 	},
 
 	"chart": {

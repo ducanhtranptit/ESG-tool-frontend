@@ -29,6 +29,19 @@
 	padding: 20px;
 }
 
+.btn.btn-outline-dark {
+	background-color: transparent;
+	color: black;
+	border: 1px solid black;
+  }
+  
+  .btn.btn-outline-dark:hover {
+	background-color: transparent;
+	color: black;
+	border-color: red;
+  }
+  
+
 .logout-button {
 	background: none;
 	border: none;
@@ -41,7 +54,7 @@
 }
 
 .logout-button:hover {
-	color: #dc3545; /* Màu đỏ khi hover */
+	color: #dc3545;
 }
 
 hr {

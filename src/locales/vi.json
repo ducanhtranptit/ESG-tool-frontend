@@ -78,7 +78,8 @@
 		"socialWeight": "Trọng số Xã hội",
 		"governanceWeight": "Trọng số Ban quản trị",
 		"esgScoreOverYears": "Điểm E-S-G qua các năm",
-		"score": "Điểm số"
+		"score": "Điểm số",
+		"downloadReport": "Tải xuống"
 	},
 
 	"chart": {

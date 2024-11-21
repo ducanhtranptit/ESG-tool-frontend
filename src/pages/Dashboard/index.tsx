@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 import DashboardAPI from "../../api/dashboard";
+import ReportAPI from "../../api/report";
 import { ApexOptions } from "apexcharts";
 import { useTranslation } from "react-i18next";
+import PizZip from "pizzip";
+import Docxtemplater from "docxtemplater";
+import { saveAs } from "file-saver";
 import "./styles.css";
+
+interface ReportData {
+	[key: string]: string | number | undefined;
+}
 
 const Dashboard: React.FC = () => {
 	const { t } = useTranslation();
@@ -69,7 +78,7 @@ const Dashboard: React.FC = () => {
 						show: true,
 						fontSize: "16px",
 						fontWeight: 600,
-						offsetY: 20,
+						offsetY: 30,
 						color: "#000",
 					},
 					value: {
@@ -89,7 +98,11 @@ const Dashboard: React.FC = () => {
 	});
 
 	const pieOptions: ApexOptions = {
-		chart: { type: "pie" },
+		chart: {
+			type: "pie",
+			width: 450, 
+			height: 450,
+		},
 		labels: [
 			t("dashboard.environmentWeight"),
 			t("dashboard.socialWeight"),
@@ -113,7 +126,11 @@ const Dashboard: React.FC = () => {
 	];
 
 	const lineOptions: ApexOptions = {
-		chart: { type: "line", height: 450, zoom: { enabled: true } },
+		chart: {
+			height: 550,
+			type: "line" as "line",
+			stacked: false,
+		},
 		dataLabels: { enabled: false },
 		stroke: { curve: "straight", width: 2 },
 		title: { text: t("dashboard.esgScoreOverYears"), align: "left" },
@@ -122,7 +139,10 @@ const Dashboard: React.FC = () => {
 			title: { text: t("dashboard.score") },
 			labels: { formatter: (val) => val.toFixed(2).toString() },
 		},
-		legend: { position: "top" },
+		legend: {
+			horizontalAlign: "center" as "center",
+			offsetX: 40,
+		},
 	};
 
 	const lineSeries = [
@@ -148,6 +168,39 @@ const Dashboard: React.FC = () => {
 		},
 	];
 
+	const handleExportReport = async (year: number | null): Promise<void> => {
+		try {
+		  const response = await fetch("/annual-esg-report-template.docx");
+		  const arrayBuffer = await response.arrayBuffer();
+		  const zip = new PizZip(arrayBuffer);
+		  const doc = new Docxtemplater(zip, {
+			paragraphLoop: true,
+			linebreaks: true,
+		  });
+		  const apiResponse = await ReportAPI.getAllData(year);
+		  const data: ReportData = apiResponse.data;
+		  const dynamicData: ReportData = {};
+		  Object.keys(data).forEach((key) => {
+			const value = data[key];
+	  
+			if (typeof value === "number") {
+			  dynamicData[key] = parseFloat(value.toFixed(3));
+			} else if (typeof value === "string") {
+			  dynamicData[key] = value;
+			} else {
+			  dynamicData[key] = "";
+			}
+		  });
+		  doc.setData(dynamicData);
+		  doc.render();
+		  const output = doc.getZip().generate({ type: "blob" });
+		  saveAs(output, `Outline ESG Report ${year}.docx`);
+		} catch (error) {
+		  console.error(error);
+		}
+	  };
+	  
+
 	return (
 		<div className="dashboard-container">
 			{loading ? (
@@ -156,7 +209,9 @@ const Dashboard: React.FC = () => {
 					style={{ height: "80vh" }}
 				>
 					<Spinner animation="border" role="status">
-						<span className="visually-hidden">{t("dashboard.loading")}</span>
+						<span className="visually-hidden">
+							{t("dashboard.loading")}
+						</span>
 					</Spinner>
 				</div>
 			) : (
@@ -181,20 +236,36 @@ const Dashboard: React.FC = () => {
 							</div>
 
 							<div className="select-group">
-								<label htmlFor="year">{t("dashboard.selectYear")}</label>
-								<select
-									id="year"
-									value={selectedYear ?? ""}
-									onChange={(e) =>
-										setSelectedYear(Number(e.target.value))
-									}
-								>
-									{years.map((year) => (
-										<option key={year} value={year}>
-											{year}
-										</option>
-									))}
-								</select>
+								<label htmlFor="year">
+									{t("dashboard.selectYear")}
+								</label>
+								<div className="select-download-container">
+									<select
+										id="year"
+										value={selectedYear ?? ""}
+										onChange={(e) =>
+											setSelectedYear(
+												Number(e.target.value)
+											)
+										}
+									>
+										{years.map((year) => (
+											<option key={year} value={year}>
+												{year}
+											</option>
+										))}
+									</select>
+									<button
+										onClick={() =>
+											handleExportReport(selectedYear)
+										}
+										disabled={!selectedYear}
+										className="download-button btn"
+									>
+										{t("dashboard.downloadReport")}
+										<IoCloudDownloadOutline size={16} />
+									</button>
+								</div>
 							</div>
 						</div>
 
@@ -210,7 +281,8 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									{t("dashboard.rank")}: {currentData?.esgRank}
+									{t("dashboard.rank")}:{" "}
+									{currentData?.esgRank}
 								</p>
 							</div>
 							<div className="chart-item">
@@ -226,7 +298,8 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									{t("dashboard.rank")}: {currentData?.environmentRank}
+									{t("dashboard.rank")}:{" "}
+									{currentData?.environmentRank}
 								</p>
 							</div>
 							<div className="chart-item">
@@ -240,7 +313,8 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									{t("dashboard.rank")}: {currentData?.socialRank}
+									{t("dashboard.rank")}:{" "}
+									{currentData?.socialRank}
 								</p>
 							</div>
 							<div className="chart-item">
@@ -256,7 +330,8 @@ const Dashboard: React.FC = () => {
 									height={150}
 								/>
 								<p className="rank-label">
-									{t("dashboard.rank")}: {currentData?.governanceRank}
+									{t("dashboard.rank")}:{" "}
+									{currentData?.governanceRank}
 								</p>
 							</div>
 						</div>
