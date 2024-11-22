@@ -172,13 +172,13 @@ const Dashboard: React.FC = () => {
 	const handleExportReport = async (year: number | null): Promise<void> => {
 		setDownloadLoading(true);
 		try {
-			const apiKey = process.env.REACT_APP_REPORT_TEMPLATE_APIKEY; 
+			const apiKey = process.env.REACT_APP_REPORT_TEMPLATE_APIKEY;
 			if (!apiKey) {
 				throw new Error("API not found");
 			}
 			const filename = "annual-esg-report-template.docx";
 			const response = await fetch(
-				`http://localhost:8057/api/v1/core/webapp/report/download-report-template?filename=${filename}`, 
+				`https://api-esg-tool.tradeanalytics.vn/api/v1/core/webapp/report/download-report-template?filename=${filename}`,
 				{
 					headers: {
 						"x-api-key": apiKey,
