@@ -1,4 +1,8 @@
 {
+	"navbar": {
+		"logout": "Đăng xuất"
+	},
+
 	"companyInfor": {
 		"companyInformation": "Thông Tin Công Ty",
 		"editCompanyInformation": "Chỉnh Sửa Thông Tin Công Ty",

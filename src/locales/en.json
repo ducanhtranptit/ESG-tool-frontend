@@ -1,4 +1,8 @@
 {
+	"navbar": {
+		"logout": "Logout"
+	},
+	
 	"companyInfor": {
 		"companyInformation": "Company Information",
 		"editCompanyInformation": "Edit Company Information",

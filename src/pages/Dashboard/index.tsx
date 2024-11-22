@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
 	const [selectedYear, setSelectedYear] = useState<number | null>(null);
 	const [years, setYears] = useState<number[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [downloadLoading, setDownloadLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -100,7 +101,7 @@ const Dashboard: React.FC = () => {
 	const pieOptions: ApexOptions = {
 		chart: {
 			type: "pie",
-			width: 450, 
+			width: 450,
 			height: 450,
 		},
 		labels: [
@@ -169,37 +170,39 @@ const Dashboard: React.FC = () => {
 	];
 
 	const handleExportReport = async (year: number | null): Promise<void> => {
+		setDownloadLoading(true);
 		try {
-		  const response = await fetch("/annual-esg-report-template.docx");
-		  const arrayBuffer = await response.arrayBuffer();
-		  const zip = new PizZip(arrayBuffer);
-		  const doc = new Docxtemplater(zip, {
-			paragraphLoop: true,
-			linebreaks: true,
-		  });
-		  const apiResponse = await ReportAPI.getAllData(year);
-		  const data: ReportData = apiResponse.data;
-		  const dynamicData: ReportData = {};
-		  Object.keys(data).forEach((key) => {
-			const value = data[key];
-	  
-			if (typeof value === "number") {
-			  dynamicData[key] = parseFloat(value.toFixed(3));
-			} else if (typeof value === "string") {
-			  dynamicData[key] = value;
-			} else {
-			  dynamicData[key] = "";
-			}
-		  });
-		  doc.setData(dynamicData);
-		  doc.render();
-		  const output = doc.getZip().generate({ type: "blob" });
-		  saveAs(output, `Outline ESG Report ${year}.docx`);
+			const response = await fetch("/annual-esg-report-template.docx");
+			const arrayBuffer = await response.arrayBuffer();
+			const zip = new PizZip(arrayBuffer);
+			const doc = new Docxtemplater(zip, {
+				paragraphLoop: true,
+				linebreaks: true,
+			});
+			const apiResponse = await ReportAPI.getAllData(year);
+			const data: ReportData = apiResponse.data;
+			const dynamicData: ReportData = {};
+			Object.keys(data).forEach((key) => {
+				const value = data[key];
+
+				if (typeof value === "number") {
+					dynamicData[key] = parseFloat(value.toFixed(3));
+				} else if (typeof value === "string") {
+					dynamicData[key] = value;
+				} else {
+					dynamicData[key] = "";
+				}
+			});
+			doc.setData(dynamicData);
+			doc.render();
+			const output = doc.getZip().generate({ type: "blob" });
+			saveAs(output, `Outline ESG Report ${year}.docx`);
 		} catch (error) {
-		  console.error(error);
+			console.error(error);
+		} finally {
+			setDownloadLoading(false);
 		}
-	  };
-	  
+	};
 
 	return (
 		<div className="dashboard-container">
@@ -259,11 +262,28 @@ const Dashboard: React.FC = () => {
 										onClick={() =>
 											handleExportReport(selectedYear)
 										}
-										disabled={!selectedYear}
-										className="download-button btn"
+										disabled={
+											!selectedYear || downloadLoading
+										}
+										className={`download-button btn btn-light ${
+											downloadLoading ? "loading" : ""
+										}`}
 									>
-										{t("dashboard.downloadReport")}
-										<IoCloudDownloadOutline size={16} />
+										{downloadLoading ? (
+											<>
+												<Spinner
+													animation="border"
+													size="sm"
+												/>
+											</>
+										) : (
+											<>
+												{t("dashboard.downloadReport")}
+												<IoCloudDownloadOutline
+													size={16}
+												/>
+											</>
+										)}
 									</button>
 								</div>
 							</div>

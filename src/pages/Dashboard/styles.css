@@ -127,15 +127,15 @@
 .select-download-container {
     display: flex;
     align-items: center;
-    gap: 10px; /* Use gap instead of margin-right */
+    gap: 10px;
 }
 
 .select-download-container select,
 .download-button {
-    flex: 1; /* Allows elements to grow/shrink equally */
+    flex: 1;
     padding: 10px;
     font-size: 16px;
-    min-width: 100px; /* Optional: Set a minimum width */
+    min-width: 100px;
 }
 
 .download-button {

@@ -1,64 +1,61 @@
 .navbar {
 	display: flex;
 	justify-content: flex-end;
-	position: sticky;
-	color: black;
-	width: 101%;
+	align-items: center;
+	background-color: #f8f9fa;
 	height: 60px;
-	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-}
-
-.main-content {
-	padding: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0 30px;
 }
 
 .navbar-content {
-	width: 100%;
 	display: flex;
-	justify-content: flex-end;
 	align-items: center;
-	padding-right: 20px;
+	gap: 20px;
 }
 
-.sidebar-container {
-	height: 100vh;
-	background-color: #f8f9fa;
+.language-switcher {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	gap: 5px;
 }
 
-.outlet-container {
-	padding: 20px;
-}
-
-.btn.btn-outline-dark {
+.flag-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
 	background-color: transparent;
-	color: black;
-	border: 1px solid black;
-  }
-  
-  .btn.btn-outline-dark:hover {
-	background-color: transparent;
-	color: black;
-	border-color: red;
-  }
-  
+	transition: background-color 0.3s ease;
+	font-size: 24px; 
+}
+
+.flag-container.active {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.separator {
+	width: 1px;
+	height: 24px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
 
 .logout-button {
-	background: none;
-	border: none;
-	cursor: pointer;
-	color: #495057;
-	transition: color 0.3s ease;
 	display: flex;
 	align-items: center;
-	padding-right: 30px;
+	justify-content: center;
+	background: none;
+	border: none;
+	color: #495057;
+	cursor: pointer;
+	transition: color 0.3s ease;
+	gap: 5px;
+	width: 7vw;
 }
 
 .logout-button:hover {
 	color: #dc3545;
-}
-
-hr {
-	width: 100%;
-	margin-top: 0;
-	border: none;
 }

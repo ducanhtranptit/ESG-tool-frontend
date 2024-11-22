@@ -1,16 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { IoIosLogOut } from "react-icons/io";
 import { removeCookie } from "../../utils/cookie";
 import AuthAPI from "../../api/auth";
 import { ACCESSTOKEN_KEY, REFRESHTOKEN_KEY } from "../../config";
 import { useTranslation } from "react-i18next";
-import { FlagIcon } from "react-flag-kit"; // Sử dụng FlagIcon thay vì Flag
-import "./styles.css"
+import "./styles.css";
 
 const Navbar: React.FC = () => {
 	const navigate = useNavigate();
-	const { i18n } = useTranslation();
+	const { t, i18n } = useTranslation();
 
 	const handleLogout = async () => {
 		try {
@@ -28,24 +26,43 @@ const Navbar: React.FC = () => {
 		i18n.changeLanguage(newLanguage);
 	};
 
+	const changeToVietnamese = () => {
+		i18n.changeLanguage("vi");
+	}
+	const changeToEnglish = () => {
+		i18n.changeLanguage("en");
+	}
+
 	return (
 		<div className="navbar">
 			<div className="navbar-content">
-				<button
-					onClick={toggleLanguage}
-					className="btn btn-outline-dark"
-				>
-					{i18n.language === "en" ? (
-						<FlagIcon code="GB" size={24} />
-					) : (
-						<FlagIcon code="VN" size={24} />
-					)}
-				</button>
+				<div className="language-switcher">
+					<div
+						className={`flag-container ${
+							i18n.language === "vi" ? "active" : ""
+						}`}
+						onClick={changeToVietnamese}
+					>
+						<span role="img" aria-label="Vietnam Flag">
+							🇻🇳
+						</span>
+					</div>
+					<div className="separator" />
+					<div
+						className={`flag-container ${
+							i18n.language === "en" ? "active" : ""
+						}`}
+						onClick={changeToEnglish}
+					>
+						<span role="img" aria-label="UK Flag">
+							🇬🇧
+						</span>
+					</div>
+				</div>
 				<button onClick={handleLogout} className="logout-button">
-					<IoIosLogOut size={40} />
+					{t("navbar.logout")}
 				</button>
 			</div>
-			<hr />
 		</div>
 	);
 };
