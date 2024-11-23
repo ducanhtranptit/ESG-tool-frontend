@@ -4,6 +4,7 @@ import { removeCookie } from "../../utils/cookie";
 import AuthAPI from "../../api/auth";
 import { ACCESSTOKEN_KEY, REFRESHTOKEN_KEY } from "../../config";
 import { useTranslation } from "react-i18next";
+import { FlagIcon } from "react-flag-kit";
 import "./styles.css";
 
 const Navbar: React.FC = () => {
@@ -28,10 +29,10 @@ const Navbar: React.FC = () => {
 
 	const changeToVietnamese = () => {
 		i18n.changeLanguage("vi");
-	}
+	};
 	const changeToEnglish = () => {
 		i18n.changeLanguage("en");
-	}
+	};
 
 	return (
 		<div className="navbar">
@@ -44,7 +45,7 @@ const Navbar: React.FC = () => {
 						onClick={changeToVietnamese}
 					>
 						<span role="img" aria-label="Vietnam Flag">
-							🇻🇳
+							<FlagIcon code="VN" size={20} />
 						</span>
 					</div>
 					<div className="separator" />
@@ -55,7 +56,7 @@ const Navbar: React.FC = () => {
 						onClick={changeToEnglish}
 					>
 						<span role="img" aria-label="UK Flag">
-							🇬🇧
+							<FlagIcon code="GB" size={20} />
 						</span>
 					</div>
 				</div>

@@ -31,6 +31,7 @@
 	background-color: transparent;
 	transition: background-color 0.3s ease;
 	font-size: 24px; 
+	padding-bottom: 5px;
 }
 
 .flag-container.active {
