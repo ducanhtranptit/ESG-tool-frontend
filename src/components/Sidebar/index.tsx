@@ -56,13 +56,13 @@ const SideBar: React.FC = () => {
 							<ul className="submenu list-unstyled">
 								<li
 									className={
-										location.pathname === "/environment"
+										location.pathname === "/charts/charts/environment"
 											? "active"
 											: ""
 									}
 								>
 									<Link
-										to="/environment"
+										to="/charts/environment"
 										className="dropdown-item"
 									>
 										{t("sidebar.environment")}
@@ -70,13 +70,13 @@ const SideBar: React.FC = () => {
 								</li>
 								<li
 									className={
-										location.pathname === "/social"
+										location.pathname === "/charts/social"
 											? "active"
 											: ""
 									}
 								>
 									<Link
-										to="/social"
+										to="/charts/social"
 										className="dropdown-item"
 									>
 										{t("sidebar.social")}
@@ -84,13 +84,13 @@ const SideBar: React.FC = () => {
 								</li>
 								<li
 									className={
-										location.pathname === "/governance"
+										location.pathname === "/charts/governance"
 											? "active"
 											: ""
 									}
 								>
 									<Link
-										to="/governance"
+										to="/charts/governance"
 										className="dropdown-item"
 									>
 										{t("sidebar.governance")}
