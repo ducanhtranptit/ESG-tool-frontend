@@ -111,6 +111,7 @@
 	"metricManagement": {
 		"fetchError": "Error fetching data:",
 		"loading": "Loading...",
+		"generalInformation": "General Information",
 		"environment": "Environment",
 		"social": "Social",
 		"governance": "Governance",

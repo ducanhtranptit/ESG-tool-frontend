@@ -68,12 +68,14 @@ const MetricsManagementPage: React.FC = () => {
 	};
 
 	const pillarVariants: Record<number, string> = {
+		0: "primary",
 		1: "success",
 		2: "info",
 		3: "danger",
 	};
 
 	const pillarNames: Record<number, string> = {
+		0: t("metricManagement.generalInformation"),
 		1: t("metricManagement.environment"),
 		2: t("metricManagement.social"),
 		3: t("metricManagement.governance"),
@@ -81,7 +83,7 @@ const MetricsManagementPage: React.FC = () => {
 
 	const sectionsByPillar = Object.entries(sectionConstant).reduce(
 		(acc, [key, sectionData]) => {
-			if (typeof sectionData === "object" && sectionData.pillar) {
+			if (typeof sectionData === "object" && sectionData.pillar !== undefined) {
 				if (!acc[sectionData.pillar]) {
 					acc[sectionData.pillar] = [];
 				}

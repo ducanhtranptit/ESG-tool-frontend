@@ -111,6 +111,7 @@
 	"metricManagement": {
 		"fetchError": "Lỗi khi lấy dữ liệu:",
 		"loading": "Đang tải...",
+		"generalInformation": "Thông Tin Chung",
 		"environment": "Môi trường",
 		"social": "Xã hội",
 		"governance": "Ban Quản trị",

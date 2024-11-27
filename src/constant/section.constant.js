@@ -1,5 +1,5 @@
 const sectionConstant = {
-	GENERAL_INFORMATION: { name: "section.generalInformation", pillar: 1 },
+	GENERAL_INFORMATION: { name: "section.generalInformation", pillar: 0 },
 	PACKAGING: { name: "section.packaging", pillar: 1 },
 	WASTE: { name: "section.waste", pillar: 1 },
 	ELECTRICITY: { name: "section.electricity", pillar: 1 },
