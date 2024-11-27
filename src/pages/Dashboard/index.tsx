@@ -178,7 +178,7 @@ const Dashboard: React.FC = () => {
 			}
 			const filename = "annual-esg-report-template.docx";
 			const response = await fetch(
-				`https://api-esg-tool.tradeanalytics.vn/api/v1/core/webapp/report/download-report-template?filename=${filename}`,
+				`http://localhost:8057/api/v1/core/webapp/report/download-report-template?filename=${filename}`,
 				{
 					headers: {
 						"x-api-key": apiKey,
@@ -196,7 +196,6 @@ const Dashboard: React.FC = () => {
 			const dynamicData: ReportData = {};
 			Object.keys(data).forEach((key) => {
 				const value = data[key];
-
 				if (typeof value === "number") {
 					dynamicData[key] = parseFloat(value.toFixed(3));
 				} else if (typeof value === "string") {

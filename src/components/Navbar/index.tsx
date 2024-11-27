@@ -22,11 +22,6 @@ const Navbar: React.FC = () => {
 		}
 	};
 
-	const toggleLanguage = () => {
-		const newLanguage = i18n.language === "en" ? "vi" : "en";
-		i18n.changeLanguage(newLanguage);
-	};
-
 	const changeToVietnamese = () => {
 		i18n.changeLanguage("vi");
 	};

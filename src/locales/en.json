@@ -2,7 +2,7 @@
 	"navbar": {
 		"logout": "Logout"
 	},
-	
+
 	"companyInfor": {
 		"companyInformation": "Company Information",
 		"editCompanyInformation": "Edit Company Information",
@@ -152,7 +152,8 @@
 		"violationOfRegulations": "Violation of Regulations",
 		"violationInEnterprise": "Violation in Enterprise",
 		"boardOfDirectorsRatio": "Board of Directors Ratio",
-		"sourcesAndEmission": "Sources and Emissions"
+		"sourcesAndEmission": "Sources and Emissions",
+		"tax": "Tax"
 	},
 
 	"guideline": {
