@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
 import { GrScorecard } from "react-icons/gr";
+import { TbTargetArrow } from "react-icons/tb";
 import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../public/logo.png";
@@ -10,10 +11,14 @@ import "./styles.css";
 const SideBar: React.FC = () => {
 	const location = useLocation();
 	const [showESGMenu, setShowESGMenu] = useState(false);
+	const [showTargetMenu, setShowTargetMenu] = useState(false);
 	const { t } = useTranslation();
 
 	const toggleESGMenu = () => {
 		setShowESGMenu(!showESGMenu);
+	};
+	const toggleTargetMenu = () => {
+		setShowTargetMenu(!showTargetMenu);
 	};
 
 	return (
@@ -21,7 +26,7 @@ const SideBar: React.FC = () => {
 			<div className="logo-container">
 				<img src={logo} alt="ESG Tool Logo" className="logo-img" />
 			</div>
-			<hr className="divider" /> 
+			<hr className="divider" />
 			<div className="menu-section">
 				<h5>{t("sidebar.main")}</h5>
 				<ul className="list-unstyled">
@@ -56,7 +61,8 @@ const SideBar: React.FC = () => {
 							<ul className="submenu list-unstyled">
 								<li
 									className={
-										location.pathname === "/charts/charts/environment"
+										location.pathname ===
+										"/charts/charts/environment"
 											? "active"
 											: ""
 									}
@@ -84,7 +90,8 @@ const SideBar: React.FC = () => {
 								</li>
 								<li
 									className={
-										location.pathname === "/charts/governance"
+										location.pathname ===
+										"/charts/governance"
 											? "active"
 											: ""
 									}
@@ -111,6 +118,56 @@ const SideBar: React.FC = () => {
 							<GrScorecard className="me-2" />
 							{t("sidebar.metricManagement")}
 						</Link>
+					</li>
+					<li className="nav-item">
+						<div
+							className="nav-link d-flex justify-content-between align-items-center"
+							onClick={toggleTargetMenu}
+							style={{ cursor: "pointer" }}
+						>
+							<div>
+								<TbTargetArrow className="me-2" />
+								{t("sidebar.target")}
+							</div>
+							<FaChevronDown
+								className={`transition-transform ${
+									showTargetMenu ? "rotate-180" : ""
+								}`}
+							/>
+						</div>
+						{showTargetMenu && (
+							<ul className="submenu list-unstyled">
+								<li
+									className={
+										location.pathname ===
+										"/target/short-target"
+											? "active"
+											: ""
+									}
+								>
+									<Link
+										to="/target/short-target"
+										className="dropdown-item"
+									>
+										{t("sidebar.shortTarget")}
+									</Link>
+								</li>
+								<li
+									className={
+										location.pathname === "/target/long-target"
+											? "active"
+											: ""
+									}
+								>
+									<Link
+										to="/target/long-target"
+										className="dropdown-item"
+									>
+										{t("sidebar.longTarget")}
+									</Link>
+								</li>
+							</ul>
+						)}
 					</li>
 				</ul>
 			</div>
