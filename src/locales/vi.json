@@ -64,7 +64,10 @@
 		"metricManagement": "Quản lý thông số",
 		"other": "Khác",
 		"companyInfo": "Thông tin công ty",
-		"guideline": "Hướng dẫn"
+		"guideline": "Hướng dẫn",
+		"target": "Thiết lập mục tiêu",
+		"shortTarget": "Mục tiêu ngắn hạn",
+		"longTarget": "Mục tiêu dài hạn"
 	},
 
 	"dashboard": {
@@ -116,7 +119,21 @@
 		"social": "Xã hội",
 		"governance": "Ban Quản trị",
 		"pillar": "Trụ cột",
-		"lastModified": "Sửa đổi lần cuối"
+		"lastModified": "Sửa đổi lần cuối",
+		"enterYear": "Nhập năm:",
+		"yearPlaceholder": "Nhập năm",
+		"invalidYear": "Năm không hợp lệ"
+	},
+
+	"questionForm": {
+		"enterYear": "Nhập năm:",
+		"enterYearPlaceHolder": "Nhập năm",
+		"answerGuide": "Hướng dẫn trả lời:",
+		"enterYourAnswerPlaceHolder": "Nhập câu trả lời của bạn",
+		"yesAnswer": "Có",
+		"noAnswer": "Không",
+		"submit": "Gửi",
+		"noQuestionsAsked": "Không có câu hỏi nào."
 	},
 
 	"section": {
@@ -185,16 +202,5 @@
 		"pillarScore": "\\text{Điểm trụ cột Môi trường} = \\sum{(\\text{Điểm của chỉ số trong trụ cột môi trường} \\times \\text{Trọng số mới tương ứng})}",
 		"esgScore1": "\\text{Điểm ESG} = \\sum{(\\text{Điểm của chỉ số} \\times \\text{Trọng số tương ứng})}",
 		"esgScore2": "\\text{Điểm ESG} = \\sum{(\\text{Điểm của trụ cột} \\times \\text{Trọng số trụ cột tương ứng})}"
-	},
-
-	"questionForm": {
-		"enterYear": "Nhập năm:",
-		"enterYearPlaceHolder": "Nhập năm",
-		"answerGuide": "Hướng dẫn trả lời:",
-		"enterYourAnswerPlaceHolder": "Nhập câu trả lời của bạn",
-		"yesAnswer": "Có",
-		"noAnswer": "Không",
-		"submit": "Gửi",
-		"noQuestionsAsked": "Không có câu hỏi nào."
 	}
 }

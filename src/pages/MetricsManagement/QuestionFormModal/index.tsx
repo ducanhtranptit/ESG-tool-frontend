@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import QuestionAPI from "../../../api/question";
-import debounce from "lodash/debounce";
 import "./styles.css";
 
 interface Question {
@@ -32,18 +31,19 @@ interface QuestionFormModalProps {
 	show: boolean;
 	handleClose: () => void;
 	section: { key: string; name: string } | null;
+	year: string; // Nhận year từ prop
 }
 
 const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	show,
 	handleClose,
 	section,
+	year,
 }) => {
 	const { t, i18n } = useTranslation();
 	const lang = i18n.language;
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [answers, setAnswers] = useState<Answer[]>([]);
-	const [year, setYear] = useState<any | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -56,7 +56,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						lang
 					);
 					setQuestions(response.data || []);
-					console.log("response.data: ", response.data);
 					const initialAnswers = (response.data || []).map(
 						(question: Question) => ({
 							questionCode: question.questionCode,
@@ -65,6 +64,11 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 						})
 					);
 					setAnswers(initialAnswers);
+
+					if (year) {
+						await fetchAnswersForYear(parseInt(year));
+					}
+
 					setLoading(false);
 				} catch (error) {
 					console.error("Error fetching data:", error);
@@ -74,25 +78,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		};
 
 		fetchData();
-	}, [show, section]);
-
-	const handleInputChange = (
-		questionCode: string,
-		answer: string,
-		questionType: number
-	) => {
-		setAnswers((prevAnswers) =>
-			prevAnswers.map((a) =>
-				a.questionCode === questionCode
-					? {
-							...a,
-							answer:
-								questionType === 3 ? answer : answer.toString(),
-					  }
-					: a
-			)
-		);
-	};
+	}, [show, section, year, lang]); 
 
 	const fetchAnswersForYear = async (enteredYear: number) => {
 		if (enteredYear && section) {
@@ -104,8 +90,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					lang
 				);
 				if (response.data) {
-					console.log("response:", response.data);
-
 					const updatedAnswers = response.data.map(
 						(answerData: {
 							questionCode: string;
@@ -127,15 +111,22 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		}
 	};
 
-	const debouncedFetchAnswers = useCallback(
-		debounce((enteredYear) => fetchAnswersForYear(enteredYear), 800),
-		[section]
-	);
-
-	const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const enteredYear = e.target.value;
-		setYear(enteredYear);
-		debouncedFetchAnswers(enteredYear);
+	const handleInputChange = (
+		questionCode: string,
+		answer: string,
+		questionType: number
+	) => {
+		setAnswers((prevAnswers) =>
+			prevAnswers.map((a) =>
+				a.questionCode === questionCode
+					? {
+							...a,
+							answer:
+								questionType === 3 ? answer : answer.toString(),
+					  }
+					: a
+			)
+		);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -171,7 +162,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 	const clearState = () => {
 		setQuestions([]);
 		setAnswers([]);
-		setYear(null);
 	};
 
 	const handleModalClose = () => {
@@ -199,25 +189,6 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 					</div>
 				) : (
 					<form onSubmit={handleSubmit}>
-						<div className="mb-4">
-							<label
-								htmlFor="year"
-								className="form-label fw-bold h5 text-dark"
-							>
-								{t("questionForm.enterYear")}
-							</label>
-							<input
-								type="number"
-								id="year"
-								className="form-control"
-								placeholder={t(
-									"questionForm.enterYearPlaceHolder"
-								)}
-								value={year ?? ""}
-								onChange={handleYearChange}
-							/>
-						</div>
-
 						{questions.length > 0 ? (
 							<div className="row">
 								{questions.map((question, index) => (
@@ -243,7 +214,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 												</p>
 											)}
 
-											{/* Answer Type */}
+											{/* Các kiểu câu trả lời */}
 											{question.type === 1 && (
 												<>
 													<div className="form-check">

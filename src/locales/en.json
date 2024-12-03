@@ -64,7 +64,10 @@
 		"metricManagement": "Metric Management",
 		"other": "Other",
 		"companyInfo": "Company Information",
-		"guideline": "Guideline"
+		"guideline": "Guideline",
+		"target": "Set target",
+		"shortTarget": "Short target",
+		"longTarget": "Long target"
 	},
 
 	"dashboard": {
@@ -116,7 +119,10 @@
 		"social": "Social",
 		"governance": "Governance",
 		"pillar": "Pillar",
-		"lastModified": "Last modified"
+		"lastModified": "Last modified",
+		"enterYear": "Enter year:",
+		"yearPlaceholder": "Enter year",
+		"invalidYear": "Invalid year"
 	},
 
 	"section": {
