@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
-import GovernanceAPI from "../../api/governance"; // API thực tế để lấy dữ liệu
+import GovernanceAPI from "../../../api/governance"; // API thực tế để lấy dữ liệu
 import "./styles.css";
 
 interface DataChart {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
-import EnvironmentAPI from "../../api/environment";
+import EnvironmentAPI from "../../../api/environment";
 import "./styles.css";
 
 interface DataChart {
