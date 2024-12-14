@@ -1,8 +1,8 @@
 import ApiSender from "./config";
 
-export default class UserAPI {
+export default class UserAPI extends ApiSender {
 	public static async getProfile() {
 		const url = "/users/profile";
-		return await ApiSender.get(url);
+		return await UserAPI.get(url);
 	}
 }

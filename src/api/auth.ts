@@ -13,19 +13,19 @@ type RequestBody = {
 	password?: string;
 };
 
-export default class AuthAPI {
+export default class AuthAPI extends ApiSender {
 	public static login(body: RequestBody): Promise<AuthResponse> {
 		const url = "/auth/login";
-		return ApiSender.post(url, body);
+		return AuthAPI.post(url, body);
 	}
 
 	public static register(body: RequestBody): Promise<AuthResponse> {
 		const url = "/auth/register";
-		return ApiSender.post(url, body);
+		return AuthAPI.post(url, body);
 	}
 
 	public static async logout(): Promise<any> {
 		const url = "/auth/logout";
-		return await ApiSender.get(url);
+		return await AuthAPI.get(url);
 	}
 }

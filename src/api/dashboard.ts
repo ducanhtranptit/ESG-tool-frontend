@@ -1,8 +1,8 @@
 import ApiSender from "./config";
 
-export default class DashboardAPI {
+export default class DashboardAPI extends ApiSender {
 	public static async getAllData(): Promise<any> {
 		const url = "/webapp/dashboard/get-all-data";
-		return await ApiSender.get(url);
+		return await DashboardAPI.get(url);
 	}
 }

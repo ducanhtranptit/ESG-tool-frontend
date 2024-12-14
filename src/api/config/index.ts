@@ -21,7 +21,7 @@ export default class ApiSender {
 		}
 	}
 
-	public static async get<T>(
+	protected static async get<T>(
 		url: string,
 		params: Record<string, unknown> = {}
 	): Promise<T> {
@@ -31,7 +31,7 @@ export default class ApiSender {
 			.catch(ApiSender.handleError);
 	}
 
-	public static async post<T>(
+	protected static async post<T>(
 		url: string,
 		formData: Record<string, unknown> = {}
 	): Promise<T> {
@@ -41,7 +41,7 @@ export default class ApiSender {
 			.catch(ApiSender.handleError);
 	}
 
-	public static async put<T>(
+	protected static async put<T>(
 		url: string,
 		data: Record<string, unknown> = {}
 	): Promise<T> {
@@ -51,7 +51,7 @@ export default class ApiSender {
 			.catch(ApiSender.handleError);
 	}
 
-	public static async delete<T>(
+	protected static async delete<T>(
 		url: string,
 		config: Record<string, unknown> = {}
 	): Promise<T> {
