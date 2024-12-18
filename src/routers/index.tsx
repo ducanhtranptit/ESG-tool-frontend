@@ -1,9 +1,5 @@
 import React from "react";
-import {
-	Route,
-	Routes,
-	Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Dashboard from "../pages/Dashboard/index";
@@ -13,6 +9,7 @@ import Government from "../pages/Charts/Goverment/index";
 import Social from "../pages/Charts/Social/index";
 import GuideLinePage from "../pages/GuideLine";
 import MetricsManagementPage from "../pages/MetricsManagement";
+import TargetPage from "../pages/Target";
 import Login from "../pages/Auth/login";
 import PrivateRoute from "./PrivateRouter";
 import DefaultLayout from "../layouts/DefaultLayout";
@@ -42,6 +39,7 @@ const DefaultRouter: React.FC = () => {
 					path="/metric-management"
 					element={<MetricsManagementPage />}
 				/>
+				<Route path="target" element={<TargetPage />} />
 				<Route path="/companyinfo" element={<CompanyInfo />} />
 				<Route path="/guideline" element={<GuideLinePage />} />
 			</Route>

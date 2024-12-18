@@ -4,11 +4,10 @@ export default class TargetAPI extends ApiSender {
 		const url = `/webapp/questions/get-all-topics-and-questions/?section=${section}&lang=${lang}`;
 		return await TargetAPI.get(url);
 	}
-	public static async getAllSectionSubmitCount(
+	public static async getAllSectionData(
 		year: number,
-		targetType: any
 	): Promise<any> {
-		const url = `/webapp/targets/get-all-submitcount-of-section?year=${year}&targetType=${targetType}`;
+		const url = `/webapp/targets/get-all-submitcount-of-section?year=${year}`;
 		return await TargetAPI.get(url);
 	}
 	public static async addAnswerOfCompany(

@@ -112,7 +112,7 @@ const CompanyPage: React.FC = () => {
 	const productInfors = companyDetails?.productInfors || [];
 
 	return (
-		<Container fluid="md" className="py-4">
+		<div className="py-4 content">
 			<Row className="align-items-center mb-4">
 				<Col>
 					<h2 className="text-primary">
@@ -230,7 +230,7 @@ const CompanyPage: React.FC = () => {
 				</Card.Header>
 				<Card.Body>
 					{productInfors.length > 0 ? (
-						<Table responsive striped bordered hover>
+						<Table responsive striped bordered>
 							<thead>
 								<tr>
 									<th>{t("companyInfor.productName")}</th>
@@ -261,7 +261,7 @@ const CompanyPage: React.FC = () => {
 				siteInfors={siteInfors}
 				productInfors={productInfors}
 			/>
-		</Container>
+		</div>
 	);
 };
 

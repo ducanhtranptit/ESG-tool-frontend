@@ -1,0 +1,27 @@
+.custom-modal .modal-body {
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+.custom-question-container {
+	border-radius: 10px;
+	background-color: #f8f9fa;
+	border: 2px solid #e0e0e0;
+}
+
+.question-content {
+	padding: 20px; /* Áp dụng padding đều cho nội dung */
+}
+
+.form-check {
+	margin-right: 15px;
+}
+
+.form-control {
+	border-radius: 8px;
+}
+
+button[type="submit"] {
+	border-radius: 8px;
+}

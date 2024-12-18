@@ -122,7 +122,9 @@
 		"lastModified": "Last modified",
 		"enterYear": "Enter year:",
 		"yearPlaceholder": "Enter year",
-		"invalidYear": "Invalid year"
+		"invalidYear": "Invalid year",
+		"target": "Target",
+		"percentileCompleted": "Percentile Completed"
 	},
 
 	"section": {

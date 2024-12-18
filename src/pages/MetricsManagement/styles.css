@@ -1,7 +1,6 @@
-.container {
+.content {
     width: 100%;
 	border-radius: 8px;
-	background-color: #f9f9f9;
 	padding: 20px;
 }
 
@@ -22,4 +21,9 @@ button[type="submit"] {
 .btn:hover {
     color: #fff; 
     background-color: #007bff; 
+}
+
+.section-content {
+    cursor: pointer;
+    transition: font-weight 0.2s ease-in-out;
 }

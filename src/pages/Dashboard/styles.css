@@ -1,5 +1,5 @@
 .dashboard-container {
-	height: auto;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
@@ -104,7 +104,7 @@
 
 .bottom-section {
 	display: grid;
-	grid-template-columns: 1fr 1fr; 
+	grid-template-columns: 1fr 1fr;
 	gap: 20px;
 	width: 100%;
 	margin-top: 20px;
@@ -121,49 +121,47 @@
 	align-items: center;
 	width: 100%;
 	height: 25vw;
-	max-height: 100%; 
+	max-height: 100%;
 }
 
 .select-download-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .select-download-container select,
 .download-button {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    min-width: 100px;
+	flex: 1;
+	padding: 10px;
+	font-size: 16px;
+	min-width: 100px;
 }
 
 .download-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    color: black;
-    height: 42px;
-    box-shadow: none;
-    transition: all 0.3s ease;
-    outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	color: black;
+	height: 42px;
+	box-shadow: none;
+	transition: all 0.3s ease;
+	outline: none;
 }
 
-
 .download-button:hover {
-	background-color: white; 
-	cursor: pointer; 
-	color: #4a9459; 
+	background-color: white;
+	cursor: pointer;
+	color: #4a9459;
 }
 
 .download-button:hover svg {
-	color: #4a9459; 
+	color: #4a9459;
 }
 
 .download-button svg {
-	width: 24px; 
+	width: 24px;
 	height: 24px;
 	margin-left: 8px;
 }
-

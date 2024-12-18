@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
 import { GrScorecard } from "react-icons/gr";
 import { TbTargetArrow } from "react-icons/tb";
+import { RiDashboard2Line } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../public/logo.png";
@@ -36,7 +37,10 @@ const SideBar: React.FC = () => {
 						}`}
 					>
 						<Link to="/" className="nav-link">
-							<GrScorecard className="me-2" />
+							<RiDashboard2Line
+								style={{ fontSize: "1.5rem" }}
+								className="me-2"
+							/>
 							{t("sidebar.esgScore")}
 						</Link>
 					</li>
@@ -48,7 +52,10 @@ const SideBar: React.FC = () => {
 							style={{ cursor: "pointer" }}
 						>
 							<div>
-								<FaChartBar className="me-2" />
+								<FaChartBar
+									style={{ fontSize: "1.4rem" }}
+									className="me-2"
+								/>
 								{t("sidebar.charts")}
 							</div>
 							<FaChevronDown
@@ -115,59 +122,27 @@ const SideBar: React.FC = () => {
 						}`}
 					>
 						<Link to="/metric-management" className="nav-link">
-							<GrScorecard className="me-2" />
+							<GrScorecard
+								style={{ fontSize: "1.4rem" }}
+								className="me-2"
+							/>
 							{t("sidebar.metricManagement")}
 						</Link>
 					</li>
-					<li className="nav-item">
-						<div
-							className="nav-link d-flex justify-content-between align-items-center"
-							onClick={toggleTargetMenu}
-							style={{ cursor: "pointer" }}
-						>
-							<div>
-								<TbTargetArrow className="me-2" />
-								{t("sidebar.target")}
-							</div>
-							<FaChevronDown
-								className={`transition-transform ${
-									showTargetMenu ? "rotate-180" : ""
-								}`}
+					<li
+						className={`nav-item ${
+							location.pathname === "/metric-management"
+								? "active"
+								: ""
+						}`}
+					>
+						<Link to="/target" className="nav-link">
+							<TbTargetArrow
+								style={{ fontSize: "1.4rem" }}
+								className="me-2"
 							/>
-						</div>
-						{showTargetMenu && (
-							<ul className="submenu list-unstyled">
-								<li
-									className={
-										location.pathname ===
-										"/target/short-target"
-											? "active"
-											: ""
-									}
-								>
-									<Link
-										to="/target/short-target"
-										className="dropdown-item"
-									>
-										{t("sidebar.shortTarget")}
-									</Link>
-								</li>
-								<li
-									className={
-										location.pathname === "/target/long-target"
-											? "active"
-											: ""
-									}
-								>
-									<Link
-										to="/target/long-target"
-										className="dropdown-item"
-									>
-										{t("sidebar.longTarget")}
-									</Link>
-								</li>
-							</ul>
-						)}
+							{t("sidebar.target")}
+						</Link>
 					</li>
 				</ul>
 			</div>
@@ -180,7 +155,10 @@ const SideBar: React.FC = () => {
 						}`}
 					>
 						<Link to="/companyinfo" className="nav-link">
-							<FaBuilding className="me-2" />
+							<FaBuilding
+								style={{ fontSize: "1.29rem" }}
+								className="me-2"
+							/>
 							{t("sidebar.companyInfo")}
 						</Link>
 					</li>
@@ -190,7 +168,10 @@ const SideBar: React.FC = () => {
 						}`}
 					>
 						<Link to="/guideline" className="nav-link">
-							<FaBook className="me-2" />
+							<FaBook
+								style={{ fontSize: "1.35rem" }}
+								className="me-2"
+							/>
 							{t("sidebar.guideline")}
 						</Link>
 					</li>

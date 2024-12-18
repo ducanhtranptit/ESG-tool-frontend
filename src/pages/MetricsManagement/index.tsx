@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button, Container, Spinner, Form } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
-import sectionConstant from "../../constant/section.constant.js";
+import sectionConstant from "../../constant/section.constant";
 import QuestionAPI from "../../api/question";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
@@ -28,7 +28,7 @@ const MetricsManagementPage: React.FC = () => {
 			try {
 				const response = await QuestionAPI.getAllSectionSubmitCount(
 					year
-				);
+				);				
 				const counts = response.data.reduce(
 					(
 						acc: Record<
@@ -150,7 +150,7 @@ const MetricsManagementPage: React.FC = () => {
 	}, []); // Chạy 1 lần khi component render lần đầu tiên
 
 	return (
-		<Container className="my-4">
+		<div className="content">
 			<Form.Group controlId="yearInput" className="mb-4">
 				<Form.Label>{t("metricManagement.enterYear")}</Form.Label>
 				<Form.Control
@@ -227,8 +227,8 @@ const MetricsManagementPage: React.FC = () => {
 											<small
 												className={
 													section.pillar === 2
-														? "text-dark"
-														: "text-white"
+														? "text-dark section-content"
+														: "text-white section-content"
 												}
 											>
 												{lastUpdatedText}
@@ -250,7 +250,7 @@ const MetricsManagementPage: React.FC = () => {
 					year={year} // Truyền year vào modal
 				/>
 			)}
-		</Container>
+		</div>
 	);
 };
 

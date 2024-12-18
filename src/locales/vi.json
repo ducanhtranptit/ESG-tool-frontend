@@ -122,7 +122,9 @@
 		"lastModified": "Sửa đổi lần cuối",
 		"enterYear": "Nhập năm:",
 		"yearPlaceholder": "Nhập năm",
-		"invalidYear": "Năm không hợp lệ"
+		"invalidYear": "Năm không hợp lệ",
+		"target": "Mục tiêu",
+		"percentileCompleted": "Phần trăm hoàn thành mục tiêu"
 	},
 
 	"questionForm": {

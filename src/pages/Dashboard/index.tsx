@@ -229,7 +229,7 @@ const Dashboard: React.FC = () => {
 					</Spinner>
 				</div>
 			) : (
-				<>
+				<div className="dashboard">
 					<div className="top-section">
 						<div className="left-panel">
 							<div className="title-container">
@@ -387,7 +387,7 @@ const Dashboard: React.FC = () => {
 							/>
 						</div>
 					</div>
-				</>
+				</div>
 			)}
 		</div>
 	);
