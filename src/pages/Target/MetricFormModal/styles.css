@@ -1,0 +1,4 @@
+input[type="radio"]:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+}

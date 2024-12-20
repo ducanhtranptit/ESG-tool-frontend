@@ -65,7 +65,7 @@
 		"other": "Khác",
 		"companyInfo": "Thông tin công ty",
 		"guideline": "Hướng dẫn",
-		"target": "Thiết lập mục tiêu",
+		"target": "Quản lý mục tiêu",
 		"shortTarget": "Mục tiêu ngắn hạn",
 		"longTarget": "Mục tiêu dài hạn"
 	},
@@ -124,7 +124,11 @@
 		"yearPlaceholder": "Nhập năm",
 		"invalidYear": "Năm không hợp lệ",
 		"target": "Mục tiêu",
-		"percentileCompleted": "Phần trăm hoàn thành mục tiêu"
+		"percentileCompleted": "Phần trăm hoàn thành mục tiêu",
+		"view": "Xem",
+		"metric": "Thông số",
+		"name": "Tên mục tiêu",
+		"namePage": "Quản lý mục tiêu"
 	},
 
 	"questionForm": {

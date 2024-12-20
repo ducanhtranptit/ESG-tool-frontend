@@ -65,7 +65,7 @@
 		"other": "Other",
 		"companyInfo": "Company Information",
 		"guideline": "Guideline",
-		"target": "Set target",
+		"target": "Target Management",
 		"shortTarget": "Short target",
 		"longTarget": "Long target"
 	},
@@ -124,7 +124,11 @@
 		"yearPlaceholder": "Enter year",
 		"invalidYear": "Invalid year",
 		"target": "Target",
-		"percentileCompleted": "Percentile Completed"
+		"percentileCompleted": "Percentile Completed",
+		"view": "View",
+		"metric": "Metric",
+		"name": "Target name",
+		"namePage": "Target Management"
 	},
 
 	"section": {

@@ -8,7 +8,6 @@ import {
 	Card,
 	Row,
 	Col,
-	Container,
 } from "react-bootstrap";
 import "./styles.css";
 import EditCompanyDetailModal from "./EditCompanyDetailModal/index";

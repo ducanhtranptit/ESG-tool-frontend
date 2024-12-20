@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Table, Spinner, Form } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
+import MetricFormModal from "./MetricFormModal";
 import sectionConstant from "../../constant/section.constant";
 import TargetAPI from "../../api/target";
 import { useTranslation } from "react-i18next";
@@ -9,7 +10,8 @@ import "./styles.css";
 
 const TargetPage: React.FC = () => {
 	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(false);
+	const [showQuestionModal, setShowQuestionModal] = useState(false);
+	const [showMetricModal, setShowMetricModal] = useState(false);
 	const [currentSection, setCurrentSection] = useState<{
 		key: string;
 		name: string;
@@ -22,19 +24,11 @@ const TargetPage: React.FC = () => {
 	const [year, setYear] = useState<string>("");
 	const [yearError, setYearError] = useState<string>("");
 
-	const formatDateToGMT7 = (isoDate: string) => {
-		const date = new Date(isoDate);
-		date.setHours(date.getHours() + 7); // Adjust for GMT+7
-		return date.toLocaleDateString("en-GB"); // Format: DD/MM/YYYY
-	};
-
-	// Fetch section data
 	const fetchSectionData = useCallback(
 		async (year: number) => {
 			setLoading(true);
 			try {
 				const response = await TargetAPI.getAllSectionData(year);
-				console.log(response.data);
 				const data = response.data.reduce(
 					(
 						acc: Record<
@@ -65,24 +59,30 @@ const TargetPage: React.FC = () => {
 		[t]
 	);
 
-	// Open modal
-	const handleShowModal = (
+	const handleShowQuestionModal = (
 		sectionKey: string,
 		sectionData: { name: string; pillar: number }
 	) => {
 		setCurrentSection({ key: sectionKey, ...sectionData });
-		setShowModal(true);
+		setShowQuestionModal(true);
 	};
 
-	// Close modal and refetch data
-	const handleCloseModal = () => {
-		setShowModal(false);
+	const handleShowMetricModal = (
+		sectionKey: string,
+		sectionData: { name: string; pillar: number }
+	) => {
+		setCurrentSection({ key: sectionKey, ...sectionData });
+		setShowMetricModal(true);
+	};
+
+	const handleCloseModals = () => {
+		setShowQuestionModal(false);
+		setShowMetricModal(false);
 		if (year) {
 			fetchSectionData(parseInt(year, 10));
 		}
 	};
 
-	// Validate and fetch data when year changes
 	const validateAndFetchData = useCallback(
 		debounce(async (year: number) => {
 			await fetchSectionData(year);
@@ -110,6 +110,7 @@ const TargetPage: React.FC = () => {
 
 	return (
 		<div className="content">
+			{/* <h2>{t("metricManagement.namePage")}</h2> */}
 			<Form.Group controlId="yearInput" className="mb-4">
 				<Form.Label>{t("metricManagement.enterYear")}</Form.Label>
 				<Form.Control
@@ -139,13 +140,16 @@ const TargetPage: React.FC = () => {
 				<Table striped bordered>
 					<thead>
 						<tr>
-							<th style={{ width: "50%" }}>
+							<th style={{ width: "45%" }}>
+								{t("metricManagement.name")}
+							</th>
+							<th style={{ width: "15%" }}>
 								{t("metricManagement.target")}
 							</th>
-							<th style={{ width: "20%" }}>
-								{t("metricManagement.lastModified")}
+							<th style={{ width: "15%" }}>
+								{t("metricManagement.metric")}
 							</th>
-							<th style={{ width: "30%" }}>
+							<th style={{ width: "25%" }}>
 								{t("metricManagement.percentileCompleted")}
 							</th>
 						</tr>
@@ -159,26 +163,43 @@ const TargetPage: React.FC = () => {
 										sectionInfo.percentileCompleted || 0
 									).toFixed(2)
 								);
-								const lastModified = sectionInfo.updatedAt
-									? formatDateToGMT7(sectionInfo.updatedAt)
-									: t("metricManagement.notAvailable");
 
 								return (
 									<tr key={key}>
-										<td
-											className="section-content"
-											onClick={() =>
-												handleShowModal(key, {
-													name: t(
-														sectionDataItem.name
-													),
-													pillar: sectionDataItem.pillar,
-												})
-											}
-										>
-											{t(sectionDataItem.name)}
+										<td>{t(sectionDataItem.name)}</td>
+										<td>
+											<a
+												className="view-modal"
+												onClick={() =>
+													handleShowQuestionModal(
+														key,
+														{
+															name: t(
+																sectionDataItem.name
+															),
+															pillar: sectionDataItem.pillar,
+														}
+													)
+												}
+											>
+												{t("metricManagement.view")}
+											</a>
 										</td>
-										<td>{lastModified}</td>
+										<td>
+											<a
+												className="view-modal"
+												onClick={() =>
+													handleShowMetricModal(key, {
+														name: t(
+															sectionDataItem.name
+														),
+														pillar: sectionDataItem.pillar,
+													})
+												}
+											>
+												{t("metricManagement.view")}
+											</a>
+										</td>
 										<td>{percentileCompleted}%</td>
 									</tr>
 								);
@@ -190,8 +211,17 @@ const TargetPage: React.FC = () => {
 
 			{currentSection && (
 				<QuestionFormModal
-					show={showModal}
-					handleClose={handleCloseModal}
+					show={showQuestionModal}
+					handleClose={handleCloseModals}
+					section={currentSection}
+					year={year}
+				/>
+			)}
+
+			{currentSection && (
+				<MetricFormModal
+					show={showMetricModal}
+					handleClose={handleCloseModals}
 					section={currentSection}
 					year={year}
 				/>

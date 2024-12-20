@@ -12,14 +12,10 @@ import "./styles.css";
 const SideBar: React.FC = () => {
 	const location = useLocation();
 	const [showESGMenu, setShowESGMenu] = useState(false);
-	const [showTargetMenu, setShowTargetMenu] = useState(false);
 	const { t } = useTranslation();
 
 	const toggleESGMenu = () => {
 		setShowESGMenu(!showESGMenu);
-	};
-	const toggleTargetMenu = () => {
-		setShowTargetMenu(!showTargetMenu);
 	};
 
 	return (
