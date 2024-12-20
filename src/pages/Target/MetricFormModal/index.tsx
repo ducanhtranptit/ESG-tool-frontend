@@ -173,17 +173,6 @@ const MetricFormModal: React.FC<QuestionFormModalProps> = ({
 											>
 												{question.name}
 											</label>
-											{question.answerGuide && (
-												<p>
-													<strong>
-														{t(
-															"questionForm.answerGuide"
-														)}
-													</strong>{" "}
-													{question.answerGuide}
-												</p>
-											)}
-
 											{/* Các kiểu câu trả lời */}
 											{question.type === 1 && (
 												<>
