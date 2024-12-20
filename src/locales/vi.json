@@ -139,7 +139,8 @@
 		"yesAnswer": "Có",
 		"noAnswer": "Không",
 		"submit": "Gửi",
-		"noQuestionsAsked": "Không có câu hỏi nào."
+		"noQuestionsAsked": "Không có câu hỏi nào.",
+		"noAnswerYet": "Chưa có câu trả lời"
 	},
 
 	"section": {

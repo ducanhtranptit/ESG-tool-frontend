@@ -343,7 +343,7 @@ const MetricFormModal: React.FC<QuestionFormModalProps> = ({
 													id={question.questionCode}
 													className="form-control"
 													placeholder={t(
-														"questionForm.enterYourAnswerPlaceHolder"
+														"questionForm.noAnswerYet"
 													)}
 													step="any"
 													value={

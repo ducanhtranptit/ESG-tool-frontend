@@ -207,6 +207,7 @@
 		"yesAnswer": "Yes",
 		"noAnswer": "No",
 		"submit": "Submit",
-		"noQuestionsAsked": "No questions asked."
+		"noQuestionsAsked": "No questions asked.",
+		"noAnswerYet": "No answer yet"
 	}
 }
