@@ -101,22 +101,13 @@ const Dashboard: React.FC = () => {
 	const pieOptions: ApexOptions = {
 		chart: {
 			type: "pie",
-			width: 450,
-			height: 450,
+			width: "100%",
+			height: "100%",
 		},
 		labels: [
 			t("dashboard.environmentWeight"),
 			t("dashboard.socialWeight"),
 			t("dashboard.governanceWeight"),
-		],
-		responsive: [
-			{
-				breakpoint: 480,
-				options: {
-					chart: { width: 300 },
-					legend: { position: "bottom" },
-				},
-			},
 		],
 	};
 
@@ -374,16 +365,16 @@ const Dashboard: React.FC = () => {
 								options={pieOptions}
 								series={pieSeries}
 								type="pie"
-								height={"100%"}
-								width={"175%"}
+								// height={"100%"}
+								// width={"175%"}
 							/>
 						</div>
 						<div className="chart-item line-chart">
 							<ReactApexChart
 								options={lineOptions}
 								series={lineSeries}
-								height={"100%"}
-								width={"175%"}
+								// height={"100%"}
+								// width={"175%"}
 							/>
 						</div>
 					</div>
