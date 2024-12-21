@@ -42,6 +42,7 @@
   },
   "scripts": {
     "production": "npm run build && serve -s build",
+    "build production": "sudo git pull && sudo npm install && sudo npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
