@@ -56,7 +56,11 @@ const Register: React.FC = () => {
 		}
 
 		try {
-			await AuthAPI.register(formData);
+			const response = await AuthAPI.register(formData);
+			if (response?.status == 400) {
+				toast.error(response?.message);
+				return;
+			}
 			toast.success(t("register.success"));
 			navigate("/login");
 		} catch (error) {
