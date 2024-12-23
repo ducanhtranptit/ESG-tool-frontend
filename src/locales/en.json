@@ -17,7 +17,9 @@
 		"errorGeneral": "An error occurred, please try again.",
 		"backToLogin": "Already have an account?",
 		"loginHere": "Login here",
-		"errorPasswordMismatch": "Passwords do not match."
+		"errorPasswordMismatch": "Passwords do not match.",
+		"errorInvalidFoundingYear": "Invalid founding year.",
+		"errorInvalidPhoneNumber": "Invalid phone number."
 	},
 
 	"login": {

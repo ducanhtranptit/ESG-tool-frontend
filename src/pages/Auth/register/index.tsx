@@ -41,6 +41,8 @@ const Register: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		const currentYear = new Date().getFullYear();
+
 		if (
 			!formData.username.trim() ||
 			!formData.password.trim() ||
@@ -55,9 +57,25 @@ const Register: React.FC = () => {
 			return;
 		}
 
+		const foundingYear = parseInt(formData.foundingYear, 10);
+		if (
+			isNaN(foundingYear) ||
+			foundingYear < 1700 ||
+			foundingYear > currentYear
+		) {
+			toast.error(t("register.errorInvalidFoundingYear"));
+			return;
+		}
+
+		const phoneRegex = /^0\d{9}$/;
+		if (!phoneRegex.test(formData.mainPhoneNumber)) {
+			toast.error(t("register.errorInvalidPhoneNumber"));
+			return;
+		}
+
 		try {
 			const response = await AuthAPI.register(formData);
-			if (response?.status == 400) {
+			if (response?.status === 400) {
 				toast.error(response?.message);
 				return;
 			}

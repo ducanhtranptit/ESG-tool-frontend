@@ -17,7 +17,9 @@
 		"errorGeneral": "Đã xảy ra lỗi, vui lòng thử lại.",
 		"backToLogin": "Bạn đã có tài khoản?",
 		"loginHere": "Đăng nhập tại đây",
-		"errorPasswordMismatch": "Mật khẩu không khớp."
+		"errorPasswordMismatch": "Mật khẩu không khớp.",
+		"errorInvalidFoundingYear": "Năm thành lập không hợp lệ.",
+		"errorInvalidPhoneNumber": "Số điện thoại không hợp lệ."
 	},
 
 	"login": {
