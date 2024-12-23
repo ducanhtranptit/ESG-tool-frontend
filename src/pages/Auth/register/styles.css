@@ -1,0 +1,30 @@
+.register-page {
+	padding-top: 5vh;
+}
+
+.register-page .row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.register-page .col {
+	flex: 1;
+	min-width: 300px;
+}
+
+.register-page .form-group {
+	margin-bottom: 15px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group div {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: red;
+    font-size: 12px;
+}

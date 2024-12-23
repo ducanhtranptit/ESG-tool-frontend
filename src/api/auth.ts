@@ -20,6 +20,7 @@ export default class AuthAPI extends ApiSender {
 	}
 
 	public static register(body: RequestBody): Promise<AuthResponse> {
+		console.log("register", body);
 		const url = "/auth/register";
 		return AuthAPI.post(url, body);
 	}

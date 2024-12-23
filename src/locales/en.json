@@ -1,4 +1,38 @@
 {
+	"register": {
+		"title": "Register a new account",
+		"username": "Username",
+		"password": "Password",
+		"confirmPassword": "Confirm Password",
+		"companyName": "Company Name",
+		"foundingYear": "Founding Year",
+		"mainPhoneNumber": "Main Phone Number",
+		"sector": "Sector",
+		"companyCode": "Company Code",
+		"companyCodeNote": "Company Code (Stock Code or Internal Code): ",
+		"companyCodeTooltip": "Enter the stock code if the company is listed, or the internal code if the company is not listed. Ensure the code is unique.",
+		"submit": "Register",
+		"success": "Registration successful! Please login.",
+		"errorRequiredFields": "Please fill out all required fields.",
+		"errorGeneral": "An error occurred, please try again.",
+		"backToLogin": "Already have an account?",
+		"loginHere": "Login here",
+		"errorPasswordMismatch": "Passwords do not match."
+	},
+
+	"login": {
+		"title": "Enter your details to login",
+		"username": "Username",
+		"password": "Password",
+		"submit": "Login",
+		"errorUsername": "Please enter username",
+		"errorPassword": "Please enter password",
+		"errorLogin": "Incorrect username or password",
+		"errorGeneral": "An error occurred, please try again.",
+		"noAccount": "Don't have an account?",
+		"registerHere": "Register here"
+	},
+
 	"navbar": {
 		"logout": "Logout"
 	},

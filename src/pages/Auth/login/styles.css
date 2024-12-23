@@ -80,3 +80,13 @@
 	background: #4a9459;
 }
 
+.register-text {
+	width: 100%;
+	text-align: center;
+	color: #777;
+	margin-top: 20px;
+}
+
+.register-link{
+	text-align: center;
+}

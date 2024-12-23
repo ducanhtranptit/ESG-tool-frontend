@@ -9,7 +9,7 @@ interface TokenPayload {
 	exp?: number;
 }
 
-const listUrlNotAuthen: string[] = ["/auth/login"];
+const listUrlNotAuthen: string[] = ["/auth/login", "/auth/register"];
 
 const http = axios.create({
 	baseURL: baseUrl,

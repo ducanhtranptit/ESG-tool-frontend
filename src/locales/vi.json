@@ -1,4 +1,38 @@
 {
+	"register": {
+		"title": "Đăng ký tài khoản mới",
+		"username": "Tên đăng nhập",
+		"password": "Mật khẩu",
+		"confirmPassword": "Xác nhận mật khẩu",
+		"companyName": "Tên công ty",
+		"foundingYear": "Năm thành lập",
+		"mainPhoneNumber": "Số điện thoại chính",
+		"sector": "Ngành",
+		"companyCode": "Mã công ty",
+		"companyCodeNote": "Mã công ty (Mã chứng khoán hoặc Mã nội bộ): ",
+		"companyCodeTooltip": "Nhập mã chứng khoán nếu công ty niêm yết, hoặc mã nội bộ nếu công ty không niêm yết. Đảm bảo mã là duy nhất.",
+		"submit": "Đăng ký",
+		"success": "Đăng ký thành công! Vui lòng đăng nhập.",
+		"errorRequiredFields": "Vui lòng điền tất cả các trường bắt buộc.",
+		"errorGeneral": "Đã xảy ra lỗi, vui lòng thử lại.",
+		"backToLogin": "Bạn đã có tài khoản?",
+		"loginHere": "Đăng nhập tại đây",
+		"errorPasswordMismatch": "Mật khẩu không khớp."
+	},
+
+	"login": {
+		"title": "Enter your details to login",
+		"username": "Username",
+		"password": "Password",
+		"submit": "Login",
+		"errorUsername": "Please enter username",
+		"errorPassword": "Please enter password",
+		"errorLogin": "Incorrect username or password",
+		"errorGeneral": "An error occurred, please try again.",
+		"noAccount": "Don't have an account?",
+		"registerHere": "Register here"
+	},
+
 	"navbar": {
 		"logout": "Đăng xuất"
 	},

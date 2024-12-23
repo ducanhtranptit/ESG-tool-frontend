@@ -8,6 +8,7 @@ import { setCookie } from "../../../utils/cookie";
 import { ACCESSTOKEN_KEY, REFRESHTOKEN_KEY } from "../../../config";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../public/logo.png";
+import { useTranslation } from "react-i18next";
 
 interface FormData {
 	username: string;
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 const Login: React.FC = () => {
+	const { t } = useTranslation();
 	const initialState: FormData = {
 		username: "",
 		password: "",
@@ -26,17 +28,18 @@ const Login: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!formData.username.trim()) {
-			toast.error("Vui lòng nhập username");
+			toast.error(t("login.errorUsername"));
 			return;
 		}
 		if (!formData.password.trim()) {
-			toast.error("Vui lòng nhập mật khẩu");
+			toast.error(t("login.errorPassword"));
 			return;
 		}
 		try {
 			const response = await AuthAPI.login(formData);
+			console.log("response: ", response);
 			if (response?.status !== 200) {
-				toast.error("Tài khoản hoặc mật khẩu không chính xác");
+				toast.error(t("login.errorLogin"));
 				return;
 			}
 			if (response?.data) {
@@ -49,7 +52,7 @@ const Login: React.FC = () => {
 				navigate("/");
 			}
 		} catch (error) {
-			toast.error("Đã xảy ra lỗi, vui lòng thử lại.");
+			toast.error(t("login.errorGeneral"));
 		}
 	};
 
@@ -69,14 +72,14 @@ const Login: React.FC = () => {
 						className="admin-login-text"
 						style={{ fontSize: "16px" }}
 					>
-						Enter your details to login
+						{t("login.title")}
 					</p>
 
 					<Form onSubmit={handleSubmit}>
 						<Form.Group controlId="formBasicEmail" className="mb-3">
-							<Form.Label>Username:</Form.Label>
+							<Form.Label>{t("login.username")}</Form.Label>
 							<Form.Control
-								placeholder="Username"
+								placeholder={t("login.username")}
 								onChange={(e) =>
 									setFormData((prev) => ({
 										...prev,
@@ -90,10 +93,10 @@ const Login: React.FC = () => {
 							controlId="formBasicPassword"
 							className="mb-4"
 						>
-							<Form.Label>Password:</Form.Label>
+							<Form.Label>{t("login.password")}</Form.Label>
 							<Form.Control
 								type="password"
-								placeholder="Password"
+								placeholder={t("login.password")}
 								onChange={(e) =>
 									setFormData((prev) => ({
 										...prev,
@@ -105,10 +108,20 @@ const Login: React.FC = () => {
 
 						<div className="button-group">
 							<button type="submit" className="btn btn-success">
-								Login
+								{t("login.submit")}
 							</button>
 						</div>
 					</Form>
+
+					<p className="mt-3m register-text">
+						{t("login.noAccount")}{" "}
+						<button
+							className="btn btn-link register-link"
+							onClick={() => navigate("/register")}
+						>
+							{t("login.registerHere")}
+						</button>
+					</p>
 				</div>
 			</div>
 		</div>

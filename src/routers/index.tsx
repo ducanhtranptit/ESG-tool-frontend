@@ -11,6 +11,7 @@ import GuideLinePage from "../pages/GuideLine";
 import MetricsManagementPage from "../pages/MetricsManagement";
 import TargetPage from "../pages/Target";
 import Login from "../pages/Auth/login";
+import Register from "../pages/Auth/register";
 import PrivateRoute from "./PrivateRouter";
 import DefaultLayout from "../layouts/DefaultLayout";
 import AuthLayout from "../layouts/AuthLayout";
@@ -39,12 +40,15 @@ const DefaultRouter: React.FC = () => {
 					path="/metric-management"
 					element={<MetricsManagementPage />}
 				/>
-				<Route path="target" element={<TargetPage />} />
+				<Route path="/target" element={<TargetPage />} />
 				<Route path="/companyinfo" element={<CompanyInfo />} />
 				<Route path="/guideline" element={<GuideLinePage />} />
 			</Route>
 			<Route path="/login" element={<AuthLayout />}>
 				<Route index element={<Login />} />
+			</Route>
+			<Route path="/register" element={<AuthLayout />}>
+				<Route index element={<Register />} />
 			</Route>
 			<Route
 				path="*"
