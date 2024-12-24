@@ -199,7 +199,7 @@ const CompanyPage: React.FC = () => {
 				</Card.Header>
 				<Card.Body>
 					{siteInfors.length > 0 ? (
-						<Table responsive striped bordered hover>
+						<Table responsive bordered hover>
 							<thead>
 								<tr>
 									<th>{t("companyInfor.siteName")}</th>
@@ -229,7 +229,7 @@ const CompanyPage: React.FC = () => {
 				</Card.Header>
 				<Card.Body>
 					{productInfors.length > 0 ? (
-						<Table responsive striped bordered>
+						<Table responsive bordered>
 							<thead>
 								<tr>
 									<th>{t("companyInfor.productName")}</th>

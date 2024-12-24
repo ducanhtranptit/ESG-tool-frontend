@@ -6,12 +6,15 @@ const DefaultLayout: React.FC = () => {
 	return (
 		<div>
 			<div className="row">
-				<div className="col-2">
+				<div style={{ display: "flex", width: "250px" }}>
 					<SideBar />
 				</div>
 				<div
-					className="col-10"
-					style={{ backgroundColor: "#f5f5f5", height: "100vh" }}
+					style={{
+						flex: 1,
+						backgroundColor: "white",
+						height: "100%",
+					}}
 				>
 					<Navbar />
 					<div>
