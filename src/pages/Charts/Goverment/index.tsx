@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
-import GovernanceAPI from "../../../api/governance"; // API thực tế để lấy dữ liệu
+import GovernanceAPI from "../../../api/governance";
+import UnauthorizedPage from "../../../components/Error/401";
 import "./styles.css";
 
 interface DataChart {
@@ -25,7 +26,9 @@ const GovernancePage: React.FC = () => {
 	const [violateChartData, setViolateChartData] = useState<ChartData[]>([]);
 	const { t, i18n } = useTranslation();
 	const lang = i18n.language;
-	const [loading, setLoading] = useState(true); // Trạng thái loading
+	const [loading, setLoading] = useState(true);
+	const [accessDenied, setAccessDenied] = useState(false);
+
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
 	const createSeries = (data: ChartData[]) => {
@@ -40,15 +43,32 @@ const GovernancePage: React.FC = () => {
 	};
 
 	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem("user") || "{}");
+		if (user?.userType === 3) {
+			setAccessDenied(true);
+			return;
+		}
 		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const sexRatioDataResponse =
 					await GovernanceAPI.getDataForSexRatioChart(lang);
+				if (sexRatioDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const supplierRatioDataResponse =
 					await GovernanceAPI.getDataForSupplierRatioChart(lang);
+				if (supplierRatioDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const violateDataResponse =
 					await GovernanceAPI.getDataForViolateChart(lang);
+				if (violateDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 
 				setSexRatioChartData(sexRatioDataResponse.data);
 				setSupplierRatioChartData(supplierRatioDataResponse.data);
@@ -230,6 +250,14 @@ const GovernancePage: React.FC = () => {
 			</div>
 		);
 	};
+
+	if (accessDenied) {
+		return (
+			<>
+				<UnauthorizedPage />
+			</>
+		);
+	}
 
 	return (
 		<div>

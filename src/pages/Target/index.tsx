@@ -3,6 +3,7 @@ import { Table, Spinner, Form } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
 import MetricFormModal from "./MetricFormModal";
 import sectionConstant from "../../constant/section.constant";
+import UnauthorizedPage from "../../components/Error/401";
 import TargetAPI from "../../api/target";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
@@ -23,12 +24,17 @@ const TargetPage: React.FC = () => {
 	const [loading, setLoading] = useState(true);
 	const [year, setYear] = useState<string>("");
 	const [yearError, setYearError] = useState<string>("");
+	const [accessDenied, setAccessDenied] = useState(false);
 
 	const fetchSectionData = useCallback(
 		async (year: number) => {
 			setLoading(true);
 			try {
 				const response = await TargetAPI.getAllSectionData(year);
+				if (response?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const data = response.data.reduce(
 					(
 						acc: Record<
@@ -103,10 +109,23 @@ const TargetPage: React.FC = () => {
 	};
 
 	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem("user") || "{}");
+		if (user?.userType === 3) {
+			setAccessDenied(true);
+			return;
+		}
 		const currentYear = new Date().getFullYear().toString();
 		setYear(currentYear);
 		fetchSectionData(parseInt(currentYear, 10));
 	}, [fetchSectionData]);
+
+	if (accessDenied) {
+		return (
+			<>
+				<UnauthorizedPage />
+			</>
+		);
+	}
 
 	return (
 		<div className="content">

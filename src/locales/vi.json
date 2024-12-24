@@ -122,7 +122,9 @@
 		"governanceWeight": "Trọng số Ban quản trị",
 		"esgScoreOverYears": "Điểm E-S-G qua các năm",
 		"score": "Điểm số",
-		"downloadReport": "Tải xuống"
+		"downloadReport": "Tải xuống",
+		"accessDenied": "Bạn không có quyền truy cập trang hiện tại",
+		"noPermission": "Vui lòng liên hệ quản trị viên để được hỗ trợ."
 	},
 
 	"chart": {

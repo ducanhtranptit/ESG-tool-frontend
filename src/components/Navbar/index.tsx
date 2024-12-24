@@ -16,6 +16,7 @@ const Navbar: React.FC = () => {
 			await AuthAPI.logout();
 			removeCookie(ACCESSTOKEN_KEY);
 			removeCookie(REFRESHTOKEN_KEY);
+			localStorage.removeItem("user");
 			navigate("/login");
 		} catch (error) {
 			console.error("Error during logout", error);

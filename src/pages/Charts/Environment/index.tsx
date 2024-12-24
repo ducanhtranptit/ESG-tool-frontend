@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import EnvironmentAPI from "../../../api/environment";
+import UnauthorizedPage from "../../../components/Error/401";
 import "./styles.css";
 
 interface DataChart {
@@ -28,7 +29,8 @@ const EnvironmentPage: React.FC = () => {
 	);
 	const { t, i18n } = useTranslation();
 	const lang = i18n.language;
-	const [loading, setLoading] = useState(true); // Trạng thái loading
+	const [loading, setLoading] = useState(true);
+	const [accessDenied, setAccessDenied] = useState(false);
 
 	const colors = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
@@ -44,17 +46,38 @@ const EnvironmentPage: React.FC = () => {
 	};
 
 	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem("user") || "{}");
+		if (user?.userType === 3) {
+			setAccessDenied(true);
+			return;
+		}
 		const fetchData = async () => {
-			setLoading(true); // Bắt đầu trạng thái loading
+			setLoading(true);
 			try {
 				const waterDataResponse =
 					await EnvironmentAPI.getDataForWaterChart(lang);
+				if (waterDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const wasteDataResponse =
 					await EnvironmentAPI.getDataForWasteChart(lang);
+				if (wasteDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const electricityDataResponse =
 					await EnvironmentAPI.getDataForElectricityChart(lang);
+				if (electricityDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				const inkPapersDataResponse =
 					await EnvironmentAPI.getDataForInkPapersChart(lang);
+				if (inkPapersDataResponse?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 
 				setWaterChartData(waterDataResponse.data);
 				setWasteChartData(wasteDataResponse.data);
@@ -201,6 +224,14 @@ const EnvironmentPage: React.FC = () => {
 			</div>
 		);
 	};
+
+	if (accessDenied) {
+		return (
+			<>
+				<UnauthorizedPage />
+			</>
+		);
+	}
 
 	return (
 		<div>

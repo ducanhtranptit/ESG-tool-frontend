@@ -122,7 +122,9 @@
 		"governanceWeight": "Governance Weight",
 		"esgScoreOverYears": "ESG Score Over the Years",
 		"score": "Score",
-		"downloadReport": "Download"
+		"downloadReport": "Download",
+		"accessDenied": "Access Denied",
+		"noPermission": "Please contact the administrator for assistance."
 	},
 
 	"chart": {

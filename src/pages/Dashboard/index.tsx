@@ -4,6 +4,7 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 import DashboardAPI from "../../api/dashboard";
 import ReportAPI from "../../api/report";
+import UnauthorizedPage from "../../components/Error/401";
 import { ApexOptions } from "apexcharts";
 import { useTranslation } from "react-i18next";
 import PizZip from "pizzip";
@@ -22,12 +23,22 @@ const Dashboard: React.FC = () => {
 	const [years, setYears] = useState<number[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [downloadLoading, setDownloadLoading] = useState(false);
+	const [accessDenied, setAccessDenied] = useState(false);
 
 	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem("user") || "{}");
+		if (user?.userType === 3) {
+			setAccessDenied(true);
+			return;
+		}
 		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const response = await DashboardAPI.getAllData();
+				if (response?.status === 401) {
+					setAccessDenied(true);
+					return;
+				}
 				setData(response.data);
 				const availableYears = response.data.company.data.map(
 					(entry: any) => entry.year
@@ -205,6 +216,14 @@ const Dashboard: React.FC = () => {
 			setDownloadLoading(false);
 		}
 	};
+
+	if (accessDenied) {
+		return (
+			<>
+				<UnauthorizedPage />
+			</>
+		);
+	}
 
 	return (
 		<div className="dashboard-container">

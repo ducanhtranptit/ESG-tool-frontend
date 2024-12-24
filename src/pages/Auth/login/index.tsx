@@ -37,7 +37,6 @@ const Login: React.FC = () => {
 		}
 		try {
 			const response = await AuthAPI.login(formData);
-			console.log("response: ", response);
 			if (response?.status !== 200) {
 				toast.error(t("login.errorLogin"));
 				return;
@@ -49,6 +48,10 @@ const Login: React.FC = () => {
 				setCookie(REFRESHTOKEN_KEY, response.data.refreshToken, {
 					expires: 1,
 				});
+				localStorage.setItem(
+					"user",
+					JSON.stringify(response.data.user)
+				);
 				navigate("/");
 			}
 		} catch (error) {
