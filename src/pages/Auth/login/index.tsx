@@ -52,7 +52,11 @@ const Login: React.FC = () => {
 					"user",
 					JSON.stringify(response.data.user)
 				);
-				navigate("/");
+				if (response.data.user.userType === 3) {
+					navigate("/companyinfo");
+				} else {
+					navigate("/");
+				}
 			}
 		} catch (error) {
 			toast.error(t("login.errorGeneral"));
