@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import TargetAPI from "../../../api/target";
 import { SHORT_TARGET } from "../../../constant/target-type.constant";
+import { toast } from "react-toastify";
 import "./styles.css";
 
 interface Question {
@@ -154,6 +155,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 		try {
 			await TargetAPI.addAnswerOfCompany(submissionData, SHORT_TARGET);
+			toast.success(t("questionForm.submitSuccess"));
 			handleClose();
 			clearState();
 		} catch (error) {

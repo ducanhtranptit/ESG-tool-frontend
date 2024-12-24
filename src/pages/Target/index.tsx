@@ -7,6 +7,7 @@ import UnauthorizedPage from "../../components/Error/401";
 import TargetAPI from "../../api/target";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
+import { ToastContainer } from "react-toastify";
 import "./styles.css";
 
 const TargetPage: React.FC = () => {
@@ -130,6 +131,7 @@ const TargetPage: React.FC = () => {
 	return (
 		<div className="content">
 			{/* <h2>{t("metricManagement.namePage")}</h2> */}
+			<ToastContainer />
 			<Form.Group controlId="yearInput" className="mb-4">
 				<Form.Label>{t("metricManagement.enterYear")}</Form.Label>
 				<Form.Control
@@ -156,76 +158,81 @@ const TargetPage: React.FC = () => {
 					</Spinner>
 				</div>
 			) : (
-				<Table striped bordered>
-					<thead>
-						<tr>
-							<th style={{ width: "45%" }}>
-								{t("metricManagement.name")}
-							</th>
-							<th style={{ width: "15%" }}>
-								{t("metricManagement.target")}
-							</th>
-							<th style={{ width: "15%" }}>
-								{t("metricManagement.metric")}
-							</th>
-							<th style={{ width: "25%" }}>
-								{t("metricManagement.percentileCompleted")}
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{Object.entries(sectionConstant).map(
-							([key, sectionDataItem]) => {
-								const sectionInfo = sectionData[key] || {};
-								const percentileCompleted = parseFloat(
-									(
-										sectionInfo.percentileCompleted || 0
-									).toFixed(2)
-								);
+				<div className="table-content">
+					<Table bordered>
+						<thead>
+							<tr>
+								<th style={{ width: "45%" }}>
+									{t("metricManagement.name")}
+								</th>
+								<th style={{ width: "15%" }}>
+									{t("metricManagement.target")}
+								</th>
+								<th style={{ width: "15%" }}>
+									{t("metricManagement.metric")}
+								</th>
+								<th style={{ width: "25%" }}>
+									{t("metricManagement.percentileCompleted")}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{Object.entries(sectionConstant).map(
+								([key, sectionDataItem]) => {
+									const sectionInfo = sectionData[key] || {};
+									const percentileCompleted = parseFloat(
+										(
+											sectionInfo.percentileCompleted || 0
+										).toFixed(2)
+									);
 
-								return (
-									<tr key={key}>
-										<td>{t(sectionDataItem.name)}</td>
-										<td>
-											<a
-												className="view-modal"
-												onClick={() =>
-													handleShowQuestionModal(
-														key,
-														{
-															name: t(
-																sectionDataItem.name
-															),
-															pillar: sectionDataItem.pillar,
-														}
-													)
-												}
-											>
-												{t("metricManagement.view")}
-											</a>
-										</td>
-										<td>
-											<a
-												className="view-modal"
-												onClick={() =>
-													handleShowMetricModal(key, {
-														name: t(
-															sectionDataItem.name
-														),
-														pillar: sectionDataItem.pillar,
-													})
-												}
-											>
-												{t("metricManagement.view")}
-											</a>
-										</td>
-										<td>{percentileCompleted}%</td>
-									</tr>
-								);
-							}
-						)}
-					</tbody>
-				</Table>
+									return (
+										<tr key={key}>
+											<td>{t(sectionDataItem.name)}</td>
+											<td>
+												<a
+													className="view-modal"
+													onClick={() =>
+														handleShowQuestionModal(
+															key,
+															{
+																name: t(
+																	sectionDataItem.name
+																),
+																pillar: sectionDataItem.pillar,
+															}
+														)
+													}
+												>
+													{t("metricManagement.view")}
+												</a>
+											</td>
+											<td>
+												<a
+													className="view-modal"
+													onClick={() =>
+														handleShowMetricModal(
+															key,
+															{
+																name: t(
+																	sectionDataItem.name
+																),
+																pillar: sectionDataItem.pillar,
+															}
+														)
+													}
+												>
+													{t("metricManagement.view")}
+												</a>
+											</td>
+											<td>{percentileCompleted}%</td>
+										</tr>
+									);
+								}
+							)}
+						</tbody>
+					</Table>
+				</div>
 			)}
 
 			{currentSection && (

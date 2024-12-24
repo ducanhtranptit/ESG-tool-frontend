@@ -8,7 +8,6 @@ import logo from "../../../public/logo.png";
 import { useTranslation } from "react-i18next";
 import { FlagIcon } from "react-flag-kit";
 import AuthAPI from "../../../api/auth";
-
 interface FormData {
 	username: string;
 	password: string;
@@ -81,6 +80,7 @@ const Register: React.FC = () => {
 			}
 			toast.success(t("register.success"));
 			navigate("/login");
+			toast.success(t("register.success"));
 		} catch (error) {
 			console.error("Registration error:", error);
 			toast.error(t("register.errorGeneral"));

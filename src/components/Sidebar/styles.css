@@ -125,3 +125,49 @@
 .rotate-180 {
 	transform: rotate(180deg);
 }
+
+.user-card {
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 10px 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	cursor: pointer;
+	justify-content: space-between;
+}
+
+.user-card:hover {
+	background-color: #f3f4f6;
+}
+
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #d1d5db;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	font-weight: 500;
+	color: #374151;
+	flex-shrink: 0;
+}
+
+.user-name {
+	font-size: 16px;
+	font-weight: 600;
+	color: #1f2937;
+	margin-left: 10px;
+	flex-grow: 1;
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+
+.user-arrow {
+	font-size: 18px;
+	color: #6b7280;
+}

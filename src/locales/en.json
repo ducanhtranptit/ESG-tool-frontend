@@ -124,7 +124,9 @@
 		"score": "Score",
 		"downloadReport": "Download",
 		"accessDenied": "Access Denied",
-		"noPermission": "Please contact the administrator for assistance."
+		"noPermission": "You need to have an active subscription to get access to create reports and answer reports questions.",
+		"registerSubscription": "Register a subscription",
+		"registerSubscriptionInfo": "Your request has been recorded, we will contact you soon."
 	},
 
 	"chart": {
@@ -246,6 +248,7 @@
 		"noAnswer": "No",
 		"submit": "Submit",
 		"noQuestionsAsked": "No questions asked.",
-		"noAnswerYet": "No answer yet"
+		"noAnswerYet": "No answer yet",
+		"submitSuccess": "Data updated successfully."
 	}
 }

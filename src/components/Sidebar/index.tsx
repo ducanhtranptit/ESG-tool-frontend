@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaChartBar, FaBuilding, FaBook, FaChevronDown } from "react-icons/fa";
+import { AiFillCaretRight } from "react-icons/ai";
 import { GrScorecard } from "react-icons/gr";
 import { TbTargetArrow } from "react-icons/tb";
 import { RiDashboard2Line } from "react-icons/ri";
@@ -12,19 +13,43 @@ import "./styles.css";
 const SideBar: React.FC = () => {
 	const location = useLocation();
 	const [showESGMenu, setShowESGMenu] = useState(false);
+	const [username, setUsername] = useState<string>("");
+	const navigate = useNavigate();
 	const { t } = useTranslation();
 
 	const toggleESGMenu = () => {
 		setShowESGMenu(!showESGMenu);
 	};
 
+	useEffect(() => {
+		const user = localStorage.getItem("user");
+		if (user) {
+			const parsedUser = JSON.parse(user);
+			setUsername(parsedUser.username || "Guest");
+		} else {
+			setUsername("Guest");
+		}
+	}, []);
+
+	const getInitial = (name: string) => name.charAt(0).toUpperCase();
+
+	const handleClickUserCard = () => {
+		navigate("/companyinfo");
+	};
 	return (
 		<div className="side-bar">
 			<div className="logo-container">
 				<img src={logo} alt="ESG Tool Logo" className="logo-img" />
 			</div>
 			<hr className="divider" />
-			<div className="menu-section">
+			<div className="user-card" onClick={handleClickUserCard}>
+				<div className="user-avatar">{getInitial(username)}</div>
+				<div className="user-name">{username}</div>
+				<div>
+					<AiFillCaretRight />
+				</div>
+			</div>
+			<div className="menu-section" style={{ paddingTop: "5vh" }}>
 				<h5>{t("sidebar.main")}</h5>
 				<ul className="list-unstyled">
 					<li

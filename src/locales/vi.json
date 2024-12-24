@@ -124,7 +124,9 @@
 		"score": "Điểm số",
 		"downloadReport": "Tải xuống",
 		"accessDenied": "Bạn không có quyền truy cập trang hiện tại",
-		"noPermission": "Vui lòng liên hệ quản trị viên để được hỗ trợ."
+		"noPermission": "Bạn cần có đăng ký đang hoạt động để có quyền truy cập tạo báo cáo và trả lời các câu hỏi về báo cáo.",
+		"registerSubscription": "Đăng ký dịch vụ.",
+		"registerSubscriptionInfo": "Yêu cầu của bạn đã được ghi nhận, chúng tôi sẽ sớm liên hệ tới bạn."
 	},
 
 	"chart": {
@@ -178,7 +180,8 @@
 		"noAnswer": "Không",
 		"submit": "Gửi",
 		"noQuestionsAsked": "Không có câu hỏi nào.",
-		"noAnswerYet": "Chưa có câu trả lời"
+		"noAnswerYet": "Chưa có câu trả lời",
+		"submitSuccess": "Cập nhật dữ liệu thành công!"
 	},
 
 	"section": {

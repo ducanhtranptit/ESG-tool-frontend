@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import {toast, ToastContainer} from "react-toastify";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import QuestionAPI from "../../../api/question";
 import "./styles.css";
@@ -152,6 +153,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 
 		try {
 			await QuestionAPI.addAnswerOfCompany(submissionData, lang);
+			toast.success(t("questionForm.submitSuccess"));
 			handleClose();
 			clearState();
 		} catch (error) {

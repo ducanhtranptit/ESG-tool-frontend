@@ -1,40 +1,48 @@
 .content {
-    width: 100%;
-    border-radius: 8px;
-    padding: 20px;
+	width: 100%;
+	border-radius: 8px;
+	padding: 20px;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
-    border: none;
+	border-collapse: collapse;
+	width: 100%;
+	border: none;
 }
 
 table th,
 table td {
-    border: none;
-    padding: 8px;
-    text-align: left;
+	border: none;
+	padding: 8px;
+	text-align: left;
 }
 
 table.table-hover tbody tr:hover {
-    background-color: transparent !important;
+	background-color: transparent !important;
 }
 
 table tbody td.section-name:hover {
-    color: #007bff !important;
-    background-color: transparent !important;
-    cursor: pointer;
-    transition: color 0.3s ease;
+	color: #007bff !important;
+	background-color: transparent !important;
+	cursor: pointer;
+	transition: color 0.3s ease;
 }
 
 .view-modal {
-    text-decoration: none;
-    cursor: pointer;
-    transition: font-weight 0.2s ease-in-out;
+	text-decoration: none;
+	cursor: pointer;
+	transition: font-weight 0.2s ease-in-out;
 }
 
 .view-modal:hover {
-    font-weight: bold;
-    color: #007bff !important;
+	font-weight: bold;
+	color: #007bff !important;
+}
+
+.table-content {
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 1px;
+    padding-bottom: 1px;
+	background-color: white;
 }

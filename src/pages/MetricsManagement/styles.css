@@ -4,26 +4,7 @@
 	padding: 20px;
 }
 
-button[type="submit"] {
-	margin-top: 20px;
-}
-
-.row {
-	padding: 20px;
-}
-
-.btn {
-    color: #212529;
-    background-color: #f8f9fa; 
-    border-color: #007bff; 
-}
-
-.btn:hover {
-    color: #fff; 
-    background-color: #007bff; 
-}
-
-.section-content {
-    cursor: pointer;
-    transition: font-weight 0.2s ease-in-out;
+.section-button-container{
+    background-color: white;
+    padding: 20px;
 }

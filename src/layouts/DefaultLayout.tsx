@@ -9,7 +9,10 @@ const DefaultLayout: React.FC = () => {
 				<div className="col-2">
 					<SideBar />
 				</div>
-				<div className="col-10">
+				<div
+					className="col-10"
+					style={{ backgroundColor: "#f5f5f5", height: "100vh" }}
+				>
 					<Navbar />
 					<div>
 						<Outlet />

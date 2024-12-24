@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Button, Spinner, Form } from "react-bootstrap";
 import QuestionFormModal from "./QuestionFormModal/index";
 import sectionConstant from "../../constant/section.constant";
+import { toast, ToastContainer } from "react-toastify";
 import QuestionAPI from "../../api/question";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
+import "./styles.css"
 
 const MetricsManagementPage: React.FC = () => {
 	const { t } = useTranslation();
@@ -18,17 +20,16 @@ const MetricsManagementPage: React.FC = () => {
 		Record<string, { submitCount: number; updatedAt?: string }>
 	>({});
 	const [loading, setLoading] = useState(true);
-	const [year, setYear] = useState<string>(""); // Năm hiện tại sẽ được set ở đây
+	const [year, setYear] = useState<string>("");
 	const [yearError, setYearError] = useState<string>("");
 
-	// Hàm để lấy số liệu về submit counts cho năm đã chọn
 	const fetchSubmitCounts = useCallback(
 		async (year: number) => {
 			setLoading(true);
 			try {
 				const response = await QuestionAPI.getAllSectionSubmitCount(
 					year
-				);				
+				);
 				const counts = response.data.reduce(
 					(
 						acc: Record<
@@ -51,6 +52,7 @@ const MetricsManagementPage: React.FC = () => {
 				);
 				setSubmitCounts(counts);
 			} catch (error) {
+				toast.error(t("metricManagement.fetchError"));
 				console.error(t("metricManagement.fetchError"), error);
 			} finally {
 				setLoading(false);
@@ -135,7 +137,7 @@ const MetricsManagementPage: React.FC = () => {
 			parsedYear < 2000 || // Kiểm tra nếu năm nhỏ hơn 2000
 			parsedYear > 2100 // Kiểm tra nếu năm lớn hơn 2100
 		) {
-			setYearError(t("metricManagement.invalidYear")); // Nếu có lỗi, hiển thị thông báo lỗi
+			setYearError(t("metricManagement.invalidYear"));
 		} else {
 			setYearError(""); // Nếu không có lỗi, xóa thông báo lỗi
 			validateAndFetchData(parsedYear); // Gọi API với năm đã nhập
@@ -151,6 +153,7 @@ const MetricsManagementPage: React.FC = () => {
 
 	return (
 		<div className="content">
+			<ToastContainer />
 			<Form.Group controlId="yearInput" className="mb-4">
 				<Form.Label>{t("metricManagement.enterYear")}</Form.Label>
 				<Form.Control
@@ -177,69 +180,75 @@ const MetricsManagementPage: React.FC = () => {
 					</Spinner>
 				</div>
 			) : (
-				Object.entries(sectionsByPillar).map(([pillar, sections]) => (
-					<div key={pillar} className="mb-4">
-						<h3>
-							{pillarNames[parseInt(pillar)] ||
-								`${t("metricManagement.pillar")} ${pillar}`}
-						</h3>
-						<div
-							className="d-grid gap-3"
-							style={{
-								gridTemplateColumns:
-									"repeat(auto-fill, minmax(200px, 1fr))",
-							}}
-						>
-							{sections.map((section) => {
-								const submitInfo =
-									submitCounts[section.key] || {};
-								const lastUpdatedText =
-									submitInfo.submitCount > 0 &&
-									submitInfo.updatedAt
-										? `${t(
-												"metricManagement.lastModified"
-										  )}: ${new Date(
-												submitInfo.updatedAt
-										  ).toLocaleDateString()}`
-										: "";
+				<div className="section-button-container">
+					{Object.entries(sectionsByPillar).map(
+						([pillar, sections]) => (
+							<div key={pillar} className="mb-4">
+								<h3>
+									{pillarNames[parseInt(pillar)] ||
+										`${t(
+											"metricManagement.pillar"
+										)} ${pillar}`}
+								</h3>
+								<div
+									className="d-grid gap-3"
+									style={{
+										gridTemplateColumns:
+											"repeat(auto-fill, minmax(200px, 1fr))",
+									}}
+								>
+									{sections.map((section) => {
+										const submitInfo =
+											submitCounts[section.key] || {};
+										const lastUpdatedText =
+											submitInfo.submitCount > 0 &&
+											submitInfo.updatedAt
+												? `${t(
+														"metricManagement.lastModified"
+												  )}: ${new Date(
+														submitInfo.updatedAt
+												  ).toLocaleDateString()}`
+												: "";
 
-								return (
-									<Button
-										key={section.key}
-										variant={
-											submitInfo.submitCount === 0
-												? "secondary"
-												: pillarVariants[
-														section.pillar
-												  ] || "secondary"
-										}
-										onClick={() =>
-											handleShowModal(
-												section.key,
-												section
-											)
-										}
-										className="btn"
-										style={{ minHeight: "100px" }}
-									>
-										<div>{section.name}</div>
-										{lastUpdatedText && (
-											<small
-												className={
-													section.pillar === 2
-														? "text-dark section-content"
-														: "text-white section-content"
+										return (
+											<Button
+												key={section.key}
+												variant={
+													submitInfo.submitCount === 0
+														? "secondary"
+														: pillarVariants[
+																section.pillar
+														  ] || "secondary"
 												}
+												onClick={() =>
+													handleShowModal(
+														section.key,
+														section
+													)
+												}
+												className="btn"
+												style={{ minHeight: "100px" }}
 											>
-												{lastUpdatedText}
-											</small>
-										)}
-									</Button>
-								);
-							})}
-						</div>
-					</div>
-				))
+												<div>{section.name}</div>
+												{lastUpdatedText && (
+													<small
+														className={
+															section.pillar === 2
+																? "text-dark section-content"
+																: "text-white section-content"
+														}
+													>
+														{lastUpdatedText}
+													</small>
+												)}
+											</Button>
+										);
+									})}
+								</div>
+							</div>
+						)
+					)}
+				</div>
 			)}
 
 			{currentSection && (

@@ -24,4 +24,5 @@
 
 button[type="submit"] {
 	border-radius: 8px;
+	float: right;
 }
