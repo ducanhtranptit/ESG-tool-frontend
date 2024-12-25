@@ -2,10 +2,11 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/Sidebar/index";
 import Navbar from "../components/Navbar";
+import { wrap } from "module";
 const DefaultLayout: React.FC = () => {
 	return (
 		<div>
-			<div className="row">
+			<div className="row" style={{ flexWrap: "wrap" }}>
 				<div style={{ display: "flex", width: "250px" }}>
 					<SideBar />
 				</div>
