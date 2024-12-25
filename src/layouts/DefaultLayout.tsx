@@ -6,7 +6,7 @@ import { wrap } from "module";
 const DefaultLayout: React.FC = () => {
 	return (
 		<div>
-			<div className="row" style={{ flexWrap: "wrap" }}>
+			<div className="row" style={{ flexWrap: "nowrap" }}>
 				<div style={{ display: "flex", width: "250px" }}>
 					<SideBar />
 				</div>
