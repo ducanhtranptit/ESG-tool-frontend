@@ -13,7 +13,7 @@ const DefaultLayout: React.FC = () => {
 				<div
 					style={{
 						flex: 1,
-						maxWidth: "calc(100vw)",
+						maxWidth: "calc(100vw - 250px)",
 						backgroundColor: "white",
 						height: "100vw",
 					}}
