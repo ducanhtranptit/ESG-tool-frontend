@@ -73,6 +73,13 @@
 	margin-top: auto;
 }
 
+.nav-item.active .nav-link,
+.nav-link.hover {
+	background-color: #4caf50;
+	color: white;
+	border-radius: 4px;
+}
+
 .nav-link {
 	display: flex;
 	align-items: center;
@@ -97,8 +104,16 @@
 	transition: color 0.3s ease;
 }
 
+.submenu .dropdown-item {
+	padding-left: 20px;
+	font-size: 15px;
+	color: #495057;
+	margin-bottom: 8px;
+	transition: color 0.3s ease;
+}
+
 .submenu .dropdown-item:hover,
-.submenu .dropdown-item.active {
+.submenu .dropdown-item.hover {
 	color: #4caf50;
 }
 
@@ -164,8 +179,8 @@
 	color: #1f2937;
 	margin-left: 10px;
 	flex-grow: 1;
-	white-space: nowrap; 
-	overflow: hidden; 
+	white-space: nowrap;
+	overflow: hidden;
 	text-overflow: ellipsis;
 }
 

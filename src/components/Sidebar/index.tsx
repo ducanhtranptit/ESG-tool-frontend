@@ -17,8 +17,9 @@ const SideBar: React.FC = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
+	// Toggle dropdown menu
 	const toggleESGMenu = () => {
-		setShowESGMenu(!showESGMenu);
+		setShowESGMenu((prev) => !prev); // Luôn thay đổi trạng thái đóng/mở
 	};
 
 	useEffect(() => {
@@ -31,11 +32,25 @@ const SideBar: React.FC = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		// Close dropdown if navigating outside of the Charts section
+		if (!location.pathname.startsWith("/charts")) {
+			setShowESGMenu(false);
+		}
+	}, [location.pathname]);
+
 	const getInitial = (name: string) => name.charAt(0).toUpperCase();
 
 	const handleClickUserCard = () => {
 		navigate("/companyinfo");
 	};
+
+	// Check if current path is a chart item
+	const isChartItemSelected =
+		location.pathname.startsWith("/charts/environment") ||
+		location.pathname.startsWith("/charts/social") ||
+		location.pathname.startsWith("/charts/governance");
+
 	return (
 		<div className="side-bar">
 			<div className="logo-container">
@@ -57,7 +72,12 @@ const SideBar: React.FC = () => {
 							location.pathname === "/" ? "active" : ""
 						}`}
 					>
-						<Link to="/" className="nav-link">
+						<Link
+							to="/"
+							className={`nav-link ${
+								location.pathname === "/" ? "hover" : ""
+							}`}
+						>
 							<RiDashboard2Line
 								style={{ fontSize: "1.5rem" }}
 								className="me-2"
@@ -68,7 +88,9 @@ const SideBar: React.FC = () => {
 
 					<li className="nav-item">
 						<div
-							className="nav-link d-flex justify-content-between align-items-center"
+							className={`nav-link d-flex justify-content-between align-items-center ${
+								isChartItemSelected ? "hover" : ""
+							}`}
 							onClick={toggleESGMenu}
 							style={{ cursor: "pointer" }}
 						>
@@ -86,47 +108,62 @@ const SideBar: React.FC = () => {
 							/>
 						</div>
 						{showESGMenu && (
-							<ul className="submenu list-unstyled">
+							<ul className="submenu list-unstyled show">
 								<li
-									className={
+									className={`nav-item ${
 										location.pathname ===
-										"/charts/charts/environment"
+										"/charts/environment"
 											? "active"
 											: ""
-									}
+									}`}
 								>
 									<Link
 										to="/charts/environment"
-										className="dropdown-item"
+										className={`dropdown-item ${
+											location.pathname ===
+											"/charts/environment"
+												? "hover"
+												: ""
+										}`}
 									>
 										{t("sidebar.environment")}
 									</Link>
 								</li>
 								<li
-									className={
+									className={`nav-item ${
 										location.pathname === "/charts/social"
 											? "active"
 											: ""
-									}
+									}`}
 								>
 									<Link
 										to="/charts/social"
-										className="dropdown-item"
+										className={`dropdown-item ${
+											location.pathname ===
+											"/charts/social"
+												? "hover"
+												: ""
+										}`}
 									>
 										{t("sidebar.social")}
 									</Link>
 								</li>
 								<li
-									className={
+									className={`nav-item ${
 										location.pathname ===
 										"/charts/governance"
 											? "active"
 											: ""
-									}
+									}`}
 								>
 									<Link
 										to="/charts/governance"
-										className="dropdown-item"
+										className={`dropdown-item ${
+											location.pathname ===
+											"/charts/governance"
+												? "hover"
+												: ""
+										}`}
 									>
 										{t("sidebar.governance")}
 									</Link>
@@ -142,7 +179,14 @@ const SideBar: React.FC = () => {
 								: ""
 						}`}
 					>
-						<Link to="/metric-management" className="nav-link">
+						<Link
+							to="/metric-management"
+							className={`nav-link ${
+								location.pathname === "/metric-management"
+									? "hover"
+									: ""
+							}`}
+						>
 							<GrScorecard
 								style={{ fontSize: "1.4rem" }}
 								className="me-2"
@@ -152,12 +196,15 @@ const SideBar: React.FC = () => {
 					</li>
 					<li
 						className={`nav-item ${
-							location.pathname === "/metric-management"
-								? "active"
-								: ""
+							location.pathname === "/target" ? "active" : ""
 						}`}
 					>
-						<Link to="/target" className="nav-link">
+						<Link
+							to="/target"
+							className={`nav-link ${
+								location.pathname === "/target" ? "hover" : ""
+							}`}
+						>
 							<TbTargetArrow
 								style={{ fontSize: "1.4rem" }}
 								className="me-2"
