@@ -12,8 +12,9 @@ const DefaultLayout: React.FC = () => {
 				<div
 					style={{
 						flex: 1,
+						maxWidth: "calc(100vw)",
 						backgroundColor: "white",
-						height: "100%",
+						height: "100vw",
 					}}
 				>
 					<Navbar />

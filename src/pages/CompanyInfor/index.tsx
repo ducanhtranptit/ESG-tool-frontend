@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import CompanyInforAPI from "../../api/companyinfor";
-import {
-	Spinner,
-	Table,
-	Button,
-	Card,
-	Row,
-	Col,
-} from "react-bootstrap";
+import { Spinner, Table, Button, Card, Row, Col } from "react-bootstrap";
 import "./styles.css";
 import EditCompanyDetailModal from "./EditCompanyDetailModal/index";
 
@@ -199,12 +192,23 @@ const CompanyPage: React.FC = () => {
 				</Card.Header>
 				<Card.Body>
 					{siteInfors.length > 0 ? (
-						<Table responsive bordered hover>
+						<Table
+							responsive
+							bordered
+							hover
+							className="fixed-table"
+						>
 							<thead>
 								<tr>
-									<th>{t("companyInfor.siteName")}</th>
-									<th>{t("companyInfor.numberEmployees")}</th>
-									<th>{t("companyInfor.comment")}</th>
+									<th style={{ width: "40%" }}>
+										{t("companyInfor.siteName")}
+									</th>
+									<th style={{ width: "30%" }}>
+										{t("companyInfor.numberEmployees")}
+									</th>
+									<th style={{ width: "30%" }}>
+										{t("companyInfor.comment")}
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -229,12 +233,18 @@ const CompanyPage: React.FC = () => {
 				</Card.Header>
 				<Card.Body>
 					{productInfors.length > 0 ? (
-						<Table responsive bordered>
+						<Table responsive bordered className="fixed-table">
 							<thead>
 								<tr>
-									<th>{t("companyInfor.productName")}</th>
-									<th>{t("companyInfor.revenue")}</th>
-									<th>{t("companyInfor.comment")}</th>
+									<th style={{ width: "40%" }}>
+										{t("companyInfor.productName")}
+									</th>
+									<th style={{ width: "30%" }}>
+										{t("companyInfor.revenue")}
+									</th>
+									<th style={{ width: "30%" }}>
+										{t("companyInfor.comment")}
+									</th>
 								</tr>
 							</thead>
 							<tbody>

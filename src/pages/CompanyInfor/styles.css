@@ -3,3 +3,14 @@
 	border-radius: 8px;
 	padding: 20px;
 }
+
+.fixed-table {
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
+.fixed-table th,
+.fixed-table td {
+	white-space: normal;
+	text-align: left;
+}
