@@ -18,13 +18,23 @@
 }
 
 .form-group {
-    position: relative;
+	position: relative;
 }
 
 .form-group div {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    color: red;
-    font-size: 12px;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	color: red;
+	font-size: 12px;
+}
+
+.submit-button {
+	background-color: #58b966;
+	border: none;
+}
+
+.submit-button:hover {
+	border: none;
+	background-color: #4a9459;
 }

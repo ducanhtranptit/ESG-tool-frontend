@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import {toast, ToastContainer} from "react-toastify";
+import { toast } from "react-toastify";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import QuestionAPI from "../../../api/question";
 import "./styles.css";
@@ -79,7 +79,7 @@ const QuestionFormModal: React.FC<QuestionFormModalProps> = ({
 		};
 
 		fetchData();
-	}, [show, section, year, lang]); 
+	}, [show, section, year, lang]);
 
 	const fetchAnswersForYear = async (enteredYear: number) => {
 		if (enteredYear && section) {

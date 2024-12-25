@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import CompanyInforAPI from "../../api/companyinfor";
 import { Spinner, Table, Button, Card, Row, Col } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 import "./styles.css";
 import EditCompanyDetailModal from "./EditCompanyDetailModal/index";
 
@@ -105,6 +106,7 @@ const CompanyPage: React.FC = () => {
 
 	return (
 		<div className="py-4 content">
+			<ToastContainer />
 			<Row className="align-items-center mb-4">
 				<Col>
 					<h2 className="text-primary">

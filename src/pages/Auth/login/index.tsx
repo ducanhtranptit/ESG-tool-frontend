@@ -122,12 +122,12 @@ const Login: React.FC = () => {
 
 					<p className="mt-3m register-text">
 						{t("login.noAccount")}{" "}
-						<button
-							className="btn btn-link register-link"
+						<a	
+							className="login-link"
 							onClick={() => navigate("/register")}
 						>
 							{t("login.registerHere")}
-						</button>
+						</a>
 					</p>
 				</div>
 			</div>

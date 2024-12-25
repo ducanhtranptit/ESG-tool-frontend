@@ -87,7 +87,10 @@
 		"delete": "Xóa",
 		"close": "Đóng",
 		"saveChanges": "Lưu Thay Đổi",
-		"updateError": "Lỗi khi cập nhật thông tin công ty:"
+		"updateError": "Lỗi khi cập nhật thông tin công ty:",
+		"errorInvalidPhoneNumber": "Số điện thoại không hợp lệ.",
+		"errorCompanyNameTooLong": "Tên công ty quá dài.",
+		"errorInvalidData": "Dữ liệu không hợp lệ."
 	},
 
 	"sidebar": {

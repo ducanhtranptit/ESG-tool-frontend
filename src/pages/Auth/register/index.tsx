@@ -8,6 +8,7 @@ import logo from "../../../public/logo.png";
 import { useTranslation } from "react-i18next";
 import { FlagIcon } from "react-flag-kit";
 import AuthAPI from "../../../api/auth";
+import "./styles.css";
 interface FormData {
 	username: string;
 	password: string;
@@ -329,7 +330,10 @@ const Register: React.FC = () => {
 							<span>{t("register.companyCodeTooltip")}</span>
 						</div>
 
-						<button type="submit" className="btn btn-success">
+						<button
+							type="submit"
+							className="btn btn-success submit-button"
+						>
 							{t("register.submit")}
 						</button>
 					</Form>

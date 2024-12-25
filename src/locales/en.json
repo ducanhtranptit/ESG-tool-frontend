@@ -87,7 +87,10 @@
 		"delete": "Delete",
 		"close": "Close",
 		"saveChanges": "Save Changes",
-		"updateError": "Error updating company information:"
+		"updateError": "Error updating company information:",
+		"errorInvalidPhoneNumber": "Invalid phone number.",
+		"errorCompanyNameTooLong": "Company name is too long.",
+		"errorInvalidData": "Invalid data."
 	},
 
 	"sidebar": {

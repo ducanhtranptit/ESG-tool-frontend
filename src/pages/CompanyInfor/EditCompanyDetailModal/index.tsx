@@ -3,6 +3,7 @@ import { Modal, Button, Form, Row, Col, Table } from "react-bootstrap";
 import CompanyInforAPI from "../../../api/companyinfor";
 import ReactQuill from "react-quill";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import "react-quill/dist/quill.snow.css";
 
 interface OverallInfor {
@@ -72,6 +73,8 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 	const [productInformation, setProductInformation] = useState([
 		...productInfors,
 	]);
+	const [phoneError, setPhoneError] = useState("");
+	const [nameError, setNameError] = useState("");
 
 	useEffect(() => {
 		setCompanyName(companyDetails.companyName);
@@ -134,7 +137,10 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-
+		if (phoneError || nameError) {
+			toast.error(t("editCompanyInfo.errorInvalidData"));
+			return;
+		}
 		const updatedCompanyDetails = {
 			companyName,
 			dateFounder,
@@ -149,20 +155,39 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 		};
 
 		try {
-			const response = await CompanyInforAPI.updateCompanyInfor(
-				updatedCompanyDetails
-			);
-			console.log("Response from server:", response);
+			await CompanyInforAPI.updateCompanyInfor(updatedCompanyDetails);
+			toast.success(t("questionForm.submitSuccess"));
 			handleClose();
 		} catch (error) {
 			console.error(t("editCompanyInfo.updateError"), error);
 		}
 	};
 
+	const validatePhoneNumber = (value: any) => {
+		const phoneRegex = /^0\d{9}$/;
+		if (!phoneRegex.test(value)) {
+			setPhoneError(t("editCompanyInfo.errorInvalidPhoneNumber"));
+		} else {
+			setPhoneError("");
+		}
+		setMainPhoneNumber(value);
+	};
+
+	const validateCompanyName = (value: string) => {
+		if (value.length > 250) {
+			setNameError(t("editCompanyInfo.errorCompanyNameTooLong"));
+		} else {
+			setNameError("");
+		}
+		setCompanyName(value);
+	};
+
 	return (
 		<Modal show={show} onHide={handleClose} centered size="xl">
 			<Modal.Header closeButton>
-				<Modal.Title>{t("editCompanyInfo.editCompanyInfo")}</Modal.Title>
+				<Modal.Title>
+					{t("editCompanyInfo.editCompanyInfo")}
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Form onSubmit={handleSubmit}>
@@ -170,20 +195,26 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					<Row className="mb-3">
 						<Col md={6}>
 							<Form.Group controlId="formCompanyName">
-								<Form.Label>{t("editCompanyInfo.companyName")}</Form.Label>
+								<Form.Label>
+									{t("editCompanyInfo.companyName")}
+								</Form.Label>
 								<Form.Control
 									type="text"
 									value={companyName}
 									onChange={(e) =>
-										setCompanyName(e.target.value)
+										validateCompanyName(e.target.value)
 									}
+									isInvalid={!!nameError}
+									maxLength={250}
 									required
 								/>
 							</Form.Group>
 						</Col>
 						<Col md={3}>
 							<Form.Group controlId="formDateFounder">
-								<Form.Label>{t("editCompanyInfo.foundingDate")}</Form.Label>
+								<Form.Label>
+									{t("editCompanyInfo.foundingDate")}
+								</Form.Label>
 								<Form.Control
 									type="text"
 									value={dateFounder}
@@ -196,15 +227,20 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</Col>
 						<Col md={3}>
 							<Form.Group controlId="formPhoneNumber">
-								<Form.Label>{t("editCompanyInfo.mainPhoneNumber")}</Form.Label>
+								<Form.Label>
+									{t("editCompanyInfo.mainPhoneNumber")}
+								</Form.Label>
 								<Form.Control
 									type="text"
 									value={mainPhoneNumber}
 									onChange={(e) =>
-										setMainPhoneNumber(e.target.value)
+										validatePhoneNumber(e.target.value)
 									}
-									required
+									isInvalid={!!phoneError}
 								/>
+								<Form.Control.Feedback type="invalid">
+									{phoneError}
+								</Form.Control.Feedback>
 							</Form.Group>
 						</Col>
 					</Row>
@@ -212,7 +248,9 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					<Row className="mb-3">
 						<Col md={6}>
 							<Form.Group controlId="formAddress">
-								<Form.Label>{t("editCompanyInfo.mainAddress")}</Form.Label>
+								<Form.Label>
+									{t("editCompanyInfo.mainAddress")}
+								</Form.Label>
 								<Form.Control
 									type="text"
 									value={mainAddress}
@@ -225,7 +263,9 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						</Col>
 						<Col md={6}>
 							<Form.Group controlId="formWebsite">
-								<Form.Label>{t("editCompanyInfo.companyWebsite")}</Form.Label>
+								<Form.Label>
+									{t("editCompanyInfo.companyWebsite")}
+								</Form.Label>
 								<Form.Control
 									type="text"
 									value={companyWebsite}
@@ -249,10 +289,12 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 					</Form.Group>
 
 					<Form.Group className="mb-3" controlId="formDescription">
-						<Form.Label>{t("editCompanyInfo.companyDescription")}</Form.Label>
+						<Form.Label>
+							{t("editCompanyInfo.companyDescription")}
+						</Form.Label>
 						<Form.Control
 							as="textarea"
-							rows={3}
+							rows={10}
 							value={companyDescription}
 							onChange={(e) =>
 								setCompanyDescription(e.target.value)
@@ -265,7 +307,9 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						className="mb-3"
 						controlId="formContactInformation"
 					>
-						<Form.Label>{t("editCompanyInfo.contactInformation")}</Form.Label>
+						<Form.Label>
+							{t("editCompanyInfo.contactInformation")}
+						</Form.Label>
 						<ReactQuill
 							value={contactInformation}
 							onChange={setContactInformation}
@@ -345,7 +389,9 @@ const EditCompanyDetailModal: React.FC<EditCompanyDetailModalProps> = ({
 						{t("editCompanyInfo.addSite")}
 					</Button>
 
-					<h4 className="mt-4">{t("editCompanyInfo.productInformation")}</h4>
+					<h4 className="mt-4">
+						{t("editCompanyInfo.productInformation")}
+					</h4>
 					<Table striped bordered hover>
 						<thead>
 							<tr>

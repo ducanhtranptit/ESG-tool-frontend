@@ -24,7 +24,6 @@
 	box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-
 .logo-img {
 	width: 100%;
 }
@@ -81,12 +80,16 @@
 }
 
 .register-text {
-	width: 100%;
 	text-align: center;
-	color: #777;
 	margin-top: 20px;
 }
 
-.register-link{
-	text-align: center;
+.register-text .login-link {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.register-text .login-link:hover {
+	color: darkblue;
 }
