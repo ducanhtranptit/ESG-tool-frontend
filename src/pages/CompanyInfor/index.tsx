@@ -153,11 +153,11 @@ const CompanyPage: React.FC = () => {
 								</strong>{" "}
 								<a
 									href={
-										overallInfor.companyWebsite.startsWith(
+										overallInfor?.companyWebsite?.startsWith(
 											"http"
 										)
-											? overallInfor.companyWebsite
-											: `https://${overallInfor.companyWebsite}`
+											? overallInfor?.companyWebsite
+											: `https://${overallInfor?.companyWebsite}`
 									}
 									target="_blank"
 									rel="noopener noreferrer"
