@@ -55,7 +55,7 @@ const Login: React.FC = () => {
 				if (response.data.user.userType === 3) {
 					navigate("/companyinfo");
 				} else {
-					navigate("/");
+					navigate("/app/dashboard");
 				}
 			}
 		} catch (error) {

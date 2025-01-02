@@ -1,4 +1,22 @@
 {
+	"landingPage": {
+		"welcome": "Discover the ultimate ESG Tool",
+		"description": "Take your business further with modern ESG management.",
+		"startNow": "Get Started Now",
+		"featuresTitle": "Key Features",
+		"esgScore": "ESG Score",
+		"esgScoreDescription": "Evaluate and track your company's ESG performance comprehensively.",
+		"analytics": "Analytics",
+		"analyticsDescription": "Detailed data visualization for Environment, Social, and Governance.",
+		"goalManagement": "Goal Management",
+		"goalManagementDescription": "Set clear ESG goals and monitor progress effectively.",
+		"companyInfo": "Company Information",
+		"companyInfoDescription": "Comprehensive company profiles related to ESG metrics.",
+		"guide": "User Guide",
+		"guideDescription": "Detailed documentation and tutorials for effective usage.",
+		"footerText": "© 2025 ESG Tool. All rights reserved."
+	  },
+	  
 	"register": {
 		"title": "Register a new account",
 		"username": "Username",

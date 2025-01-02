@@ -12,6 +12,7 @@ import MetricsManagementPage from "../pages/MetricsManagement";
 import TargetPage from "../pages/Target";
 import Login from "../pages/Auth/login";
 import Register from "../pages/Auth/register";
+import LandingPage from "../pages/Landing";
 import PrivateRoute from "./PrivateRouter";
 import DefaultLayout from "../layouts/DefaultLayout";
 import AuthLayout from "../layouts/AuthLayout";
@@ -23,32 +24,33 @@ const DefaultRouter: React.FC = () => {
 	return (
 		<Routes>
 			<Route
-				path="/"
+				path="/app"
 				element={
 					<PrivateRoute>
 						<DefaultLayout />
 					</PrivateRoute>
 				}
 			>
-				<Route index element={<Dashboard />} />
-				<Route path="/charts">
+				<Route path="dashboard" element={<Dashboard />} />
+				<Route path="charts">
 					<Route path="environment" element={<Environment />} />
 					<Route path="governance" element={<Government />} />
 					<Route path="social" element={<Social />} />
 				</Route>
 				<Route
-					path="/metric-management"
+					path="metric-management"
 					element={<MetricsManagementPage />}
 				/>
-				<Route path="/target" element={<TargetPage />} />
-				<Route path="/companyinfo" element={<CompanyInfo />} />
-				<Route path="/guideline" element={<GuideLinePage />} />
+				<Route path="target" element={<TargetPage />} />
+				<Route path="companyinfo" element={<CompanyInfo />} />
+				<Route path="guideline" element={<GuideLinePage />} />
 			</Route>
+			<Route path="/" element={<LandingPage />} />
 			<Route path="/login" element={<AuthLayout />}>
-				<Route index element={<Login />} />
+				<Route path="" element={<Login />} />
 			</Route>
 			<Route path="/register" element={<AuthLayout />}>
-				<Route index element={<Register />} />
+				<Route path="" element={<Register />} />
 			</Route>
 			<Route
 				path="*"

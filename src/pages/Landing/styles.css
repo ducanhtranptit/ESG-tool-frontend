@@ -1,0 +1,77 @@
+.landingpage-heading {
+	border-bottom: 1px solid black;
+}
+
+.custom-login-btn {
+	background-color: #58b966;
+	border-color: #58b966;
+	color: white;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-login-btn:hover {
+	background-color: #4ca757;
+	border-color: #4ca757;
+}
+
+.custom-register-btn {
+	background-color: #4d9ae1;
+	border-color: #4d9ae1;
+	color: white;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-register-btn:hover {
+	background-color: #3c8bd1;
+	border-color: #3c8bd1;
+}
+
+/* Căn chỉnh nút đổi ngôn ngữ ở góc/phía bên phải màn hình */
+
+/* Tùy biến style cho dropdown */
+.language-dropdown {
+	padding: 5px 10px;
+	font-size: 14px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	padding: 20px;
+}
+
+.landing-page-card {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 20px;
+	background-color: #fff;
+	text-align: center;
+}
+
+.landing-page-card-title {
+	margin-top: 0;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.landing-page-card-text {
+	margin: 10px 0 0;
+	font-size: 1em;
+}
+
+@media (max-width: 768px) {
+	.grid-container {
+		grid-template-columns: 1fr;
+	}
+}
+
+.landingpage-footer {
+	background-color: white;
+	color: black;
+	border-top: 1px solid black;
+}

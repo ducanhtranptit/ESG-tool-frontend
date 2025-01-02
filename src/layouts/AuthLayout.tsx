@@ -8,7 +8,7 @@ const AuthLayout: React.FC = () => {
 
 	useEffect(() => {
 		if (getCookie(ACCESSTOKEN_KEY)) {
-			navigate("/");
+			navigate("/app/dashboard");
 		}
 	}, [navigate]);
 

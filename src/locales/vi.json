@@ -1,4 +1,22 @@
 {
+	"landingPage": {
+		"welcome": "Khám phá Công cụ ESG tối ưu",
+		"description": "Đưa doanh nghiệp của bạn tiến xa hơn với giải pháp quản lý ESG hiện đại.",
+		"startNow": "Bắt đầu ngay",
+		"featuresTitle": "Tính năng nổi bật",
+		"esgScore": "Điểm ESG",
+		"esgScoreDescription": "Đánh giá và theo dõi hiệu suất ESG của doanh nghiệp một cách toàn diện.",
+		"analytics": "Đồ thị phân tích",
+		"analyticsDescription": "Dữ liệu chi tiết về Môi trường, Xã hội và Quản trị.",
+		"goalManagement": "Quản lý mục tiêu",
+		"goalManagementDescription": "Thiết lập mục tiêu ESG rõ ràng và theo dõi tiến độ hiệu quả.",
+		"companyInfo": "Thông tin công ty",
+		"companyInfoDescription": "Hồ sơ doanh nghiệp toàn diện liên quan đến các chỉ số ESG.",
+		"guide": "Hướng dẫn sử dụng",
+		"guideDescription": "Tài liệu chi tiết và video hỗ trợ bạn sử dụng hiệu quả.",
+		"footerText": "© 2025 ESG Tool. Tất cả các quyền được bảo lưu."
+	},
+
 	"register": {
 		"title": "Đăng ký tài khoản mới",
 		"username": "Tên đăng nhập",

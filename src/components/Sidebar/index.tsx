@@ -34,7 +34,7 @@ const SideBar: React.FC = () => {
 
 	useEffect(() => {
 		// Close dropdown if navigating outside of the Charts section
-		if (!location.pathname.startsWith("/charts")) {
+		if (!location.pathname.startsWith("/app/charts")) {
 			setShowESGMenu(false);
 		}
 	}, [location.pathname]);
@@ -42,20 +42,23 @@ const SideBar: React.FC = () => {
 	const getInitial = (name: string) => name.charAt(0).toUpperCase();
 
 	const handleClickUserCard = () => {
-		navigate("/companyinfo");
+		navigate("/app/companyinfo");
 	};
 
 	// Check if current path is a chart item
 	const isChartItemSelected =
-		location.pathname.startsWith("/charts/environment") ||
-		location.pathname.startsWith("/charts/social") ||
-		location.pathname.startsWith("/charts/governance");
+		location.pathname.startsWith("/app/charts/environment") ||
+		location.pathname.startsWith("/app/charts/social") ||
+		location.pathname.startsWith("/app/charts/governance");
 
 	return (
 		<div className="side-bar">
 			<div className="logo-container">
-				<img src={logo} alt="ESG Tool Logo" className="logo-img" />
+				<a href="/">
+					<img src={logo} alt="ESG Tool Logo" className="logo-img" />
+				</a>
 			</div>
+
 			<hr className="divider" />
 			<div className="user-card" onClick={handleClickUserCard}>
 				<div className="user-avatar">{getInitial(username)}</div>
@@ -69,13 +72,17 @@ const SideBar: React.FC = () => {
 				<ul className="list-unstyled">
 					<li
 						className={`nav-item ${
-							location.pathname === "/" ? "active" : ""
+							location.pathname === "/app/dashboard"
+								? "active"
+								: ""
 						}`}
 					>
 						<Link
-							to="/"
+							to="/app/dashboard"
 							className={`nav-link ${
-								location.pathname === "/" ? "hover" : ""
+								location.pathname === "/app/dashboard"
+									? "hover"
+									: ""
 							}`}
 						>
 							<RiDashboard2Line
@@ -112,16 +119,16 @@ const SideBar: React.FC = () => {
 								<li
 									className={`nav-item ${
 										location.pathname ===
-										"/charts/environment"
+										"/app/charts/environment"
 											? "active"
 											: ""
 									}`}
 								>
 									<Link
-										to="/charts/environment"
+										to="/app/charts/environment"
 										className={`dropdown-item ${
 											location.pathname ===
-											"/charts/environment"
+											"/app/charts/environment"
 												? "hover"
 												: ""
 										}`}
@@ -131,16 +138,17 @@ const SideBar: React.FC = () => {
 								</li>
 								<li
 									className={`nav-item ${
-										location.pathname === "/charts/social"
+										location.pathname ===
+										"/app/charts/social"
 											? "active"
 											: ""
 									}`}
 								>
 									<Link
-										to="/charts/social"
+										to="/app/charts/social"
 										className={`dropdown-item ${
 											location.pathname ===
-											"/charts/social"
+											"/app/charts/social"
 												? "hover"
 												: ""
 										}`}
@@ -151,16 +159,16 @@ const SideBar: React.FC = () => {
 								<li
 									className={`nav-item ${
 										location.pathname ===
-										"/charts/governance"
+										"/app/charts/governance"
 											? "active"
 											: ""
 									}`}
 								>
 									<Link
-										to="/charts/governance"
+										to="/app/charts/governance"
 										className={`dropdown-item ${
 											location.pathname ===
-											"/charts/governance"
+											"/app/charts/governance"
 												? "hover"
 												: ""
 										}`}
@@ -174,15 +182,15 @@ const SideBar: React.FC = () => {
 
 					<li
 						className={`nav-item ${
-							location.pathname === "/metric-management"
+							location.pathname === "/app/metric-management"
 								? "active"
 								: ""
 						}`}
 					>
 						<Link
-							to="/metric-management"
+							to="/app/metric-management"
 							className={`nav-link ${
-								location.pathname === "/metric-management"
+								location.pathname === "/app/metric-management"
 									? "hover"
 									: ""
 							}`}
@@ -196,13 +204,15 @@ const SideBar: React.FC = () => {
 					</li>
 					<li
 						className={`nav-item ${
-							location.pathname === "/target" ? "active" : ""
+							location.pathname === "/app/target" ? "active" : ""
 						}`}
 					>
 						<Link
-							to="/target"
+							to="/app/target"
 							className={`nav-link ${
-								location.pathname === "/target" ? "hover" : ""
+								location.pathname === "/app/target"
+									? "hover"
+									: ""
 							}`}
 						>
 							<TbTargetArrow
@@ -219,10 +229,12 @@ const SideBar: React.FC = () => {
 				<ul className="">
 					<li
 						className={`nav-item ${
-							location.pathname === "/companyinfo" ? "active" : ""
+							location.pathname === "/app/companyinfo"
+								? "active"
+								: ""
 						}`}
 					>
-						<Link to="/companyinfo" className="nav-link">
+						<Link to="/app/companyinfo" className="nav-link">
 							<FaBuilding
 								style={{ fontSize: "1.29rem" }}
 								className="me-2"
@@ -232,10 +244,12 @@ const SideBar: React.FC = () => {
 					</li>
 					<li
 						className={`nav-item ${
-							location.pathname === "/guideline" ? "active" : ""
+							location.pathname === "/app/guideline"
+								? "active"
+								: ""
 						}`}
 					>
-						<Link to="/guideline" className="nav-link">
+						<Link to="/app/guideline" className="nav-link">
 							<FaBook
 								style={{ fontSize: "1.35rem" }}
 								className="me-2"
