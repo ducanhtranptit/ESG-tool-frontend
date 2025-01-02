@@ -53,7 +53,7 @@ const Login: React.FC = () => {
 					JSON.stringify(response.data.user)
 				);
 				if (response.data.user.userType === 3) {
-					navigate("/companyinfo");
+					navigate("/app/companyinfo");
 				} else {
 					navigate("/app/dashboard");
 				}
@@ -122,7 +122,7 @@ const Login: React.FC = () => {
 
 					<p className="mt-3m register-text">
 						{t("login.noAccount")}{" "}
-						<a	
+						<a
 							className="login-link"
 							onClick={() => navigate("/register")}
 						>
