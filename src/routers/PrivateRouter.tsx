@@ -14,7 +14,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
 	useEffect(() => {
 		if (!getCookie(ACCESSTOKEN_KEY)) {
-			navigate("/login");
+			navigate("/");
 			return;
 		}
 		const handleGetProfile = async () => {
@@ -22,7 +22,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 				await UserAPI.getProfile();
 				setShow(true); 
 			} catch (error) {
-				navigate("/login");
+				navigate("/");
 			}
 		};
 		handleGetProfile();
