@@ -29,8 +29,9 @@ const LandingPage: React.FC = () => {
 			const user = JSON.parse(localStorage.getItem("user") || "{}");
 			if (user?.userType === 3) {
 				navigate("/app/companyinfo");
+			} else {
+				navigate("/app/dashboard");
 			}
-			navigate("/app/dashboard");
 		} else {
 			navigate("/login");
 		}
