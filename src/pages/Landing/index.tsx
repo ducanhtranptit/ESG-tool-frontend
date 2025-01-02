@@ -26,6 +26,10 @@ const LandingPage: React.FC = () => {
 
 	const handleLoginClick = () => {
 		if (getCookie(ACCESSTOKEN_KEY)) {
+			const user = JSON.parse(localStorage.getItem("user") || "{}");
+			if (user?.userType === 3) {
+				navigate("/app/companyinfo");
+			}
 			navigate("/app/dashboard");
 		} else {
 			navigate("/login");
@@ -49,7 +53,11 @@ const LandingPage: React.FC = () => {
 	return (
 		<>
 			{/* Header */}
-			<Navbar expand="lg" className="py-3 landingpage-heading">
+			<Navbar
+				expand="lg"
+				className="py-3 landingpage-heading"
+				style={{ height: "50px" }}
+			>
 				<Container>
 					{/* Logo */}
 					<Navbar.Brand href="/">
