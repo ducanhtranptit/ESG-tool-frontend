@@ -1,77 +1,225 @@
-.landingpage-heading {
-	border-bottom: 1px solid black;
+/***********************************************
+	NAVBAR
+  ***********************************************/
+.landingpage-navbar {
+	background-color: white; /* Màu xanh lá chính */
+	min-height: 70px;
+	padding: 0.5rem 1rem;
 }
 
-.custom-login-btn {
-	background-color: #58b966;
-	border-color: #58b966;
-	color: white;
-	transition: background-color 0.3s ease, border-color 0.3s ease;
+.logo-header {
+	/* Đảm bảo logo hiển thị rõ ràng trên nền xanh lá */
 }
 
-.custom-login-btn:hover {
-	background-color: #4ca757;
-	border-color: #4ca757;
-}
-
-.custom-register-btn {
-	background-color: #4d9ae1;
-	border-color: #4d9ae1;
-	color: white;
-	transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.custom-register-btn:hover {
-	background-color: #3c8bd1;
-	border-color: #3c8bd1;
-}
-
-/* Căn chỉnh nút đổi ngôn ngữ ở góc/phía bên phải màn hình */
-
-/* Tùy biến style cho dropdown */
 .language-dropdown {
-	padding: 5px 10px;
-	font-size: 14px;
 	border-radius: 4px;
+	padding: 0.3rem 0.5rem;
 	border: 1px solid #ccc;
-	background-color: #fff;
 	cursor: pointer;
+	outline: none;
+	background-color: #ffffff;
+	color: #333333;
 }
 
-.grid-container {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-	padding: 20px;
+.language-dropdown option {
+	background-color: #ffffff;
+	color: #333333;
 }
 
-.landing-page-card {
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	padding: 20px;
-	background-color: #fff;
+/***********************************************
+	HEADER BUTTONS
+  ***********************************************/
+.btn-login,
+.btn-register {
+	border: none;
+	font-weight: 500;
+	padding: 0.5rem 1.2rem;
+	transition: all 0.3s ease;
+}
+
+.btn-login {
+	background-color: #58b966; /* Màu xanh dương chính 479a56 */
+	color: #ffffff;
+}
+
+.btn-login:hover {
+	background-color: #479a56;
+}
+
+.btn-register {
+	background-color: #4d9ae1; /* Màu xanh lá chính */
+	color: #ffffff;
+}
+
+.btn-register:hover {
+	background-color: #3a7ecf;
+}
+
+/***********************************************
+	HERO SECTION
+  ***********************************************/
+.hero-section {
+	/* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1767&q=80")
+			no-repeat center center; */
+	background-color: white;
+	background-size: cover;
+	/* padding: 150px 0; */
+	padding-top: 50px;
+	color: black;
+	display: flex;
+	align-items: center;
 	text-align: center;
 }
 
-.landing-page-card-title {
-	margin-top: 0;
-	font-size: 1.5em;
+.hero-title {
+	font-size: 3rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+	font-size: 1.2rem;
+	margin-bottom: 2rem;
+	color: black;
+}
+
+.hero-button {
+	font-size: 1.1rem;
+	padding: 0.8rem 1.5rem;
+	border: none;
+	background-color: #4d9ae1; /* Màu xanh dương chính */
+	color: #ffffff;
+}
+
+.hero-button:hover {
+	background-color: #3a7ecf;
+}
+
+/***********************************************
+	FEATURES SECTION
+  ***********************************************/
+
+.features-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+}
+
+.feature-card {
+	width: 400px;
+	cursor: pointer;
+	border: none;
+	transition: transform 0.3s, box-shadow 0.3s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card .card-title {
+	color: #4d9ae1;
 	font-weight: bold;
 }
 
-.landing-page-card-text {
-	margin: 10px 0 0;
-	font-size: 1em;
+.feature-card .card-text {
+	color: black;
+	font-weight: normal;
 }
 
+.feature-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-detail {
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-detail h3 {
+	margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-	.grid-container {
-		grid-template-columns: 1fr;
+	.feature-detail .row {
+		flex-direction: column;
+	}
+
+	.features-grid {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.feature-card {
+		width: 100%;
+		max-width: 500px;
 	}
 }
 
+/***********************************************
+	ADDITIONAL INFO SECTION
+  ***********************************************/
+.additional-info-section {
+	background-color: white; /* Màu nền nhẹ */
+	padding: 80px 0;
+}
+
+.additional-info-title {
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #333333;
+	margin-bottom: 1rem;
+}
+
+.additional-info-text {
+	color: #555555;
+	line-height: 1.8;
+}
+
+/***********************************************
+	FOOTER
+  ***********************************************/
 .landingpage-footer {
-	background-color: white;
-	color: black;
-	border-top: 1px solid black;
+	background-color: #ffffff; 
+	box-shadow: 0 5px 24px rgba(0, 0, 0, 0.2);
+}
+
+
+.footer-link {
+	color: #4d9ae1; /* Màu xanh dương chính */
+	text-decoration: none;
+}
+
+.footer-link:hover {
+	color: #58b966; /* Màu xanh lá khi hover */
+	text-decoration: underline;
+}
+
+.footer-bottom-text {
+	color: #888888;
+	font-size: 0.9rem;
+	padding-bottom: 20px;
+}
+
+/***********************************************
+	RESPONSIVE
+  ***********************************************/
+@media (max-width: 768px) {
+	.hero-section {
+		padding: 100px 0;
+	}
+
+	.hero-title {
+		font-size: 2.5rem;
+	}
+
+	.features-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.additional-info-section {
+		padding: 60px 0;
+	}
 }

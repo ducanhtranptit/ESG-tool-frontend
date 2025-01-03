@@ -6,17 +6,20 @@
 		"featuresTitle": "Key Features",
 		"esgScore": "ESG Score",
 		"esgScoreDescription": "Evaluate and track your company's ESG performance comprehensively.",
+		"esgScoreDetail": "The ESG Score feature offers a detailed and holistic assessment of your organization’s practices in three critical areas: Environmental, Social, and Governance (ESG). This tool allows you to measure and evaluate your sustainability efforts in a precise and meaningful way, taking into account a wide range of factors that contribute to a company’s overall impact. With this score, you gain valuable insights into your organization’s performance in relation to environmental sustainability, social responsibility, and effective governance. It helps you understand how well your company is managing its resources, treating its employees, engaging with the community, and maintaining ethical standards. Furthermore, the ESG Score not only reflects your current standing but also identifies key areas where you can improve and align with global best practices. By leveraging this feature, you can make data-driven decisions to strengthen your organization’s commitment to sustainability, enhance its reputation, and drive long-term value for both stakeholders and the planet.",
 		"analytics": "Analytics",
 		"analyticsDescription": "Detailed data visualization for Environment, Social, and Governance.",
+		"analyticsDetail": "Dive deeper into your ESG data with our advanced Analytics feature. This powerful tool provides you with the ability to explore your ESG metrics in greater detail, uncovering hidden patterns and trends that can provide valuable insights into your organization's performance. With a variety of powerful visualization tools, you can easily interpret complex data, track progress, and identify key areas for improvement. By leveraging these actionable insights, you can make well-informed decisions that will strengthen your sustainability strategies and guide your company toward more responsible and impactful practices. Empower your organization to take meaningful action and achieve its sustainability goals with data-driven precision.",
 		"goalManagement": "Goal Management",
 		"goalManagementDescription": "Set clear ESG goals and monitor progress effectively.",
+		"goalManagementDetail": "Set, manage, and track your sustainability goals with ease using our Goal Management feature. This intuitive tool allows you to define clear and actionable sustainability objectives, providing you with the structure to manage and monitor progress towards achieving them. You can easily track your targets, adjust strategies as needed, and stay focused on your ESG commitments. With real-time insights and progress updates, you can ensure that your organization remains on course, optimizing efforts and resources to reach your sustainability goals efficiently. Empower your team to stay aligned with your environmental, social, and governance objectives and drive lasting, positive change.",
 		"companyInfo": "Company Information",
 		"companyInfoDescription": "Comprehensive company profiles related to ESG metrics.",
 		"guide": "User Guide",
 		"guideDescription": "Detailed documentation and tutorials for effective usage.",
 		"footerText": "© 2025 ESG Tool. All rights reserved."
-	  },
-	  
+	},
+
 	"register": {
 		"title": "Register a new account",
 		"username": "Username",
