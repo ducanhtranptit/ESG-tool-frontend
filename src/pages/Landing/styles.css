@@ -36,6 +36,7 @@
 }
 
 .btn-login {
+	margin-left: 30px;
 	background-color: #58b966; /* Màu xanh dương chính 479a56 */
 	color: #ffffff;
 }
@@ -53,9 +54,6 @@
 	background-color: #3a7ecf;
 }
 
-.flag-container {
-    margin-right: 30px;
-}
 
 .separator {
     background-color: #ccc;

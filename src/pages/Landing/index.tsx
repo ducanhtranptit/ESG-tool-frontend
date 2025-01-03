@@ -91,7 +91,7 @@ const LandingPage: React.FC = () => {
 					</Navbar.Brand>
 
 					{/* Language Selector & Buttons */}
-					<div className="d-flex align-items-center">
+					<div className="landingpage-flag-container d-flex align-items-center">
 						<div
 							className={`flag-container ${
 								i18n.language === "vi" ? "active" : ""
