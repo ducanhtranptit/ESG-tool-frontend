@@ -46,16 +46,16 @@
 	},
 
 	"login": {
-		"title": "Enter your details to login",
-		"username": "Username",
-		"password": "Password",
-		"submit": "Login",
-		"errorUsername": "Please enter username",
-		"errorPassword": "Please enter password",
-		"errorLogin": "Incorrect username or password",
-		"errorGeneral": "An error occurred, please try again.",
-		"noAccount": "Don't have an account?",
-		"registerHere": "Register here"
+		"title": "Nhập thông tin của bạn để đăng nhập",
+		"username": "Tên đăng nhập",
+		"password": "Mật khẩu",
+		"submit": "Đăng nhập",
+		"errorUsername": "Vui lòng nhập tên đăng nhập",
+		"errorPassword": "Vui lòng nhập mật khẩu",
+		"errorLogin": "Tên đăng nhập hoặc mật khẩu không chính xác",
+		"errorGeneral": "Đã xảy ra lỗi, vui lòng thử lại.",
+		"noAccount": "Chưa có tài khoản?",
+		"registerHere": "Đăng ký tại đây"
 	},
 
 	"navbar": {

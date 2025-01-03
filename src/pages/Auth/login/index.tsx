@@ -42,7 +42,7 @@ const Login: React.FC = () => {
 		}
 		try {
 			const response = await AuthAPI.login(formData);
-			if (response?.status !== 200) {
+			if (response?.status !== 200 || response?.data?.user?.userType === 2) {
 				toast.error(t("login.errorLogin"));
 				return;
 			}
