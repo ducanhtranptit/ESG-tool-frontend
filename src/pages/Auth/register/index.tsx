@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { FlagIcon } from "react-flag-kit";
 import AuthAPI from "../../../api/auth";
 import "./styles.css";
+
 interface FormData {
 	username: string;
 	password: string;
@@ -37,6 +38,11 @@ const Register: React.FC = () => {
 
 	const [formData, setFormData] = useState<FormData>(initialState);
 	const [passwordError, setPasswordError] = useState<string | null>(null);
+
+	// Handle logo click to navigate to "/"
+	const handleLogoClick = () => {
+		navigate("/"); // Navigate to root path
+	};
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -81,7 +87,6 @@ const Register: React.FC = () => {
 			}
 			toast.success(t("register.success"));
 			navigate("/login");
-			toast.success(t("register.success"));
 		} catch (error) {
 			console.error("Registration error:", error);
 			toast.error(t("register.errorGeneral"));
@@ -109,11 +114,13 @@ const Register: React.FC = () => {
 					}}
 				>
 					<div>
+						{/* Logo Image with onClick to navigate to "/" */}
 						<img
 							src={logo}
 							alt="ESG Tool Logo"
 							className="logo-img"
-							style={{ height: "50px" }}
+							style={{ height: "50px", cursor: "pointer" }} // Added cursor pointer for better UX
+							onClick={handleLogoClick} // Handle logo click
 						/>
 					</div>
 					<div className="language-switcher">
@@ -316,7 +323,7 @@ const Register: React.FC = () => {
 						<div
 							className="mt-3"
 							style={{
-								marginBottom: "20px", // Thêm khoảng cách giữa div và button
+								marginBottom: "20px",
 							}}
 						>
 							<span

@@ -1,5 +1,7 @@
 {
 	"landingPage": {
+		"login": "Đăng nhập",
+		"register": "Đăng ký",
 		"welcome": "Khám phá Công cụ ESG tối ưu",
 		"description": "Đưa doanh nghiệp của bạn tiến xa hơn với giải pháp quản lý ESG hiện đại.",
 		"startNow": "Bắt đầu ngay",

@@ -2,14 +2,12 @@
 	NAVBAR
   ***********************************************/
 .landingpage-navbar {
-	background-color: white; /* Màu xanh lá chính */
+	background-color: white;
 	min-height: 70px;
 	padding: 0.5rem 1rem;
 }
 
-.logo-header {
-	/* Đảm bảo logo hiển thị rõ ràng trên nền xanh lá */
-}
+
 
 .language-dropdown {
 	border-radius: 4px;
@@ -54,6 +52,15 @@
 .btn-register:hover {
 	background-color: #3a7ecf;
 }
+
+.flag-container {
+    margin-right: 30px;
+}
+
+.separator {
+    background-color: #ccc;
+}
+
 
 /***********************************************
 	HERO SECTION
@@ -182,6 +189,8 @@
 	FOOTER
   ***********************************************/
 .landingpage-footer {
+	padding-left: 50px;
+	padding-right: 50px;
 	background-color: #ffffff; 
 	box-shadow: 0 5px 24px rgba(0, 0, 0, 0.2);
 }

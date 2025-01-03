@@ -25,6 +25,11 @@ const Login: React.FC = () => {
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState<FormData>(initialState);
 
+	// Handle logo click to navigate to "/"
+	const handleLogoClick = () => {
+		navigate("/"); // Navigate to root path
+	};
+
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!formData.username.trim()) {
@@ -69,10 +74,13 @@ const Login: React.FC = () => {
 			<div className="container">
 				<div className="form-login">
 					<div className="logo-container">
+						{/* Logo Image with onClick to navigate to "/" */}
 						<img
 							src={logo}
 							alt="ESG Tool Logo"
 							className="logo-img"
+							style={{ cursor: "pointer" }}
+							onClick={handleLogoClick} // Handle logo click
 						/>
 					</div>
 					<p

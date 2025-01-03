@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Navbar, Container, Button, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FlagIcon } from "react-flag-kit";
 
 import logo from "../../public/logo.png";
 import esgScore from "../../public/esg-score.png";
@@ -63,10 +64,12 @@ const LandingPage: React.FC = () => {
 	};
 
 	// Handle language change
-	const handleChangeLanguage = (
-		event: React.ChangeEvent<HTMLSelectElement>
-	) => {
-		i18n.changeLanguage(event.target.value);
+	const changeToVietnamese = () => {
+		i18n.changeLanguage("vi");
+	};
+
+	const changeToEnglish = () => {
+		i18n.changeLanguage("en");
 	};
 
 	return (
@@ -87,29 +90,40 @@ const LandingPage: React.FC = () => {
 						/>
 					</Navbar.Brand>
 
-					{/* Select language & Buttons */}
+					{/* Language Selector & Buttons */}
 					<div className="d-flex align-items-center">
-						<select
-							className="language-dropdown me-3"
-							onChange={handleChangeLanguage}
-							value={i18n.language}
+						<div
+							className={`flag-container ${
+								i18n.language === "vi" ? "active" : ""
+							}`}
+							onClick={changeToVietnamese}
+							style={{ marginRight: "10px" }} 
 						>
-							<option value="vi">Tiếng Việt</option>
-							<option value="en">English</option>
-						</select>
+							<FlagIcon code="VN" size={20} />
+						</div>
+						<div className="separator" />
+						<div
+							className={`flag-container ${
+								i18n.language === "en" ? "active" : ""
+							}`}
+							onClick={changeToEnglish}
+							style={{ marginLeft: "10px" }} 
+						>
+							<FlagIcon code="GB" size={20} />
+						</div>
 
 						{/* Login & Register buttons */}
 						<Button
 							className="me-2 btn-login"
 							onClick={handleLoginClick}
 						>
-							{t("landingPage.login", "Login")}
+							{t("landingPage.login")}
 						</Button>
 						<Button
 							className="btn-register"
 							onClick={handleRegisterClick}
 						>
-							{t("landingPage.register", "Register")}
+							{t("landingPage.register")}
 						</Button>
 					</div>
 				</Container>
@@ -294,39 +308,6 @@ const LandingPage: React.FC = () => {
 					</Row>
 				</div>
 			</Container>
-
-			{/* Additional Info Section */}
-			{/* <div className="additional-info-section">
-				<Container>
-					<Row>
-						<Col md={6} className="mb-4">
-							<h3 className="additional-info-title">
-								{t(
-									"landingPage.companyInfo",
-									"Company Information"
-								)}
-							</h3>
-							<p className="additional-info-text">
-								{t(
-									"landingPage.companyInfoDescription",
-									"Discover how our tool can help your company stay compliant, ethical, and green."
-								)}
-							</p>
-						</Col>
-						<Col md={6} className="mb-4">
-							<h3 className="additional-info-title">
-								{t("landingPage.guide", "Guides & Tutorials")}
-							</h3>
-							<p className="additional-info-text">
-								{t(
-									"landingPage.guideDescription",
-									"Learn how to get started quickly and optimize your ESG strategy."
-								)}
-							</p>
-						</Col>
-					</Row>
-				</Container>
-			</div> */}
 
 			{/* Footer */}
 			<footer className="landingpage-footer text-white">

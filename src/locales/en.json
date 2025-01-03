@@ -1,5 +1,7 @@
 {
 	"landingPage": {
+		"login": "Login",
+		"register": "Register",
 		"welcome": "Discover the ultimate ESG Tool",
 		"description": "Take your business further with modern ESG management.",
 		"startNow": "Get Started Now",
