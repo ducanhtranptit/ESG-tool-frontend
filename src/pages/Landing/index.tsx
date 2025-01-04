@@ -75,7 +75,7 @@ const LandingPage: React.FC = () => {
 	return (
 		<>
 			{/* Header */}
-			<Navbar expand="lg" className="landingpage-navbar shadow-sm">
+			<Navbar  className="landingpage-navbar shadow-sm">
 				<Container className="d-flex justify-content-between align-items-center">
 					{/* Logo */}
 					<Navbar.Brand
