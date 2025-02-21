@@ -25,7 +25,14 @@ const LandingPage: React.FC = () => {
 
 	// Handle scrolling to feature sections
 	const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-		ref.current?.scrollIntoView({ behavior: "smooth" });
+		if (ref.current) {
+			const yOffset = -100;
+			const y =
+				ref.current.getBoundingClientRect().top +
+				window.scrollY +
+				yOffset;
+			window.scrollTo({ top: y, behavior: "smooth" });
+		}
 	};
 
 	// Handle logout
@@ -75,7 +82,7 @@ const LandingPage: React.FC = () => {
 	return (
 		<>
 			{/* Header */}
-			<Navbar  className="landingpage-navbar shadow-sm">
+			<Navbar className="landingpage-navbar shadow-sm">
 				<Container className="d-flex justify-content-between align-items-center">
 					{/* Logo */}
 					<Navbar.Brand
@@ -97,7 +104,7 @@ const LandingPage: React.FC = () => {
 								i18n.language === "vi" ? "active" : ""
 							}`}
 							onClick={changeToVietnamese}
-							style={{ marginRight: "10px" }} 
+							style={{ marginRight: "10px" }}
 						>
 							<FlagIcon code="VN" size={20} />
 						</div>
@@ -107,7 +114,7 @@ const LandingPage: React.FC = () => {
 								i18n.language === "en" ? "active" : ""
 							}`}
 							onClick={changeToEnglish}
-							style={{ marginLeft: "10px" }} 
+							style={{ marginLeft: "10px" }}
 						>
 							<FlagIcon code="GB" size={20} />
 						</div>
@@ -326,7 +333,7 @@ const LandingPage: React.FC = () => {
 
 						{/* Contact Us Section */}
 						<Col md={4} className="text-md-end">
-							<h5 className="mb-2">
+							<h5 className="mb-2" style={{ color: "black" }}>
 								{t("landingPage.contactUsTitle", "Contact Us")}
 							</h5>
 							<p className="mb-1">
